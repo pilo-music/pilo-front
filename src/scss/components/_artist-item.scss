@@ -1,0 +1,16 @@
+.artist-box{
+  transition: all 0.5s;
+  a{
+    transition: all 0.5s;
+    img{
+      width: 300px;
+      background: #556080;
+      height: auto;
+      border-radius: 100%;
+    }
+  }
+  &:hover{
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}

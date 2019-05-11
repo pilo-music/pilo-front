@@ -1,0 +1,298 @@
+@import "scrollbar";
+@import "fonts";
+@import "mixins";
+@import "variables";
+
+#main {
+    header {
+        .logo-box {
+            margin-top: 5px;
+
+            h1 {
+                margin-right: 5px;
+                margin-top: 20px;
+            }
+
+            // search box
+            .container-search {
+                width: 300px;
+                margin-top: 3px;
+                vertical-align: middle;
+                white-space: nowrap;
+                position: relative;
+            }
+
+            .container-search input#search {
+                width: 50px;
+                height: 50px;
+                background: $colorPrimaryDark;
+                margin-left: 16px;
+                border: none;
+                font-size: 10pt;
+                float: left;
+                color: $colorPrimaryDark;
+                padding-left: 38px;
+                padding-right: 16px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                color: #fff;
+                direction: rtl;
+                -webkit-transition: width 0.55s ease;
+                -moz-transition: width 0.55s ease;
+                -ms-transition: width 0.55s ease;
+                -o-transition: width 0.55s ease;
+                transition: width 0.55s ease;
+            }
+
+            .container-search input#search::-webkit-input-placeholder {
+                color: #fff;
+            }
+
+            .container-search input#search:-moz-placeholder {
+                /* Firefox 18- */
+                color: #fff;
+            }
+
+            .container-search input#search::-moz-placeholder {
+                /* Firefox 19+ */
+                color: #fff;
+            }
+
+            .container-search input#search:-ms-input-placeholder {
+                color: #fff;
+            }
+
+            .container-search .icon {
+                position: absolute;
+                top: 50%;
+                margin-left: 15px;
+                margin-top: 2px;
+                z-index: 1;
+                color: #fff;
+                font-size: 30px;
+            }
+
+            .container-search input#search:focus,
+            .container-search input#search:active {
+                outline: none;
+                width: 300px;
+            }
+
+            .container-search:hover input#search {
+                width: 300px;
+            }
+
+            // end search
+        }
+    }
+
+    .header-menu {
+        ul {
+            .login {
+                background: $colorPrimaryDark;
+                border-radius: 20px;
+                padding: 10px 1.5em;
+                font-size: $font-small;
+
+                &:hover {
+                    color: white;
+                    @include shadow();
+                    transform: scale(1);
+                }
+            }
+
+            .ion-ios-search {
+                margin-top: 20px;
+                font-size: 20px;
+                color: white;
+            }
+
+            li {
+                margin-right: 1em;
+                margin-left: 1em;
+                transition: all 0.5s;
+                margin-top: 10px;
+
+                a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    .section-content {
+        background: rgba(255, 255, 255, 1);
+        background: -moz-linear-gradient(left,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 31%,
+            rgba(255, 255, 255, 1) 39%,
+            rgba(255, 255, 255, 1) 48%,
+            rgba(229, 255, 255, 1) 67%,
+            rgba(173, 241, 255, 1) 100%);
+        background: -webkit-gradient(left top,
+            right top,
+            color-stop(0%, rgba(255, 255, 255, 1)),
+            color-stop(31%, rgba(255, 255, 255, 1)),
+            color-stop(39%, rgba(255, 255, 255, 1)),
+            color-stop(48%, rgba(255, 255, 255, 1)),
+            color-stop(67%, rgba(229, 255, 255, 1)),
+            color-stop(100%, rgba(173, 241, 255, 1)));
+        background: -webkit-linear-gradient(left,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 31%,
+            rgba(255, 255, 255, 1) 39%,
+            rgba(255, 255, 255, 1) 48%,
+            rgba(229, 255, 255, 1) 67%,
+            rgba(173, 241, 255, 1) 100%);
+        background: -o-linear-gradient(left,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 31%,
+            rgba(255, 255, 255, 1) 39%,
+            rgba(255, 255, 255, 1) 48%,
+            rgba(229, 255, 255, 1) 67%,
+            rgba(173, 241, 255, 1) 100%);
+        background: -ms-linear-gradient(left,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 31%,
+            rgba(255, 255, 255, 1) 39%,
+            rgba(255, 255, 255, 1) 48%,
+            rgba(229, 255, 255, 1) 67%,
+            rgba(173, 241, 255, 1) 100%);
+        background: linear-gradient(to right,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 31%,
+            rgba(255, 255, 255, 1) 39%,
+            rgba(255, 255, 255, 1) 48%,
+            rgba(229, 255, 255, 1) 67%,
+            rgba(173, 241, 255, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#adf1ff', GradientType=1);
+    }
+}
+
+#text {
+    font-size: 6em;
+    line-height: 1em;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+        cursor: default;
+    }
+
+    .wrapper {
+        display: inline-block;
+        top: -900px;
+        position: relative;
+        height: 150px;
+        /* default */
+        width: 90px;
+        /* default */
+        transition: ease 0.3s all;
+
+        span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: ease 0.3s all;
+
+            &.letter-2 {
+                color: $first_color;
+            }
+
+            &.letter-1 {
+                color: $second_color;
+                z-index: 1;
+
+                &:hover {
+                    top: -3px;
+                    right: -3px;
+
+                    ~.letter-2 {
+                        top: 3px;
+                        right: 3px;
+                    }
+                }
+            }
+
+            &.space {
+                padding: 0;
+                min-width: 30px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+@mixin gradient-text($gradient, $bg: "light") {
+    @supports (mix-blend-mode: lighten) {
+        display: inline-block;
+        position: relative;
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            background: unquote($gradient);
+            pointer-events: none;
+        }
+
+        @if ($bg=="light") {
+            color: #000;
+            background: #fff;
+            mix-blend-mode: multiply;
+
+            &::before {
+                mix-blend-mode: screen;
+            }
+        }
+
+        @else {
+            color: #fff;
+            background: #000;
+            mix-blend-mode: lighten;
+
+            &::before {
+                mix-blend-mode: multiply;
+            }
+        }
+    }
+}
+
+section.light {
+    .gradient1 {
+        @include gradient-text("linear-gradient(to right,#23966c, #faaa54, #e23b4a, #db0768, #360670)",
+        "light"
+        );
+    }
+}
+
+section.dark {
+    background: #222;
+
+    .gradient1 {
+        color: #fff; // Fallback color
+
+        @include gradient-text("linear-gradient(to right,#23966c, #faaa54, #e23b4a, #db0768, #360670)",
+        "dark"
+        );
+    }
+}
+
+.gradient1 {
+    font-size: 96px;
+    margin-top: 1em;
+    opacity: 0.9;
+}

@@ -1,0 +1,40 @@
+.comment-div{
+  .uk-comment-header {
+    margin-bottom: 10px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .uk-comment-title{
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .uk-comment-body{
+    p{
+      font-size: 12px;
+    }
+  }
+}
+
+#comment-body {
+  display: none;
+}
+.add-comment-div {
+  padding: 16px;
+  background: rgba(217, 239, 255, 0.55);
+  margin: 16px;
+  border-radius: 5px;
+  color: gray;
+  cursor: pointer;
+  form {
+    button {
+      width: 100px;
+      padding: 5px 16px;
+      font-size: 12px;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      border-radius: 30px;
+    }
+  }
+}

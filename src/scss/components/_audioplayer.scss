@@ -1,0 +1,39 @@
+//// player
+.play-music {
+  cursor: pointer;
+}
+
+#audio-player {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+  border: 1px solid #DDE2E6;
+
+  .audioplayer {
+    margin: 0;
+    height: 65px;
+    border: 0;
+
+  }
+}
+
+.section-musics {
+  padding-bottom: 5em;
+}
+
+#audio-player-image {
+  width: 60px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.audioplayer-info{
+  top: 11px;
+  position: relative;
+  margin-left: 16px;
+  span{
+    font-size: 12px;
+  }
+}

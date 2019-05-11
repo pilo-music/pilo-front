@@ -1,0 +1,78 @@
+.music-box {
+  margin-bottom: 10px;
+  transition: all 0.5s;
+  position: relative;
+  text-align: center;
+  border-radius: 20px;
+
+  .music-play {
+    bottom: 10px;
+    right: 10px;
+    background: black;
+    width: 35px;
+    height: 35px;
+    padding-top: 7px;
+    border-radius: 23px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.5s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  img {
+    border-radius: 10px;
+    width: 300px;
+    height: auto;
+    transition: all 0.5s;
+  }
+
+  a {
+    text-decoration: none;
+
+    div {
+      position: relative;
+    }
+
+    div {
+      span {
+        margin-top: 10px;
+        margin-right: 20px;
+        background-color: $colorPrimary;
+        color: white;
+        border-radius: 15px;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+  &:hover {
+    img {
+      box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    }
+  }
+
+  .music-title {
+    margin: 0;
+    color: #358595;
+    font-size: 17px;
+    text-align: center;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .music-artist {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #828282;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

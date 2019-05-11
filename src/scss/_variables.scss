@@ -1,0 +1,71 @@
+$colorPrimary :#4cb6cb;
+$colorPrimaryDark :#358595;
+$colorAccent :#3c3ce7;
+$colorGray : #888;
+$colorBlue : #5757ff;
+
+$first_color: rgba(0, 0, 255, 0.5);
+$second_color: rgba(255, 0, 0, 0.5);
+
+$font-big : 20px;
+$font-medium : 15px;
+$font-small : 14px;
+
+
+$screen-xs-min: 425px;  // Tiny phones
+$screen-sm-min: 576px;  // Small tablets and large smartphones (landscape view)
+$screen-md-min: 768px;  // Small tablets (portrait view)
+$screen-lg-min: 992px;  // Tablets and small desktops
+$screen-xl-min: 1200px; // Large tablets and desktops
+
+
+
+.background-primary {
+    background-color: $colorPrimary !important;
+}
+
+.background-primary-dark {
+    background-color: $colorPrimaryDark !important;
+}
+
+.background-accent {
+    background-color: $colorAccent !important;
+}
+
+
+.color-primary {
+    color: $colorPrimary !important;
+}
+
+.color-primary-dark {
+    color: $colorPrimaryDark !important;
+}
+
+
+.color-gray {
+    color: $colorGray !important;
+}
+
+.color-accent {
+    color: $colorAccent !important;
+}
+
+.font-big {
+    font-size: $font-big;
+}
+
+.font-medium {
+    font-size: $font-medium;
+}
+
+.font-small {
+    font-size: $font-small;
+}
+
+.rtl {
+    direction: rtl;
+}
+
+.ltr {
+    direction: ltr;
+}
