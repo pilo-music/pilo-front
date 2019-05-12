@@ -6,7 +6,7 @@
         <div class="row">
           <div class="main col-md-8 col-lg-10 col-sm-12">
             <!-- Header -->
-            <header/>
+            <Header/>
             <!-- end Header -->
             <!-- end Slider -->
             <div class="clearfix"></div>

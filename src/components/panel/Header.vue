@@ -1,9 +1,9 @@
 <template>
-  <div class="header-box uk-box-shadow-small">
+  <div class="header-box uk-box-shadow-small d-none d-md-none d-sm-none d-lg-block">
     <div class="header">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-7 col-sm-12 text-left d-none d-md-none d-sm-none d-lg-block">
+          <div class="col-md-7 col-sm-12 text-left">
             <ul class="list-inline">
               <li class="list-inline-item">
                 <a href="https://www.instagram.com/taksoundmusic/">
