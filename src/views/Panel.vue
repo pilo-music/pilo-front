@@ -1,6 +1,6 @@
 <template>
   <div>
-    <bottom-navigation/>
+    <bottom-navigation :current="currentTabComponentName" v-on:change="changeTab($event)"/>
     <div id="main">
       <div class="container-fluid">
         <div class="row">
@@ -11,7 +11,9 @@
             <!-- end Slider -->
             <div class="clearfix"></div>
             <!-- Content -->
-            <slot></slot>
+            <keep-alive>
+              <component v-bind:is="currentTabComponent"></component>
+            </keep-alive>
             <!-- End Content -->
             <sidebar/>
           </div>
@@ -25,6 +27,10 @@
 import Header from "@/components/panel/Header.vue";
 import Sidebar from "@/components/panel/Sidebar.vue";
 import BottomNavigation from "@/components/panel/BottomNavigation.vue";
+import HomeScreen from "@/views/screens/HomeScreen";
+import BrowserScreen from "@/views/screens/BrowserScreen";
+import ProfileScreen from "@/views/screens/ProfileScreen";
+import SearchScreen from "@/views/screens/SearchScreen";
 
 export default {
   components: {
@@ -32,7 +38,34 @@ export default {
     Sidebar,
     BottomNavigation
   },
-  name: "views.panel"
+  name: "views.panel",
+  data() {
+    return {
+      currentTabComponent: HomeScreen,
+      currentTabComponentName: "HomeScreen"
+    };
+  },
+  methods: {
+    changeTab(name) {
+      switch (name) {
+        case "HomeScreen":
+          this.currentTabComponent = HomeScreen;
+          break;
+        case "BrowserScreen":
+          this.currentTabComponent = BrowserScreen;
+          break;
+        case "ProfileScreen":
+          this.currentTabComponent = ProfileScreen;
+          break;
+        case "SearchScreen":
+          this.currentTabComponent = SearchScreen;
+          break;
+        default:
+          this.currentTabComponent = HomeScreen;
+          break;
+      }
+    }
+  }
 };
 </script>
 

@@ -10,6 +10,11 @@
       </div>
       <div class="clearfix"></div>
       <!-- music slider -->
+
+      <vue-glide>
+        <vue-glide-slide v-for="i in 10" :key="i"></vue-glide-slide>
+      </vue-glide>
+
       <!-- @component('Panel.section.component.music_slider',['musics'=>$musics])@endcomponent -->
       <div class="clearfix"></div>
       <!-- end slider -->
@@ -59,13 +64,16 @@
 
 <script>
 import Panel from "@/views/Panel";
+import MusicItem from "@/components/MusicItem";
 export default {
   components: {
-    Panel
+    Panel,
+    MusicItem
   },
-  name: "views.home"
+  name: "views.screens.home_screen"
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./../../scss/panel.scss";
 </style>

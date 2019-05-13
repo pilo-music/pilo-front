@@ -3,7 +3,7 @@
     <nav class="nav nav--icons">
       <ul>
         <li>
-          <a href="#home">
+          <a href="#home" @click="change('HomeScreen')" :class="tabStyle('HomeScreen')">
             <svg class="icon icon-home" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -14,7 +14,7 @@
           </a>
         </li>
         <li>
-          <a href="#news">
+          <a href="#news" @click="change('BrowserScreen')" :class="tabStyle('BrowserScreen')">
             <svg class="icon icon-news" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -25,7 +25,7 @@
           </a>
         </li>
         <li>
-          <a href="#search">
+          <a href="#search" @click="change('SearchScreen')" :class="tabStyle('SearchScreen')">
             <svg class="icon icon-search" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -36,7 +36,7 @@
           </a>
         </li>
         <li>
-          <a href="#profile">
+          <a href="#profile" @click="change('ProfileScreen')" :class="tabStyle('ProfileScreen')">
             <svg class="icon icon-profile" viewBox="0 0 24 24" width="24" height="24">
               <g fill="currentColor">
                 <path
@@ -57,65 +57,29 @@
 
 <script>
 export default {
-  name: "components.panel.bottom_navigation"
+  props: ["current"],
+  name: "components.panel.bottom_navigation",
+  data() {
+    return {
+      pages: ["HomeScreen", "BrowserScreen", "ProfileScreen", "SearchScreen"],
+      currentScreen: ""
+    };
+  },
+  methods: {
+    tabStyle(name) {
+      if (name === this.currentScreen) return "is-active";
+    },
+    change(name) {
+      this.currentScreen = name;
+      this.$emit("change", name);
+    }
+  },
+  created() {
+    this.currentScreen = this.current;
+    this.tabStyle(this.currentScreen);
+  }
 };
 </script>
 
 <style lang="scss">
-.nav--icons {
-  position: absolute;
-  bottom: 2em;
-  left: 1em;
-  right: 1em;
-  ul {
-    list-style-type: none;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    padding: 10px 16px;
-    margin: 0;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-radius: 15px;
-    li {
-      a {
-        font-family: sans-serif;
-        font-size: 11px;
-        letter-spacing: 1px;
-        text-decoration: none;
-        color: black;
-        line-height: 1;
-        vertical-align: middle;
-
-        display: flex;
-        align-items: center;
-
-        border-radius: 3em;
-        padding: 0.75em 1.25em;
-        transition: 0.6s ease-in-out;
-
-        span {
-          display: inline-block;
-          overflow: hidden;
-          max-width: 0;
-          opacity: 0;
-          padding-left: 0.5em;
-          transform: translate3d(-0.5em, 0, 0);
-          transition: opacity 0.6s, max-width 0.6s, transform 0.6s;
-          transition-timing-function: ease-in-out;
-        }
-        &:hover,
-        &.is-active {
-          color: white;
-          background-color: #384055;
-          span {
-            opacity: 1;
-            max-width: 40px;
-            transform: translate3d(0, 0, 0);
-          }
-        }
-      }
-    }
-  }
-}
 </style>

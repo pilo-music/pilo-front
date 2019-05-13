@@ -1,10 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/Home.vue";
-import Browser from "@/views/Browser.vue";
-import Search from "@/views/Search.vue";
-import Profile from "@/views/Profile.vue";
 import Panel from "@/views/Panel.vue";
+// import App from "@/App";
 
 Vue.use(Router);
 
@@ -20,24 +17,9 @@ export default new Router({
       },
       children: [
         {
-          path: "home",
-          name: "home",
-          component: Home
-        },
-        {
-          path: "browser",
-          name: "browser",
-          component: Browser
-        },
-        {
-          path: "search",
-          name: "search",
-          component: Search
-        },
-        {
-          path: "profile",
-          name: "profile",
-          component: Profile
+          path: "",
+          name: "panel",
+          component: Panel
         }
       ]
     }
