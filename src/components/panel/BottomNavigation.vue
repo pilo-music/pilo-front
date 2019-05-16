@@ -3,7 +3,7 @@
     <nav class="nav nav--icons">
       <ul>
         <li>
-          <a href="#home" @click="change('HomeScreen')" :class="tabStyle('HomeScreen')">
+          <a @click="change('HomeScreen')" :class="tabStyle('HomeScreen')">
             <svg class="icon icon-home" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -14,7 +14,7 @@
           </a>
         </li>
         <li>
-          <a href="#news" @click="change('BrowserScreen')" :class="tabStyle('BrowserScreen')">
+          <a @click="change('BrowserScreen')" :class="tabStyle('BrowserScreen')">
             <svg class="icon icon-news" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -25,7 +25,7 @@
           </a>
         </li>
         <li>
-          <a href="#search" @click="change('SearchScreen')" :class="tabStyle('SearchScreen')">
+          <a @click="change('SearchScreen')" :class="tabStyle('SearchScreen')">
             <svg class="icon icon-search" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -36,7 +36,7 @@
           </a>
         </li>
         <li>
-          <a href="#profile" @click="change('ProfileScreen')" :class="tabStyle('ProfileScreen')">
+          <a @click="change('ProfileScreen')" :class="tabStyle('ProfileScreen')">
             <svg class="icon icon-profile" viewBox="0 0 24 24" width="24" height="24">
               <g fill="currentColor">
                 <path

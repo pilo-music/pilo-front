@@ -1,6 +1,5 @@
 <template>
   <div>
-    <bottom-navigation :current="currentTabComponentName" v-on:change="changeTab($event)"/>
     <div id="main">
       <div class="container-fluid">
         <div class="row">
@@ -20,6 +19,7 @@
         </div>
       </div>
     </div>
+    <bottom-navigation :current="currentTabComponentName" v-on:change="changeTab($event)"/>
   </div>
 </template>
 
@@ -69,5 +69,6 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./../scss/panel.scss";
 </style>
