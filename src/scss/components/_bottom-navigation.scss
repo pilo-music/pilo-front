@@ -1,8 +1,15 @@
+.bottom-navigation {
+  position: fixed;
+  z-index: 9999;
+}
 .nav--icons {
-  position: absolute;
+  position: fixed;
   bottom: 2em;
   left: 1em;
   right: 1em;
+  background: white;
+  border-radius: 10px;
+  z-index: 99999;
   ul {
     list-style-type: none;
     display: flex;

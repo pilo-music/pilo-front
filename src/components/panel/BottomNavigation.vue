@@ -1,5 +1,5 @@
 <template>
-  <div class="d-block d-md-block d-sm-block d-lg-none">
+  <div class="d-block d-md-block d-sm-block d-lg-none bottom-navigation">
     <nav class="nav nav--icons">
       <ul>
         <li>
