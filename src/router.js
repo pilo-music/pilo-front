@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Panel from "@/views/Panel.vue";
+import Music from "@/views/Music.vue";
 // import App from "@/App";
 
 Vue.use(Router);
@@ -20,6 +21,16 @@ export default new Router({
           path: "",
           name: "panel",
           component: Panel
+        },
+        {
+          path: "music/:slug",
+          name: "music",
+          component: Music
+        },
+        {
+          path: "artist/:slug",
+          name: "artist",
+          component: Music
         }
       ]
     }
