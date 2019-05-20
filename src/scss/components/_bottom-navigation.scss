@@ -1,14 +1,16 @@
+@import './../variables';
+
+
 .bottom-navigation {
   position: fixed;
   z-index: 9999;
 }
 .nav--icons {
   position: fixed;
-  bottom: 2em;
-  left: 1em;
-  right: 1em;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: white;
-  border-radius: 10px;
   z-index: 99999;
   ul {
     list-style-type: none;
@@ -18,8 +20,7 @@
     padding: 10px 16px;
     margin: 0;
     width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-radius: 15px;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.08);
     li {
       a {
         font-family: sans-serif;
@@ -29,14 +30,13 @@
         color: black;
         line-height: 1;
         vertical-align: middle;
-
         display: flex;
         align-items: center;
-
-        border-radius: 3em;
         padding: 0.75em 1.25em;
         transition: 0.6s ease-in-out;
-
+        svg{
+          color: #8a8a8a;
+        }
         span {
           display: inline-block;
           overflow: hidden;
@@ -50,12 +50,14 @@
         &:hover,
         &.is-active {
           color: white;
-          background-color: #384055;
-          span {
-            opacity: 1;
-            max-width: 40px;
-            transform: translate3d(0, 0, 0);
+          svg{
+            color: $colorPrimary;
           }
+          // span {
+          //   opacity: 1;
+          //   max-width: 40px;
+          //   transform: translate3d(0, 0, 0);
+          // }
         }
       }
     }
