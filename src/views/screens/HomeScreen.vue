@@ -28,13 +28,23 @@
     </div>
     <div class="clearfix"></div>
     <!-- artist slider -->
-    <home-artists-carousel/>
+    <home-artists-carousel />
     <!-- end artist slider -->
     <div class="clearfix"></div>
     <div class="mb-3 mt-3 section-musics">
       <div class="container-fluid">
         <div class="row">
-          <!-- end Music Video -->
+          <!-- Album slider -->
+          <div class="col-md-7 p-0">
+            <div class="section-title col-12 pl-0">
+              <h2 class="text-right">جدیدترین آلبوم ها</h2>
+              <a href="#">نمایش همه</a>
+            </div>
+            <div class="video-slider mb-2">
+              <home-albums-carousel/>
+            </div>
+          </div>
+          <!-- end Album Video -->
           <div class="col-md-5 p-0">
             <div class="section-title col-12 pl-0">
               <h2 class="text-right">جدیدترین برگزیده</h2>
@@ -55,13 +65,15 @@ import HomeMusicsCarousel from "@/components/HomeMusicsCarousel";
 import HomeArtistsCarousel from "@/components/HomeArtistsCarousel";
 import HomeVideosCarousel from "@/components/HomeVideosCarousel";
 import HomeLastMusics from "@/components/HomeLastMusics";
+import HomeAlbumsCarousel from "@/components/HomeAlbumsCarousel";
 export default {
   name: "views.screens.home_screen",
   components: {
     HomeMusicsCarousel,
     HomeArtistsCarousel,
     HomeVideosCarousel,
-    HomeLastMusics
+    HomeLastMusics,
+    HomeAlbumsCarousel
   },
   data() {
     return {};

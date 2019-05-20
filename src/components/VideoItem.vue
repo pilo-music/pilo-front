@@ -7,7 +7,6 @@
     <div class="video-info text-white text-right">
       <p>{{video.title}}</p>
     </div>
-
     <div class="play-icon">
       <img title="play" alt="play" src="#" />
     </div>
