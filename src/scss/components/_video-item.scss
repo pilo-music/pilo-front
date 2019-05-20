@@ -1,0 +1,39 @@
+.video-info {
+  background: #90909099;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 0 0 5px 5px;
+  z-index: 999;
+
+  p {
+    margin-right: 16px;
+    margin-top: 5px;
+  }
+}
+
+.video-box {
+  img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+  }
+	.play-icon{
+		position: absolute;
+		bottom: 0;
+		top: 0;
+		right: 0;
+		left: 0;
+		background: #6D6D6D;
+		opacity: 0.3;
+		img{
+			position: absolute;
+			bottom: 0;
+			top: 0;
+			right: 0;
+			left: 0;
+		}
+	}
+}

@@ -2,6 +2,15 @@
   <div>
     <div class="row">
       <div class="section-title col-12 pr-4">
+        <h2 class="text-right">جدیدترین موزیک ویدیوها</h2>
+        <a href="#">نمایش همه</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- Music Video slider -->
+    <home-videos-carousel/> 
+    <div class="row">
+      <div class="section-title col-12 pr-4">
         <h2 class="text-right">تازه های برگزیده</h2>
         <a href="#">نمایش همه</a>
       </div>
@@ -25,16 +34,6 @@
     <div class="mb-3 mt-3 section-musics">
       <div class="container-fluid">
         <div class="row">
-          <!-- Music Video slider -->
-          <div class="col-md-7 p-0">
-            <div class="section-title col-12 pl-0">
-              <h2 class="text-right">جدیدترین موزیک ویدیوها</h2>
-              <a href="#">نمایش همه</a>
-            </div>
-            <div class="video-slider mb-2">
-              <home-videos-carousel/>
-            </div>
-          </div>
           <!-- end Music Video -->
           <div class="col-md-5 p-0">
             <div class="section-title col-12 pl-0">

@@ -72,7 +72,7 @@ export default {
       music: {
         id: "1",
         title: "test music",
-        artist: {
+        artist: { 
           name: "test artist"
         },
         image:

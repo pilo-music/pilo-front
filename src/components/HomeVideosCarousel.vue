@@ -1,6 +1,6 @@
 <template>
   <div>
-    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
+    <carousel  :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="true">
       <VideoItem :video="video"/>
       <VideoItem :video="video"/>
       <VideoItem :video="video"/>
@@ -23,10 +23,10 @@ export default {
   data() {
     return {
       carousel_respansive: {
-        0: { items: 2, nav: false },
-        576: { items: 2, nav: false },
-        768: { items: 3, nav: false },
-        992: { items: 3, nav: false },
+        0: { items: 1, nav: false },
+        576: { items: 1, nav: false },
+        768: { items: 2, nav: false },
+        992: { items: 2, nav: false },
         1200: { items: 3, nav: false }
       },
       video: {
@@ -36,7 +36,7 @@ export default {
           name: "test artist"
         },
         image:
-          "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
+          "https://assets.rj-a2.com/static/content_items/images/2019/05/20/957a605d7a92135.jpg",
         link128: "sasd"
       }
     };

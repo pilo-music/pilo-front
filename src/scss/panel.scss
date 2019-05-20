@@ -1,6 +1,6 @@
 @import "general";
 @import "components/music-item";
-
+@import "components/video-item";
 .main {
   ///slider
   .section-title {
@@ -8,25 +8,23 @@
     margin-bottom: 10px;
     h2 {
       font-size: 20px;
-
       font-family: iransans;
       color: $colorPrimary;
       margin-top: 7px;
       direction: rtl;
       float: right;
+      cursor: pointer;
+      &:hover{
+        color: $colorPrimaryDark;
+      }
     }
     a {
       text-decoration: none;
-      color: #979797;
+      color: $colorPrimary;
       cursor: pointer;
       font-size: 13px;
-      border: 1px solid;
-      border-radius: 20px;
-      padding: 1px 7px;
-      transition: all 0.3s;
       &:hover {
-        color: white;
-        background: $colorAccent;
+        color: $colorPrimaryDark;
       }
     }
   }
@@ -52,30 +50,6 @@
   .artist-title {
     color: black;
     text-decoration: none;
-  }
-}
-
-/// video slider
-.video-info {
-  background: #90909099;
-  height: 40px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  border-radius: 0 0 5px 5px;
-
-  p {
-    margin-right: 16px;
-    margin-top: 5px;
-  }
-}
-
-.video-box {
-  img {
-    width: 300px;
-    height: auto;
-    border-radius: 10px;
   }
 }
 

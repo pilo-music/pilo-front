@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-music-carousel">
     <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
       <MusicItem :music="music"/>
       <MusicItem :music="music"/>

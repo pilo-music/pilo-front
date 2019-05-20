@@ -4,9 +4,12 @@
       <img class="rounded" width="300" height="300" :src="video.image" :alt="video.title">
     </a>
     <div class="type-box position-absolute">MP4</div>
-
     <div class="video-info text-white text-right">
       <p>{{video.title}}</p>
+    </div>
+
+    <div class="play-icon">
+      <img title="play" alt="play" src="#" />
     </div>
   </div>
 </template>
