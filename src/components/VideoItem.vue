@@ -8,7 +8,9 @@
       <p>{{video.title}}</p>
     </div>
     <div class="play-icon">
-      <img title="play" alt="play" src="#" />
+      <div>
+        <img title="play" alt="play" src="@/assets/panel/img/icon/music-play-white.svg">
+      </div>
     </div>
   </div>
 </template>
