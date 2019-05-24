@@ -12,9 +12,10 @@
       color: $colorPrimary;
       margin-top: 7px;
       direction: rtl;
+      font-weight: 500;
       float: right;
       cursor: pointer;
-      &:hover{
+      &:hover {
         color: $colorPrimaryDark;
       }
     }
@@ -22,7 +23,7 @@
       text-decoration: none;
       color: $colorPrimary;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       &:hover {
         color: $colorPrimaryDark;
       }

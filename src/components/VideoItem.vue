@@ -9,7 +9,7 @@
     </div>
     <div class="play-icon">
       <div>
-        <img title="play" alt="play" src="@/assets/panel/img/icon/music-play-white.svg">
+        <img title="play" alt="play" src="@/assets/panel/img/icon/circle-play.svg">
       </div>
     </div>
   </div>

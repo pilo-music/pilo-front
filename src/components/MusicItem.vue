@@ -7,13 +7,21 @@
           <div class="type-box position-absolute">MP3</div>
           <a class="play-music">
             <div class="music-play position-absolute">
-              <img title="play" alt="play" src="@/assets/panel/img/icon/music-play-white.svg" class="text-white"></i>
+              <img
+                title="play"
+                alt="play"
+                src="@/assets/panel/img/icon/music-play-white.svg"
+                class="text-white"
+              >
             </div>
           </a>
         </div>
       </router-link>
       <div class="mt-2 text-center">
-        <a class="music-title color-primary-dark d-block" :to="{name:'music',params:{slug:'sd'}}">{{music.title}}</a>
+        <a
+          class="music-title color-primary-dark d-block"
+          :to="{name:'music',params:{slug:'sd'}}"
+        >{{music.title}}</a>
         <router-link
           class="music-artist d-block"
           :to="{name:'artist',params:{slug:'sd'}}"

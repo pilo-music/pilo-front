@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Panel from "@/views/Panel.vue";
+import Home from "@/views/Home.vue";
 import Music from "@/views/Music.vue";
-// import App from "@/App";
+import App from "@/App";
 
 Vue.use(Router);
 
@@ -11,16 +11,16 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/panel",
-      component: Panel,
+      path: "/",
+      component: App,
       meta: {
         requiresAuth: true
       },
       children: [
         {
           path: "",
-          name: "panel",
-          component: Panel
+          name: "home",
+          component: Home
         },
         {
           path: "music/:slug",

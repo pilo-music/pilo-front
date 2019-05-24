@@ -1,12 +1,12 @@
 <template>
   <div>
-    <carousel  :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
-      <AlbumItem :album="album"/>
-      <AlbumItem :album="album"/>
-      <AlbumItem :album="album"/>
-      <AlbumItem :album="album"/>
-      <AlbumItem :album="album"/>
-      <AlbumItem :album="album"/>
+    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
+      <AlbumItem :item="item"/>
+      <AlbumItem :item="item"/>
+      <AlbumItem :item="item"/>
+      <AlbumItem :item="item"/>
+      <AlbumItem :item="item"/>
+      <AlbumItem :item="item"/>
     </carousel>
   </div>
 </template>
@@ -29,14 +29,14 @@ export default {
         992: { items: 3, nav: false },
         1200: { items: 3, nav: false }
       },
-      album: {
+      item: {
         id: "1",
         title: "test music",
         artist: {
           name: "test artist"
         },
         image:
-          "https://assets.rj-a2.com/static/content_items/images/2019/05/20/957a605d7a92135.jpg",
+          "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
         link128: "sasd"
       }
     };
