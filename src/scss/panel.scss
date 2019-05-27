@@ -1,16 +1,16 @@
 @import "general";
 @import "components/music-item";
 @import "components/video-item";
+@import "components/small-music";
 .main {
   ///slider
   .section-title {
-    margin-top: 1em;
-    margin-bottom: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
     h2 {
       font-size: 20px;
       font-family: iransans;
       color: $colorPrimary;
-      margin-top: 7px;
       direction: rtl;
       font-weight: 500;
       float: right;
@@ -51,92 +51,5 @@
   .artist-title {
     color: black;
     text-decoration: none;
-  }
-}
-
-.daily-music {
-  max-height: 250px;
-  overflow-y: scroll;
-
-  .custom-table {
-    th {
-      border: none;
-    }
-
-    td {
-      border: none;
-      position: relative;
-      vertical-align: middle;
-
-      a {
-        color: black;
-        text-decoration: none;
-        font-size: 13px;
-        float: right;
-        text-align: right;
-      }
-
-      .icon-play {
-        margin-left: 20px;
-        position: absolute;
-        right: 20px;
-        top: 8px;
-        visibility: hidden;
-      }
-    }
-
-    tr {
-      transition: all 0.4s;
-      padding-top: 10px;
-      border-radius: 5px;
-      line-height: 2;
-      vertical-align: middle;
-
-      img {
-        width: 50px;
-        height: 50px;
-      }
-
-      .div-play {
-        background-color: rgba(0, 0, 0, 0.4);
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        top: 12.5px;
-        border-radius: 5px;
-        left: 12px;
-        visibility: hidden;
-      }
-
-      &:hover {
-        td {
-          background: $colorPrimary;
-          color: white;
-
-          a {
-            color: white;
-            text-decoration: none;
-          }
-
-          .div-play {
-            visibility: visible;
-          }
-
-          .icon-play {
-            visibility: visible;
-          }
-        }
-
-        .td-1 {
-          border-top-right-radius: 5px;
-          border-bottom-right-radius: 5px;
-        }
-
-        .td-5 {
-          border-top-left-radius: 5px;
-          border-bottom-left-radius: 5px;
-        }
-      }
-    }
   }
 }

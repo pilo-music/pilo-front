@@ -70,5 +70,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./../scss/panel.scss";
+@import "../scss/panel.scss";
 </style>

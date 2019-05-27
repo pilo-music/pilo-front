@@ -1,5 +1,4 @@
 @import "reset";
-@import "scrollbar";
 @import "./components/bottom-navigation";
 @import "fonts";
 @import "mixins";
@@ -268,23 +267,20 @@
 }
 
 //// global css
-.shimmer{
+.shimmer {
   background-color: #f3f3f3;
-  background: linear-gradient(to right,#f3f3f3 5%,#eee 20%,#f3f3f3 35%);
+  background: linear-gradient(to right, #f3f3f3 5%, #eee 20%, #f3f3f3 35%);
   animation: placeholderShimmer 2s linear 0s infinite normal forwards;
 }
 
-
-@keyframes placeholderShimmer{
-    0%{
-        background-position: -500px 0
-    }
-  100%{
-        background-position: 500px 0
-    }
+@keyframes placeholderShimmer {
+  0% {
+    background-position: -500px 0;
+  }
+  100% {
+    background-position: 500px 0;
+  }
 }
-
-
 
 //// responsive
 
@@ -304,8 +300,8 @@
   .artist-title {
     font-size: 12px;
   }
-  .home-music-carousel{
-    .owl-item{
+  .home-music-carousel {
+    .owl-item {
       width: 12% !important;
     }
   }

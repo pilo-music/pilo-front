@@ -3,11 +3,11 @@
     <style>
       .cls-1 {
         fill: #373737;
-        opacity: 0.76;
+        opacity: 1;
       }
 
       .cls-2 {
-        opacity: 0.83;
+        opacity: 1;
       }
 
       .cls-3 {
