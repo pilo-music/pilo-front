@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Search</h1>
+    <h1>Profile</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "views.screens.search"
+  name: "views.profile"
 };
 </script>
 

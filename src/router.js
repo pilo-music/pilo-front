@@ -1,8 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/views/Home.vue";
-import Music from "@/views/Music.vue";
-import App from "@/App";
 
 Vue.use(Router);
 
@@ -12,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      component: App,
+      component: () => import("@/views/Index"),
       meta: {
         requiresAuth: true
       },
@@ -20,17 +17,32 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: Home
+          component: () => import("@/views/Home.vue")
+        },
+        {
+          path: "browser",
+          name: "browser",
+          component: () => import("@/views/Browser.vue")
+        },
+        {
+          path: "search",
+          name: "search",
+          component: () => import("@/views/Search.vue")
+        },
+        {
+          path: "profile",
+          name: "profile",
+          component: () => import("@/views/Profile.vue")
         },
         {
           path: "music/:slug",
           name: "music",
-          component: Music
+          component: () => import("@/views/Music.vue")
         },
         {
           path: "artist/:slug",
           name: "artist",
-          component: Music
+          component: import("@/views/Music.vue")
         }
       ]
     }

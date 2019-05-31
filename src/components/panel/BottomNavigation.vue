@@ -3,7 +3,7 @@
     <nav class="nav nav--icons">
       <ul>
         <li>
-          <a @click="change('HomeScreen')" :class="tabStyle('HomeScreen')">
+          <router-link :to="{name : 'home'}">
             <svg class="icon icon-home" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -11,10 +11,10 @@
               ></path>
             </svg>
             <!-- <span>اکسپور</span> -->
-          </a>
+          </router-link>
         </li>
         <li>
-          <a @click="change('BrowserScreen')" :class="tabStyle('BrowserScreen')">
+          <router-link :to="{name : 'browser'}">
             <svg class="icon icon-news" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -22,10 +22,10 @@
               ></path>
             </svg>
             <!-- <span>News</span> -->
-          </a>
+          </router-link>
         </li>
         <li>
-          <a @click="change('SearchScreen')" :class="tabStyle('SearchScreen')">
+          <router-link :to="{name : 'search'}">
             <svg class="icon icon-search" viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="currentColor"
@@ -33,10 +33,10 @@
               ></path>
             </svg>
             <!-- <span>جستجو</span> -->
-          </a>
+          </router-link>
         </li>
         <li>
-          <a @click="change('ProfileScreen')" :class="tabStyle('ProfileScreen')">
+          <router-link :to="{name : 'profile'}">
             <svg class="icon icon-profile" viewBox="0 0 24 24" width="24" height="24">
               <g fill="currentColor">
                 <path
@@ -48,7 +48,7 @@
               </g>
             </svg>
             <!-- <span>پروفایل</span> -->
-          </a>
+          </router-link>
         </li>
       </ul>
     </nav>
@@ -57,29 +57,6 @@
 
 <script>
 export default {
-  props: ["current"],
-  name: "components.panel.bottom_navigation",
-  data() {
-    return {
-      pages: ["HomeScreen", "BrowserScreen", "ProfileScreen", "SearchScreen"],
-      currentScreen: ""
-    };
-  },
-  methods: {
-    tabStyle(name) {
-      if (name === this.currentScreen) return "is-active";
-    },
-    change(name) {
-      this.currentScreen = name;
-      this.$emit("change", name);
-    }
-  },
-  created() {
-    this.currentScreen = this.current;
-    this.tabStyle(this.currentScreen);
-  }
+  name: "components.panel.bottom_navigation"
 };
 </script>
-
-<style lang="scss">
-</style>

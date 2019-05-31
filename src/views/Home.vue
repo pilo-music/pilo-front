@@ -1,70 +1,82 @@
 <template>
   <div>
-    <div id="main">
+    <!-- hearo slider -->
+    <home-hero-carousel/>
+    <!-- music slider -->
+    <div class="row">
+      <div class="section-title col-12 pr-4">
+        <h2 class="text-right">تازه های برگزیده</h2>
+        <a href="#">نمایش همه</a>
+      </div>
+    </div>
+    <home-musics-carousel/>
+    <div class="clearfix"></div>
+    <!-- artist slider -->
+    <div class="row">
+      <div class="section-title col-12 pr-4">
+        <h2 class="text-right">خوانندگان برگزیده</h2>
+        <a href="#">نمایش همه</a>
+      </div>
+    </div>
+    <home-artists-carousel/>
+    <div class="clearfix"></div>
+    <!-- Music Video slider -->
+    <div class="row">
+      <div class="section-title col-12 pr-4">
+        <h2 class="text-right">جدیدترین موزیک ویدیوها</h2>
+        <a href="#">نمایش همه</a>
+      </div>
+    </div>
+    <home-videos-carousel/>
+    <div class="clearfix"></div>
+    <div class="mb-3 mt-3 section-musics">
       <div class="container-fluid">
         <div class="row">
-          <div class="main col-md-8 col-lg-10 col-sm-12">
-            <!-- Header -->
-            <Header/>
-            <!-- end Header -->
-            <!-- end Slider -->
-            <div class="clearfix"></div>
-            <!-- Content -->
-            <keep-alive>
-              <component v-bind:is="currentTabComponent"></component>
-            </keep-alive>
-            <!-- End Content -->
-            <sidebar/>
+          <!-- Album slider -->
+          <div class="col-md-7 p-0">
+            <div class="section-title col-12 pl-0">
+              <h2 class="text-right">جدیدترین آلبوم ها</h2>
+              <a href="#">نمایش همه</a>
+            </div>
+            <div class="video-slider mb-2">
+              <home-albums-carousel/>
+            </div>
+          </div>
+          <!-- end Album Video -->
+          <div class="col-md-5 p-0">
+            <div class="section-title col-12 pl-0">
+              <h2 class="text-right">جدیدترین برگزیده</h2>
+              <a href="#">نمایش همه</a>
+            </div>
+            <div class="daily-music w-100 mt-2">
+              <home-last-musics/>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <bottom-navigation :current="currentTabComponentName" v-on:change="changeTab($event)"/>
   </div>
 </template>
 
 <script>
-import Header from "@/components/panel/Header.vue";
-import Sidebar from "@/components/panel/Sidebar.vue";
-import BottomNavigation from "@/components/panel/BottomNavigation.vue";
-import HomeScreen from "@/views/screens/HomeScreen";
-import BrowserScreen from "@/views/screens/BrowserScreen";
-import ProfileScreen from "@/views/screens/ProfileScreen";
-import SearchScreen from "@/views/screens/SearchScreen";
-
+import HomeHeroCarousel from "@/components/home/HomeHeroCarousel";
+import HomeMusicsCarousel from "@/components/home/HomeMusicsCarousel";
+import HomeArtistsCarousel from "@/components/home/HomeArtistsCarousel";
+import HomeVideosCarousel from "@/components/home/HomeVideosCarousel";
+import HomeLastMusics from "@/components/SmallMusicList";
+import HomeAlbumsCarousel from "@/components/home/HomeAlbumsCarousel";
 export default {
+  name: "views.home",
   components: {
-    Header,
-    Sidebar,
-    BottomNavigation
+    HomeHeroCarousel,
+    HomeMusicsCarousel,
+    HomeArtistsCarousel,
+    HomeVideosCarousel,
+    HomeLastMusics,
+    HomeAlbumsCarousel
   },
-  name: "views.panel",
   data() {
-    return {
-      currentTabComponent: HomeScreen,
-      currentTabComponentName: "HomeScreen"
-    };
-  },
-  methods: {
-    changeTab(name) {
-      switch (name) {
-        case "HomeScreen":
-          this.currentTabComponent = HomeScreen;
-          break;
-        case "BrowserScreen":
-          this.currentTabComponent = BrowserScreen;
-          break;
-        case "ProfileScreen":
-          this.currentTabComponent = ProfileScreen;
-          break;
-        case "SearchScreen":
-          this.currentTabComponent = SearchScreen;
-          break;
-        default:
-          this.currentTabComponent = HomeScreen;
-          break;
-      }
-    }
+    return {};
   }
 };
 </script>
