@@ -59,12 +59,12 @@
 </template>
 
 <script>
-import HomeHeroCarousel from "@/components/HomeHeroCarousel";
-import HomeMusicsCarousel from "@/components/HomeMusicsCarousel";
-import HomeArtistsCarousel from "@/components/HomeArtistsCarousel";
-import HomeVideosCarousel from "@/components/HomeVideosCarousel";
-import HomeLastMusics from "@/components/HomeLastMusics";
-import HomeAlbumsCarousel from "@/components/HomeAlbumsCarousel";
+import HomeHeroCarousel from "@/components/home/HomeHeroCarousel";
+import HomeMusicsCarousel from "@/components/home/HomeMusicsCarousel";
+import HomeArtistsCarousel from "@/components/home/HomeArtistsCarousel";
+import HomeVideosCarousel from "@/components/home/HomeVideosCarousel";
+import HomeLastMusics from "@/components/SmallMusicList";
+import HomeAlbumsCarousel from "@/components/home/HomeAlbumsCarousel";
 export default {
   name: "views.screens.home_screen",
   components: {

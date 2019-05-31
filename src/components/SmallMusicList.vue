@@ -1,24 +1,18 @@
 <template>
-  <div class="table-responsive text-right small-music">
-    <table class="table table-borderless custom-table">
-      <tbody>
-        <last-music-item :item="music"/>
-        <br>
-        <last-music-item :item="music"/>
-        <br>
-        <last-music-item :item="music"/>
-      </tbody>
-    </table>
+  <div class="small-music">
+    <item :item="music"/>
+    <item :item="music"/>
+    <item :item="music"/>
   </div>
 </template>
 
 <script>
-import LastMusicItem from "./SmallMusicItem";
+import Item from "./SmallMusicItem";
 export default {
   components: {
-    LastMusicItem
+    Item
   },
-  name: "components.home_last_musics",
+  name: "components.small_music_list",
   data() {
     return {
       music: {

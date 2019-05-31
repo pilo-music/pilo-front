@@ -4,10 +4,22 @@
 
 .single-music-box {
   .music-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
     img {
+      cursor: pointer;
       margin-top: 16px;
-      width: 20px;
+      width: 16px;
       color: $colorDark;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    span {
+      cursor: pointer;
+      font-size: 12px;
     }
   }
   .music-image {
@@ -57,7 +69,7 @@
       color: $colorDark;
       transition: all 0.7s;
       cursor: pointer;
-      width: 25px;
+      width: 40px;
       &:hover {
         opacity: 0.6;
       }
@@ -66,7 +78,7 @@
     .prev {
       transition: all 0.7s;
       cursor: pointer;
-      width: 35px;
+      width: 45px;
       &:hover {
         opacity: 0.6;
       }

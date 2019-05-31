@@ -1,24 +1,16 @@
 <template>
-  <div class="table-responsive text-right small-music">
-    <table class="table table-borderless custom-table">
-      <tbody>
-        <music-item :item="item"/>
-        <br>
-        <music-item :item="item"/>
-        <br>
-        <music-item :item="item"/>
-      </tbody>
-    </table>
+  <div>
+    <small-music-list/>
   </div>
 </template>
 
 <script>
-import MusicItem from "./SmallMusicItem";
+import SmallMusicList from "./SmallMusicList";
 export default {
   name: "components.playlist",
   props: ["item"],
   components: {
-    MusicItem
+    SmallMusicList
   }
 };
 </script>

@@ -5,9 +5,21 @@
         <div class="single-music-box">
           <!-- header -->
           <div class="music-header">
-            <img src="@/assets/panel/img/icon/left-arrow.svg" alt="back-to-prev-page">
+            <div>
+              <img
+                @click="$router.go(-1)"
+                src="@/assets/panel/img/icon/left-arrow.svg"
+                alt="back-to-prev-page"
+              >
+            </div>
+            <div>
+              <span>{{music.title}}</span>
+            </div>
+            <div>
+              <img src="@/assets/panel/img/icon/ellipsis.svg" alt="back-to-prev-page">
+            </div>
           </div>
-          <div class="mt-4">
+          <div class="margin-t">
             <!-- music image -->
             <div class="music-image">
               <img :src="music.image" :alt="music.title">
@@ -35,7 +47,7 @@
                 </div>
               </div>
               <div>
-                <img class="float-right" src="@/assets/panel/img/icon/ellipsis.svg" alt="more-verc">
+                <img class="float-right" src="@/assets/panel/img/icon/plus.svg" alt="more-verc">
               </div>
             </div>
             <!-- Controls -->
