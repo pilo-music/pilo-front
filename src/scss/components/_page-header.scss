@@ -1,0 +1,43 @@
+nav.navbar.sticky-top.navbar-light.navbar-expand {
+  padding: 0;
+}
+
+.music-header {
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  img {
+    cursor: pointer;
+    margin-top: 16px;
+    width: 16px;
+    color: $colorDark;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  span {
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .header-big-title {
+    font-size: 14px;
+  }
+}
+
+.full {
+  img {
+    margin-top: 0 !important;
+    cursor: pointer;
+    width: 16px;
+    color: $colorDark;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .header-big-title {
+    font-size: 14px;
+  }
+}

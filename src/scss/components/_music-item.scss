@@ -16,7 +16,7 @@
     cursor: pointer;
     opacity: 0.7;
     transition: all 0.5s;
-    img{
+    img {
       width: 14px;
       height: 14px;
       border-radius: 0;
@@ -57,14 +57,14 @@
 
   &:hover {
     img {
-      box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
     }
   }
 
   .music-title {
     margin: 0;
     color: #358595;
-    font-size: 17px;
+    font-size: $font-big + 2;
     text-align: center;
 
     &:hover {
@@ -75,7 +75,7 @@
   .music-artist {
     margin: 0;
     text-align: center;
-    font-size: 14px;
+    font-size: $font-big - 1;
     color: #828282;
 
     &:hover {
@@ -83,4 +83,3 @@
     }
   }
 }
-

@@ -4,21 +4,23 @@
       <div class="col-md-6">
         <div class="single-music-box">
           <!-- header -->
-          <div class="music-header">
-            <div>
-              <img
-                @click="$router.go(-1)"
-                src="@/assets/panel/img/icon/left-arrow.svg"
-                alt="back-to-prev-page"
-              >
+          <b-navbar :sticky="true">
+            <div class="music-header">
+              <div>
+                <img
+                  @click="$router.go(-1)"
+                  src="@/assets/panel/img/icon/left-arrow.svg"
+                  alt="back-to-prev-page"
+                >
+              </div>
+              <div>
+                <span>{{music.title}}</span>
+              </div>
+              <div>
+                <img src="@/assets/panel/img/icon/ellipsis.svg" alt="back-to-prev-page">
+              </div>
             </div>
-            <div>
-              <span>{{music.title}}</span>
-            </div>
-            <div>
-              <img src="@/assets/panel/img/icon/ellipsis.svg" alt="back-to-prev-page">
-            </div>
-          </div>
+          </b-navbar>
           <div class="margin-t">
             <!-- music image -->
             <div class="music-image">
@@ -33,7 +35,7 @@
             <!-- progress bar -->
             <div class="row music-progress-bar mt-3">
               <div>
-                <img src="@/assets/panel/img/icon/share-symbol.svg" alt="share">
+                <img src="@/assets/panel/img/icon/repeat.svg" alt="share">
               </div>
               <div class="flex-grow-1">
                 <b-form-input type="range" min="0" max="100"></b-form-input>
@@ -47,13 +49,13 @@
                 </div>
               </div>
               <div>
-                <img class="float-right" src="@/assets/panel/img/icon/plus.svg" alt="more-verc">
+                <img class="float-right" src="@/assets/panel/img/icon/download.svg" alt="more-verc">
               </div>
             </div>
             <!-- Controls -->
             <div class="music-controls mt-3">
               <div>
-                <img class="repeat" src="@/assets/panel/img/icon/repeat.svg" alt="repeat">
+                <img class="shuffle" src="@/assets/panel/img/icon/shuffle_circle.svg" alt="shuffle">
               </div>
               <div>
                 <img class="prev" src="@/assets/panel/img/icon/fast-forward-left.svg" alt="prev">

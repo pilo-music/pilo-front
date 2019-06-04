@@ -6,7 +6,7 @@
     <div class="row">
       <div class="section-title col-12 pr-4">
         <h2 class="text-right">تازه های برگزیده</h2>
-        <a href="#">نمایش همه</a>
+        <router-link :to="{name:'musics',params:{type:'best'}}">نمایش همه</router-link>
       </div>
     </div>
     <home-musics-carousel/>
@@ -45,7 +45,7 @@
           <!-- end Album Video -->
           <div class="col-md-5 p-0">
             <div class="section-title col-12 pl-0">
-              <h2 class="text-right">جدیدترین برگزیده</h2>
+              <h2 class="text-right">تازه ترین موزیک ها</h2>
               <a href="#">نمایش همه</a>
             </div>
             <div class="daily-music w-100 mt-2">

@@ -1,56 +1,18 @@
 @import "general";
-@import "./components/comment";
 
-.video-box {
-  background: #fafafa;
-  border-radius: 5px;
-  box-shadow: 0px 7px 23px -13px #666;
-}
-
-.related_music {
-  list-style: none;
-  background: #fafafa;
-  margin-bottom: 16px;
-  transition: all 0.5s;
-  padding: 10px;
-  border-radius: 5px;
-
-  &:hover {
-    background: aliceblue;
-    transform: scale(1.03);
+.single-video-box {
+  .single-video-info {
+    
   }
 
-  img {
-    border-radius: 5px;
-  }
-}
-
-
-
-.download-box {
-  background-color: white;
-  border-radius: 5px;
-  padding: 16px;
-  margin: 0 16px 0 16px;
-
-  .link {
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-    background-color: #26bbb4;
-    border-radius: 5px;
-    transition: all 0.5s;
-    font-size: 12px;
-
-    &:hover {
-      background-color: #4e8e8b;
+  .video-control {
+    li {
+      margin-left: 16px;
     }
-
-    i {
-      margin-right: 16px;
-      font-size: 20px;
-      color: white !important;
+    .download {
+      width: 25px;
+      position: relative;
+      bottom: 7px;
     }
   }
-
 }

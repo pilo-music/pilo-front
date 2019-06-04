@@ -1,18 +1,18 @@
 <template>
-  <div class="item position-relative video-box rounded uk-box-shadow-large">
-    <a href="#">
+  <router-link :to="{name:'video',params:{slug:'sd'}}">
+    <div class="item position-relative video-box rounded uk-box-shadow-large">
       <img class="rounded" width="300" height="300" :src="video.image" :alt="video.title">
-    </a>
-    <div class="type-box position-absolute">MP4</div>
-    <div class="video-info text-white text-right">
-      <p>{{video.title}}</p>
-    </div>
-    <div class="play-icon">
-      <div>
-        <img title="play" alt="play" src="@/assets/panel/img/icon/circle-play.svg">
+      <div class="type-box position-absolute">MP4</div>
+      <div class="video-info text-white text-right">
+        <p>{{video.title}}</p>
+      </div>
+      <div class="play-icon">
+        <div>
+          <img title="play" alt="play" src="@/assets/panel/img/icon/circle-play.svg">
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>

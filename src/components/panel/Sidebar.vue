@@ -18,7 +18,7 @@
 
           <!-- profile -->
           <div class="text-center box-profile">
-            <router-link :to="{name:'account'}">
+            <router-link :to="{name:'profile'}">
               <img
                 class="rounded-circle uk-box-shadow-large"
                 width="50"
@@ -28,7 +28,7 @@
               >
             </router-link>
             <router-link
-              :to="{name:'account'}"
+              :to="{name:'profile'}"
               class="btn btn-show-profile d-block mt-3"
             >کاربر مهمان</router-link>
           </div>

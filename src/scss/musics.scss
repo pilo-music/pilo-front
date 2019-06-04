@@ -1,4 +1,35 @@
 @import "general";
 @import "components/music-item";
-@import "./../css/audioplayer.css";
-@import "./components/audioplayer";
+@import "components/page-header";
+
+.musics-list-box {
+  .musics-controls {
+    transition: all 0.5s;
+    cursor: pointer;
+    background: #ddf9ff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    .play {
+      width: 15px;
+    }
+    .shuffle {
+      width: 20px;
+    }
+    span {
+      font-size: $font-medium;
+    }
+
+    &:hover {
+      background: $colorPrimary;
+      opacity: 0.7;
+      span {
+        color: white;
+      }
+    }
+  }
+}
