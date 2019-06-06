@@ -2,22 +2,35 @@
 @import "components/music-item";
 @import "components/artist-item";
 @import "components/album-item";
-@import "./../css/audioplayer.css";
-@import "./components/audioplayer";
 
-
-.main {
-  .section-title {
-    margin-top: 1em;
-    margin-bottom: 10px;
-
-    h2 {
-      font-size: 20px;
-      margin-right: 16px;
-      font-family: iransans;
-      color: $colorPrimary;
-      margin-top: 7px;
+.search-page {
+  .row {
+    margin: -15px;
+    padding: 0 16px;
+    height: 56px;
+  }
+  .search-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      transition: all 0.5s;
+      width: 15px;
+    }
+    input {
+      background: transparent;
+      border: none;
       direction: rtl;
+      width: 100%;
+      color: $colorDark;
+    }
+
+    .flex-1 {
+      flex: 1;
+    }
+    .flex-10 {
+      flex: 10;
     }
   }
 }

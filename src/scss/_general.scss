@@ -286,19 +286,19 @@
 
 @include sm {
   h2 {
-    font-size: 15px !important;
+    font-size: $font-big !important;
   }
   .music-li {
-    padding-left: 10px !important;
+    padding-left: $font-small !important;
   }
   .music-title {
-    font-size: 14px !important;
+    font-size: $font-big - 1 !important;
   }
   .music-artist {
-    font-size: 11px !important;
+    font-size: $font-small + 1 !important;
   }
   .artist-title {
-    font-size: 12px;
+    font-size: $font-medium;
   }
   .home-music-carousel {
     .owl-item {

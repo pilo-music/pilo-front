@@ -16,8 +16,27 @@
               <div>
                 <span>{{music.title}}</span>
               </div>
-              <div>
-                <img src="@/assets/panel/img/icon/ellipsis.svg" alt="back-to-prev-page">
+              <div class="header-drop-down">
+                <img
+                  src="@/assets/panel/img/icon/ellipsis.svg"
+                  alt="back-to-prev-page"
+                  @click="showMenu = !showMenu"
+                >
+
+                <div v-show="showMenu" class="menu">
+                  <div class="menu-item">
+                    صفحه خواننده
+                    <img src="@/assets/panel/img/icon/profile.svg" alt="profile">
+                  </div>
+                  <div class="menu-item">
+                    اضافه کردن به پلی لیست
+                    <img src="@/assets/panel/img/icon/plus.svg" alt="plus">
+                  </div>
+                  <div class="menu-item">
+                    اشتراک گذاری
+                    <img src="@/assets/panel/img/icon/share.svg" alt="plus">
+                  </div>
+                </div>
               </div>
             </div>
           </b-navbar>
@@ -93,6 +112,7 @@ export default {
   name: "views.music",
   data() {
     return {
+      showMenu: false,
       music: {
         id: "1",
         title: "دوستت دارم",
