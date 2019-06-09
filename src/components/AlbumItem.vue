@@ -4,7 +4,7 @@
       <router-link :to="{name:'music',params:{slug:'sd'}}">
         <div class="position-relative">
           <img width="300" height="300" :src="item.image" :alt="item.title">
-          <div class="type-box position-absolute">MP3</div>
+          <div class="type-box position-absolute">ALBUM</div>
           <a class="play-music">
             <div class="music-play position-absolute">
               <img

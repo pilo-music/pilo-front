@@ -4,12 +4,16 @@ import Vue from "vue";
 
 import "./plugins/bootstrap-vue";
 import "./plugins/vue-plyr";
+
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import router from "./services/router/router";
+import store from "./services/store/index";
+import initialize from "./services/helpers/general";
+
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
+initialize(store, router);
 
 new Vue({
   router,

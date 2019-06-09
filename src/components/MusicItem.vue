@@ -1,6 +1,6 @@
 <template>
   <div class="item music-box">
-    <router-link :to="{name:'music',params:{slug:'sd'}}">
+    <router-link :to="{name:'music',params:{slug:music.slug}}">
       <div class="position-relative">
         <img width="300" height="300" :src="music.image" :alt="music.title">
         <div class="type-box position-absolute">MP3</div>

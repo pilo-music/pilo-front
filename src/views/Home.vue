@@ -9,7 +9,22 @@
         <router-link :to="{name:'musics',params:{type:'best'}}">نمایش همه</router-link>
       </div>
     </div>
-    <home-musics-carousel/>
+    <div v-if="!isLoading">
+      <home-musics-carousel :items="data.best_musics"/>
+    </div>
+    <div v-else>
+      <div class="row">
+        <div class="col-4">
+          <shimmer-box/>
+        </div>
+        <div class="col-4">
+          <shimmer-box/>
+        </div>
+        <div class="col-4">
+          <shimmer-box/>
+        </div>
+      </div>
+    </div>
     <div class="clearfix"></div>
     <!-- artist slider -->
     <div class="row">
@@ -18,7 +33,22 @@
         <a href="#">نمایش همه</a>
       </div>
     </div>
-    <home-artists-carousel/>
+    <div v-if="!isLoading">
+      <home-artists-carousel :items="data.artists"/>
+    </div>
+    <div v-else>
+      <div class="row">
+        <div class="col-4">
+          <shimmer-box/>
+        </div>
+        <div class="col-4">
+          <shimmer-box/>
+        </div>
+        <div class="col-4">
+          <shimmer-box/>
+        </div>
+      </div>
+    </div>
     <div class="clearfix"></div>
     <!-- Music Video slider -->
     <div class="row">
@@ -27,7 +57,16 @@
         <a href="#">نمایش همه</a>
       </div>
     </div>
-    <home-videos-carousel/>
+    <div v-if="!isLoading">
+      <home-videos-carousel :items="data.videos"/>
+    </div>
+    <div v-else>
+      <div class="row">
+        <div class="col-12">
+          <shimmer-box/>
+        </div>
+      </div>
+    </div>
     <div class="clearfix"></div>
     <div class="mb-3 mt-3 section-musics">
       <div class="container-fluid">
@@ -38,8 +77,18 @@
               <h2 class="text-right">جدیدترین آلبوم ها</h2>
               <a href="#">نمایش همه</a>
             </div>
-            <div class="video-slider mb-2">
-              <home-albums-carousel/>
+            <div v-if="!isLoading">
+              <home-albums-carousel :items="data.albums"/>
+            </div>
+            <div v-else>
+              <div class="row">
+                <div class="col-6">
+                  <shimmer-box/>
+                </div>
+                <div class="col-6">
+                  <shimmer-box/>
+                </div>
+              </div>
             </div>
           </div>
           <!-- end Album Video -->
@@ -49,7 +98,9 @@
               <a href="#">نمایش همه</a>
             </div>
             <div class="daily-music w-100 mt-2">
-              <home-last-musics/>
+              <div v-if="!isLoading">
+                <home-last-musics :items="data.last_musics"/>
+              </div>
             </div>
           </div>
         </div>
@@ -65,6 +116,9 @@ import HomeArtistsCarousel from "@/components/home/HomeArtistsCarousel";
 import HomeVideosCarousel from "@/components/home/HomeVideosCarousel";
 import HomeLastMusics from "@/components/SmallMusicList";
 import HomeAlbumsCarousel from "@/components/home/HomeAlbumsCarousel";
+import ShimmerBox from "@/components/ShimmerBox";
+import { get } from "@/services/api/home_api";
+
 export default {
   name: "views.home",
   components: {
@@ -73,10 +127,18 @@ export default {
     HomeArtistsCarousel,
     HomeVideosCarousel,
     HomeLastMusics,
-    HomeAlbumsCarousel
+    HomeAlbumsCarousel,
+    ShimmerBox
   },
   data() {
-    return {};
+    return {
+      isLoading: true,
+      data: {}
+    };
+  },
+  methods: {},
+  mounted() {
+    get(this);
   }
 };
 </script>

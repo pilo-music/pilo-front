@@ -153,18 +153,12 @@
       class="d-none"
       controls
     ></audio>
-    <b-modal
-      title="بخش دانلود"
-      id="download-box"
-      centered
-      hide-footer
-      hide-header-close
-    >Hello From My Modal!</b-modal>
   </div>
 </template>
 
 <script>
 import Playlist from "@/components/SmallMusicList.vue";
+import { get } from "@/services/api/music_api.js";
 export default {
   components: {
     Playlist
@@ -238,6 +232,7 @@ export default {
   },
 
   mounted() {
+    get(this, this.$route.params.slug);
     this.audioPlayer = this.$el.querySelectorAll("audio")[0];
     this.initPlayer();
   },

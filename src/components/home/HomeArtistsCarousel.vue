@@ -1,12 +1,7 @@
 <template>
   <div>
     <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
-      <ArtistItem :artist="artist"/>
-      <ArtistItem :artist="artist"/>
-      <ArtistItem :artist="artist"/>
-      <ArtistItem :artist="artist"/>
-      <ArtistItem :artist="artist"/>
-      <ArtistItem :artist="artist"/>
+      <ArtistItem v-for="i in items" :key="i.id" :artist="i"/>
     </carousel>
   </div>
 </template>
@@ -16,6 +11,7 @@ import carousel from "vue-owl-carousel";
 import ArtistItem from "@/components/ArtistItem";
 export default {
   name: "components.home_artists_carousel",
+  props: ["items"],
   components: {
     ArtistItem,
     carousel

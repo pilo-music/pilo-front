@@ -2,7 +2,15 @@
   <div class="artist-box">
     <a href="#">
       <div class="position-relative">
-        <img width="300" height="300" class="shadow" :src="artist.image" :alt="artist.name">
+        <img
+          v-if="artist.image != '' && artist.image != null"
+          width="300"
+          height="300"
+          class="shadow"
+          :src="artist.image"
+          :alt="artist.name"
+        >
+        <img v-else src="@/assets/panel/img/user.svg" alt="artist.name">
       </div>
     </a>
     <div class="mt-2 text-center">

@@ -11,7 +11,7 @@ export default new Router({
       path: "/",
       component: () => import("@/views/Index"),
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       },
       children: [
         {

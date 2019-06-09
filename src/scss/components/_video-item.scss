@@ -19,6 +19,7 @@
     width: 300px;
     height: auto;
     border-radius: 10px;
+    max-height: 166px;
   }
   .play-icon {
     position: absolute;
@@ -35,11 +36,7 @@
       margin-top: 16%;
     }
   }
-
-  &:hover {
-    .video-info {
-      transition: 0.2s ease;
-      height: 40px;
-    }
+  .video-info {
+    height: 40px;
   }
 }

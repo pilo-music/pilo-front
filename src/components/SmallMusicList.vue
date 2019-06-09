@@ -1,6 +1,6 @@
 <template>
   <div class="small-music">
-    <div v-for="i in musics" :key="i.id" :class="{ small_music_item_playing: isPlaying }">
+    <div v-for="i in items" :key="i.id" :class="{ small_music_item_playing: isPlaying }">
       <div class="small-music-item uk-box-shadow-small">
         <div>
           <img
@@ -26,44 +26,13 @@
 
 <script>
 export default {
+  props: ["items"],
   name: "components.small_music_list",
   data() {
     return {
       isPlaying: false,
       playImagePath: require("@/assets/panel/img/icon/circle-play.svg"),
-      pauseImagePath: require("@/assets/panel/img/icon/circle-pause.svg"),
-      musics: [
-        {
-          id: 1,
-          title: "دوستت دارم",
-          artist: {
-            name: "مهدی احمدوند"
-          },
-          image:
-            "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-          link128: "https://dl.taksound.com/music/Donyam Shodi Raft_5cf7f801a17d6.mp3"
-        },
-        {
-          id: 2,
-          title: "دوستت دارم",
-          artist: {
-            name: "مهدی احمدوند"
-          },
-          image:
-            "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-          link128: "https://dl.taksound.com/music/Donyam Shodi Raft_5cf7f801a17d6.mp3"
-        },
-        {
-          id: 3,
-          title: "دوستت دارم",
-          artist: {
-            name: "مهدی احمدوند"
-          },
-          image:
-            "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-          link128: "https://dl.taksound.com/music/Donyam Shodi Raft_5cf7f801a17d6.mp3"
-        }
-      ]
+      pauseImagePath: require("@/assets/panel/img/icon/circle-pause.svg")
     };
   },
   methods: {
