@@ -78,6 +78,7 @@
 <script>
 import MusicItem from "@/components/MusicItem.vue";
 import Like from "@/components/Like.vue";
+import { single } from "@/services/api/video_api.js";
 export default {
   components: {
     MusicItem,
@@ -87,14 +88,14 @@ export default {
   data() {
     return {
       video: {
-        id: "1",
-        title: "دوستت دارم",
+        id: "",
+        title: "",
         artist: {
-          name: "مهدی احمدوند"
+          name: ""
         },
         image:
-          "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-        link128: "sasd"
+          "",
+        link128: ""
       }
     };
   }
