@@ -1,5 +1,5 @@
 export default {
-  isLoading(context, status) {
-    context.commit("IS_LOADING", status);
-  },
-}
+  setCurrentMusic(context, music) {
+    context.commit("SET_CURRENT_MUSIC", music);
+  }
+};

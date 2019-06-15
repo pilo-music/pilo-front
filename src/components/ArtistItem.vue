@@ -10,7 +10,7 @@
           :src="artist.image"
           :alt="artist.name"
         >
-        <img v-else src="@/assets/panel/img/user.svg" alt="artist.name">
+        <img v-else class="shadow" src="@/assets/panel/img/user.svg" alt="artist.name">
       </div>
     </a>
     <div class="mt-2 text-center">

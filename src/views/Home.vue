@@ -138,7 +138,14 @@ export default {
   },
   methods: {},
   mounted() {
-    get(this);
+    get()
+      .then(res => {
+        this.isLoading = false;
+        this.data = res.data.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>

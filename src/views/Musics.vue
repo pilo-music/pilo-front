@@ -17,7 +17,7 @@
                 <span>لیست موزیک</span>
               </div>
             </div>
-          </b-navbar>   
+          </b-navbar>
           <!-- Controls -->
           <div class="margin-t">
             <div class="row">
@@ -45,11 +45,13 @@
           </div>
           <!-- Music Items -->
           <div class="margin-t">
-            <div class="row">
-              <!-- <div v-for="i in 10" :key="i" class="col-md-2 col-sm-6 col-6 mb-3">
-                <music-item :music="music"/>
-              </div>-->
+            <div v-if="!isLoading" class="row">
+              <div v-for="i in musics" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
+                <music-item :music="i"/>
+              </div>
+              <infinite-loading @infinite="infiniteHandler"></infinite-loading>
             </div>
+            <div v-else></div>
           </div>
         </div>
       </div>
@@ -59,24 +61,50 @@
 
 <script>
 import MusicItem from "@/components/MusicItem.vue";
+import InfiniteLoading from "vue-infinite-loading";
+import { get } from "@/services/api/music_api.js";
+
 export default {
   components: {
-    MusicItem
+    MusicItem,
+    InfiniteLoading
   },
   name: "views.music",
   data() {
     return {
-      music: {
-        id: "1",
-        title: "دوستت دارم",
-        artist: {
-          name: "مهدی احمدوند"
-        },
-        image:
-          "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-        link128: "sasd"
-      }
+      page: 1,
+      musics: [],
+      isLoading: true
     };
+  },
+  methods: {
+    infiniteHandler($state) {
+      get("best", this.page)
+        .then(response => {
+          if (response.data.data.length) {
+            this.page += 1;
+            this.musics = this.musics.concat(response.data.data);
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  mounted($state) {
+    get("best", this.page)
+      .then(response => {
+        console.log(response.data.data);
+        this.page += 1;
+        this.musics = this.musics.concat(response.data.data);
+        this.isLoading = false;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>

@@ -1,9 +1,9 @@
 import http from "./../httpService";
 
-export function get() {
+export function get(slug) {
   return new Promise((resolve, reject) => {
     http
-      .get("/home/get")
+      .get(`/album/${slug}`)
       .then(response => {
         resolve(response);
       })

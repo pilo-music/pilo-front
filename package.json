@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "bootstrap-vue": "^2.0.0-rc.21",
+    "bootstrap-vue": "^2.0.0-rc.23",
     "core-js": "^2.6.9",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
@@ -26,7 +26,7 @@
     "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-plugin-pwa": "^3.8.0",
     "@vue/cli-plugin-unit-jest": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
+    "@vue/cli-service": "^3.8.4",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
@@ -38,7 +38,7 @@
     "mutationobserver-shim": "^0.3.3",
     "node-sass": "^4.12.0",
     "popper.js": "^1.15.0",
-    "portal-vue": "^2.1.4",
+    "portal-vue": "^2.1.5",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-bootstrap-vue": "^0.4.0",
     "vue-template-compiler": "^2.5.21"

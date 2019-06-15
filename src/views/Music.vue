@@ -139,8 +139,8 @@
       </div>
       <div class="col-md-6">
         <!-- play list -->
-        <div>
-          <playlist :item="currentSong" v-on:play="play($event)"/>
+        <div v-if="!isLoading">
+          <playlist :items="playlist" v-on:play="play($event)"/>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
     <audio
       :loop="innerLoop"
       ref="audiofile"
-      :src="currentSong.link128"
+      :src="currentSong.link320"
       preload
       class="d-none"
       controls
@@ -158,7 +158,7 @@
 
 <script>
 import Playlist from "@/components/SmallMusicList.vue";
-import { get } from "@/services/api/music_api.js";
+import { single } from "@/services/api/music_api.js";
 export default {
   components: {
     Playlist
@@ -166,6 +166,8 @@ export default {
   name: "views.music",
   data() {
     return {
+      isLoading: true,
+
       durationSeconds: 0,
       currentSeconds: 0,
       audioPlayer: undefined,
@@ -174,7 +176,6 @@ export default {
       autoPlay: false,
       progressPercentageValue: "0%",
 
-      isPlaying: false,
       isLoaded: false,
       isCurrentlyPlaying: "",
       onRepeat: false,
@@ -232,9 +233,16 @@ export default {
   },
 
   mounted() {
-    get(this, this.$route.params.slug);
-    this.audioPlayer = this.$el.querySelectorAll("audio")[0];
-    this.initPlayer();
+    single(this.$route.params.slug)
+      .then(response => {
+        this.audioPlayer = this.$el.querySelectorAll("audio")[0];
+        this.isLoading = false;
+        this.currentSong = response.data.data.music;
+        this.playlist = response.data.data.playlist;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
 
   methods: {
@@ -242,37 +250,41 @@ export default {
      * these methods are used to control the music player*/
 
     initPlayer() {
-      this.audioPlayer.src = this.playlist[0].link128;
+      this.audioPlayer.src = this.playlist[0].link320;
       this.setCurrentSong(this.playlist[0]);
 
       this.audioPlayer.addEventListener("timeupdate", this.updateTimer);
       this.audioPlayer.addEventListener("loadeddata", this.load);
       this.audioPlayer.addEventListener("pause", () => {
-        this.isPlaying = false;
+        this.$store.commit("SET_IS_PLAYING", false);
       });
       this.audioPlayer.addEventListener("play", () => {
-        this.isPlaying = true;
+        this.$store.commit("SET_IS_PLAYING", true);
       });
 
       this.audioPlayer.addEventListener("ended", this.playNextSongInPlaylist);
     },
 
     play(song = {}) {
-      console.log(song);
       if (typeof song === "object") {
         if (this.isLoaded) {
           //check if song exists in playlist
           if (this.currentSong.id === song.id && this.isPlaying) {
+            console.log("pause");
             this.pause();
           } else if (this.currentSong.id === song.id && !this.isPlaying) {
+            console.log("playCurrentSong");
             this.playCurrentSong();
           } else if (this.currentSong.id !== song.id) {
             if (!this.containsObjectWithSameId(song, this.playlist)) {
+              console.log("addToPlaylist");
               this.addToPlaylist(song);
             } else {
+              this.setCurrentSong(song);
+              this.playCurrentSong();
               console.log("playMethod", "song already in playlist");
             }
-            this.setAudio(song.link128);
+            this.setAudio(song.link320);
             this.setCurrentSong(song);
             this.playlist.currentIndex = this.getObjectIndexFromArray(
               song,
@@ -282,11 +294,10 @@ export default {
             this.audioPlayer.play();
           }
         } else {
-          this.setAudio(song.link128);
+          this.setAudio(song.link320);
           this.audioPlayer.play();
         }
-
-        this.isPlaying = true;
+        this.$store.commit("SET_IS_PLAYING", true);
       } else {
         throw new Error("Type Error : Song must be an object");
       }
@@ -294,7 +305,7 @@ export default {
 
     playCurrentSong() {
       this.audioPlayer.play();
-      this.isPlaying = true;
+      this.$store.commit("SET_IS_PLAYING", true);
     },
 
     stop() {
@@ -303,7 +314,7 @@ export default {
 
     pause() {
       this.audioPlayer.pause();
-      this.isPlaying = false;
+      this.$store.commit("SET_IS_PLAYING", false);
     },
 
     repeat() {
@@ -346,7 +357,7 @@ export default {
         this.playlist.currentIndex = this.playlist.length - 1;
       }
 
-      this.audioPlayer.src = this.playlist[this.playlist.currentIndex].url;
+      this.audioPlayer.src = this.playlist[this.playlist.currentIndex].link320;
       this.setCurrentSong(this.playlist[this.playlist.currentIndex]);
 
       //the code below checks if a song is playing so it can go ahead and auto play
@@ -591,6 +602,17 @@ export default {
     muted() {
       //this returns true or false
       return this.volume / 100 === 0;
+    },
+    isPlaying() {
+      return this.$store.getters.isPlaying;
+    }
+  },
+  watch: {
+    currentSong: function(newValue) {
+      this.$store.dispatch("setCurrentMusic", newValue);
+    },
+    isPlaying: function(newValue) {
+      this.$store.commit("SET_IS_PLAYING", newValue);
     }
   }
 };
