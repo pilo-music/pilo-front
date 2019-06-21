@@ -6,7 +6,7 @@
     <div class="row">
       <div class="section-title col-12 pr-4">
         <h2 class="text-right">تازه های برگزیده</h2>
-        <router-link :to="{name:'musics',params:{type:'best'}}">نمایش همه</router-link>
+        <router-link :to="{name:'musics',params:{filter:'best'}}">نمایش همه</router-link>
       </div>
     </div>
     <div v-if="!isLoading">
@@ -54,7 +54,7 @@
     <div class="row">
       <div class="section-title col-12 pr-4">
         <h2 class="text-right">جدیدترین موزیک ویدیوها</h2>
-        <a href="#">نمایش همه</a>
+        <router-link :to="{name:'videos'}">نمایش همه</router-link>
       </div>
     </div>
     <div v-if="!isLoading">
@@ -68,14 +68,14 @@
       </div>
     </div>
     <div class="clearfix"></div>
-    <div class="mb-3 mt-3 section-musics">
+    <div class="mb-3">
       <div class="container-fluid">
         <div class="row">
           <!-- Album slider -->
           <div class="col-md-7 p-0">
             <div class="section-title col-12 pl-0">
               <h2 class="text-right">جدیدترین آلبوم ها</h2>
-              <a href="#">نمایش همه</a>
+              <router-link :to="{name:'albums'}">نمایش همه</router-link>
             </div>
             <div v-if="!isLoading">
               <home-albums-carousel :items="data.albums"/>
@@ -95,7 +95,7 @@
           <div class="col-md-5 p-0">
             <div class="section-title col-12 pl-0">
               <h2 class="text-right">تازه ترین موزیک ها</h2>
-              <a href="#">نمایش همه</a>
+              <router-link :to="{name:'musics'}">نمایش همه</router-link>
             </div>
             <div class="daily-music w-100 mt-2">
               <div v-if="!isLoading">

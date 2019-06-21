@@ -1,5 +1,7 @@
 nav.navbar.sticky-top.navbar-light.navbar-expand {
-  padding: 0;
+  margin: -30px -30px 16px -30px;
+  background: white;
+  padding: 0 16px !important;
 }
 
 .music-header {
@@ -55,8 +57,8 @@ nav.navbar.sticky-top.navbar-light.navbar-expand {
     direction: rtl;
     color: #212529;
     padding: 0.25rem 1.5rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
 
     img {
       margin: 0;

@@ -31,19 +31,14 @@
           <!-- Video -->
           <div class="margin-t">
             <vue-plyr>
-              <video
-                poster="https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg"
-                src="https://dl.taksound.com/video/Ehsan Khaje Amiri - Shahre Divooneh [480].mp4"
-              >
+              <video v-if="video.video480 != null" :poster="video.image" :src="video.video480">
                 <source
-                  src="https://dl.taksound.com/video/Ehsan Khaje Amiri - Shahre Divooneh [720].mp4"
+                  v-if="video.video720 != null"
+                  :src="video.video720"
                   type="video/mp4"
                   size="720"
                 >
-                <source
-                  src="https://dl.taksound.com/video/Ehsan Khaje Amiri - Shahre Divooneh [1080].mp4"
-                  size="1080"
-                >
+                <source v-if="video.video1080 != null" :src="video.video1080" size="1080">
               </video>
             </vue-plyr>
           </div>
@@ -64,10 +59,19 @@
               </li>
               <li class="list-inline-item">
                 <div>
-                  <img class="download" src="@/assets/panel/img/icon/download.svg" alt="download">
+                  <img
+                    class="download"
+                    src="@/assets/panel/img/icon/download-circle.svg"
+                    alt="download"
+                  >
                 </div>
               </li>
             </ul>
+          </div>
+          <hr>
+          <!-- playlist -->
+          <div v-if="playlist.length > 0">
+            <playlist :items="playlist"/>
           </div>
         </div>
       </div>
@@ -76,12 +80,13 @@
 </template>
 
 <script>
-import MusicItem from "@/components/MusicItem.vue";
 import Like from "@/components/Like.vue";
 import { single } from "@/services/api/video_api.js";
+import Playlist from "@/components/SmallMusicList.vue";
+
 export default {
   components: {
-    MusicItem,
+    Playlist,
     Like
   },
   name: "views.video",
@@ -93,11 +98,21 @@ export default {
         artist: {
           name: ""
         },
-        image:
-          "",
+        image: "",
         link128: ""
-      }
+      },
+      playlist: []
     };
+  },
+  mounted() {
+    single(this.$route.params.slug)
+      .then(response => {
+        this.video = response.data.data.video;
+        this.playlist = response.data.data.playlist;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>

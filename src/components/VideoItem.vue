@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="{name:'video',params:{slug:'sd'}}">
+  <router-link :to="{name:'video',params:{slug:video.slug}}">
     <div class="item position-relative video-box rounded uk-box-shadow-large">
-      <img class="rounded" width="300" height="300" :src="video.image" :alt="video.title">
+      <img class="rounded img-fluid" :src="video.image" :alt="video.title">
       <div class="type-box position-absolute">MP4</div>
       <div class="video-info text-white text-right padding-r">
         <span class="font-medium">{{video.title}}</span> _

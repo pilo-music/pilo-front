@@ -69,7 +69,7 @@ export default {
     MusicItem,
     InfiniteLoading
   },
-  name: "views.music",
+  name: "views.musics",
   data() {
     return {
       page: 1,
@@ -79,7 +79,10 @@ export default {
   },
   methods: {
     infiniteHandler($state) {
-      get("best", this.page)
+      var filter = "";
+      if (this.$route.params.filter === "best") filter = "best";
+
+      get(filter, this.page)
         .then(response => {
           if (response.data.data.length) {
             this.page += 1;
@@ -95,9 +98,11 @@ export default {
     }
   },
   mounted($state) {
-    get("best", this.page)
+    var filter = "";
+    if (this.$route.params.filter === "best") filter = "best";
+
+    get(filter, this.page)
       .then(response => {
-        console.log(response.data.data);
         this.page += 1;
         this.musics = this.musics.concat(response.data.data);
         this.isLoading = false;

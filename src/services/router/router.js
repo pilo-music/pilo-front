@@ -40,14 +40,29 @@ export default new Router({
           component: () => import("@/views/Music.vue")
         },
         {
-          path: "musics/:type",
+          path: "musics/:filter?",
           name: "musics",
           component: () => import("@/views/Musics.vue")
+        },
+        {
+          path: "album/:slug",
+          name: "album",
+          component: () => import("@/views/Album.vue")
+        },
+        {
+          path: "albums/:filter?",
+          name: "albums",
+          component: () => import("@/views/Albums.vue")
         },
         {
           path: "video/:slug",
           name: "video",
           component: () => import("@/views/Video.vue")
+        },
+        {
+          path: "videos/:filter?",
+          name: "videos",
+          component: () => import("@/views/Videos.vue")
         },
         {
           path: "artist/:slug",
