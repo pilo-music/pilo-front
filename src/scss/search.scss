@@ -33,4 +33,56 @@
       flex: 10;
     }
   }
+
+  .history {
+    position: fixed;
+    z-index: 99999;
+    background: white;
+    width: 100%;
+    right: 0;
+    left: 0;
+    top: 46px;
+    padding: 0 16px;
+    margin-top: 32px;
+    ul {
+      width: 100%;
+      li {
+        width: 100%;
+        div {
+          cursor: pointer;
+          display: flex;
+          flex-direction: row;
+          span {
+            text-align: right;
+            flex: 2;
+            font-size: $font-medium + 2;
+            padding: 0 16px;
+          }
+          img {
+            width: 15px;
+          }
+          .time {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+
+  .results {
+    margin-top: 45px;
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link {
+      font-size: $font-medium;
+      color: black;
+    }
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+      color: $colorPrimary !important;
+      border: 1px solid $colorPrimaryDark !important;
+      border-top: none !important;
+      border-right: none !important;
+      border-left: none !important;
+    }
+  }
 }

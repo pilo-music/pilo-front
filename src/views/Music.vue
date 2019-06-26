@@ -129,9 +129,7 @@
                   alt="next"
                 >
               </div>
-              <div>
-                <img class="like" src="@/assets/panel/img/icon/heart.svg" alt="like">
-              </div>
+              <like :post_id="currentSong.id" post_type="music" :hasLike="currentSong.has_like"/>
             </div>
             <hr>
           </div>
@@ -158,10 +156,12 @@
 
 <script>
 import Playlist from "@/components/SmallMusicList.vue";
+import Like from "@/components/Like.vue";
 import { single } from "@/services/api/music_api.js";
 export default {
   components: {
-    Playlist
+    Playlist,
+    Like
   },
   name: "views.music",
   data() {

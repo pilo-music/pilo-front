@@ -4,13 +4,11 @@
       <div class="position-relative">
         <img
           v-if="artist.image != '' && artist.image != null"
-          width="300"
-          height="300"
-          class="shadow"
+          class="shadow img-fluid"
           :src="artist.image"
           :alt="artist.name"
         >
-        <img v-else class="shadow" src="@/assets/panel/img/user.svg" alt="artist.name">
+        <img v-else class="shadow img-fluid" src="@/assets/panel/img/user.svg" alt="artist.name">
       </div>
     </a>
     <div class="mt-2 text-center">
