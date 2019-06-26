@@ -8,6 +8,26 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/404",
+      component: () => import("@/views/404.vue")
+    },
+    { path: "*", redirect: "/404" },
+    {
+      path: "/login",
+      component: () => import("@/views/Login.vue"),
+      name: "login"
+    },
+    {
+      path: "/register",
+      component: () => import("@/views/Register.vue"),
+      name: "register"
+    },
+    {
+      path: "/forgot",
+      component: () => import("@/views/ForgotPassword.vue"),
+      name: "forgot_password"
+    },
+    {
       path: "/",
       component: () => import("@/views/Index"),
       meta: {
@@ -67,7 +87,7 @@ export default new Router({
         {
           path: "artist/:slug",
           name: "artist",
-          component: import("@/views/Music.vue")
+          component: () => import("@/views/Music.vue")
         }
       ]
     }
