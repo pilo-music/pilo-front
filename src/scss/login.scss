@@ -285,3 +285,14 @@ p {
 .color-gray {
   color: gray;
 }
+.spinner {
+  text-align: center;
+  visibility: hidden;
+}
+
+.error {
+  text-align: center;
+  direction: rtl;
+  margin-right: 16px;
+  color: #949494;
+}

@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <div class="grid">
-      <form action="https://httpbin.org/post" method="POST" class="form login">
+      <form v-on:submit.prevent="doRegister" class="form login">
         <div class="form__field">
           <label for="login__username">
             <svg class="icon">
@@ -21,7 +21,11 @@
             class="form__input"
             placeholder="ایمیل"
             required
+            v-bind="email"
           >
+        </div>
+        <div class="error">
+          <p>{{error.email}}</p>
         </div>
 
         <div class="form__field">
@@ -38,8 +42,13 @@
             class="form__input"
             placeholder="رمز عبور"
             required
+            v-bind="password"
           >
         </div>
+        <div class="error">
+          <p></p>
+        </div>
+
         <div class="form__field">
           <label for="login__password">
             <svg class="icon">
@@ -50,13 +59,19 @@
           <input
             id="login_conf_password"
             type="password"
-            name="password"
+            name="conf_password"
             class="form__input"
             placeholder="تکرار رمز عبور"
             required
+            v-bind="confirm"
           >
         </div>
-
+        <div class="error">
+          <p>{{error.confirm}}</p>
+        </div>
+        <div ref="spinner" class="spinner">
+          <b-spinner label="Small Spinning"></b-spinner>
+        </div>
         <div class="form__field">
           <input type="submit" value="ثبت نام">
         </div>
@@ -88,8 +103,58 @@
 </template>
 
 <script>
+import { register } from "@/services/api/login_api";
 export default {
-  name: "views.register"
+  name: "views.register",
+  data() {
+    return {
+      email: "",
+      password: "",
+      confirm: "",
+      error: {
+        confirm: "",
+        email: ""
+      }
+    };
+  },
+  methods: {
+    doRegister() {
+      if (validEmail(this.email)) {
+        if (this.password == this.confirm) {
+          this.$refs.spinner.style.visibility = "visible";
+          register(this.email, this.password)
+            .then(response => {
+              if (response.status == 200) {
+                this.$store.dispatch("login", response.data);
+                this.$router.push({
+                  name: "home"
+                });
+              }
+              this.$refs.spinner.style.visibility = "hidden";
+            })
+            .catch(err => {
+              this.$refs.spinner.style.visibility = "hidden";
+              console.log(err);
+            });
+        } else {
+          this.error.confirm = "رمزهای عبور یکسان نمیباشند";
+        }
+      } else {
+        this.error.email = "فرمت ایمیل ناردست میباشد";
+      }
+    },
+    validEmail: function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+  },
+  mounted() {
+    if (this.$store.getters.currentUser) {
+      this.$router.push({
+        name: "home"
+      });
+    }
+  }
 };
 </script>
 

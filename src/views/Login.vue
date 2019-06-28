@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <div class="grid">
-      <form action="https://httpbin.org/post" method="POST" class="form login">
+      <form v-on:submit.prevent="doLogin" class="form login">
         <div class="form__field">
           <label for="login__username">
             <svg class="icon">
@@ -21,6 +21,7 @@
             class="form__input"
             placeholder="ایمیل"
             required
+            v-model="email"
           >
         </div>
 
@@ -38,7 +39,15 @@
             class="form__input"
             placeholder="رمز عبور"
             required
+            v-model="password"
           >
+        </div>
+        <div class="error">
+          <p>{{error.password}}</p>
+        </div>
+
+        <div ref="spinner" class="spinner">
+          <b-spinner label="Small Spinning"></b-spinner>
         </div>
 
         <div class="form__field">
@@ -46,17 +55,9 @@
         </div>
 
         <div class="social">
-          <div class="facebook">
-            <img src="@/assets/panel/img/icon/facebook.svg" alt="facebook">
-            <span>فیسبوک</span>
-          </div>
-          <div class="twitter">
-            <img src="@/assets/panel/img/icon/twitter.svg" alt="twitter">
-            <span>تویتر</span>
-          </div>
           <div class="google">
             <img src="@/assets/panel/img/icon/google.svg" alt="google">
-            <span>گوگل</span>
+            <span>ورود با گوگل</span>
           </div>
         </div>
 
@@ -95,8 +96,46 @@
 </template>
 
 <script>
+import { login } from "@/services/api/login_api";
 export default {
-  name: "views.login"
+  name: "views.login",
+  data() {
+    return {
+      email: "",
+      password: "",
+      error: {
+        password: ""
+      }
+    };
+  },
+  methods: {
+    doLogin() {
+      this.$refs.spinner.style.visibility = "visible";
+      login(this.email, this.password)
+        .then(response => {
+          if (response.status == 200) {
+            this.$store.dispatch("login", response.data);
+            this.$router.push({
+              name: "home"
+            });
+          }
+          this.$refs.spinner.style.visibility = "hidden";
+        })
+        .catch(err => {
+          this.$refs.spinner.style.visibility = "hidden";
+          if (err.message == "Request failed with status code 401") {
+            this.error.password = "نام کاربری یا رمزعبور ناردست میباشد";
+          }
+        });
+    }
+  },
+  mounted() {
+    if (this.$store.getters.currentUser) {
+      this.$router.push({
+        name: "home"
+      });
+    }
+  }
 };
 </script>
 
