@@ -42,15 +42,17 @@
                   </div>
                 </div>
                 <!-- album info -->
-                <div class="row">
-                  <div class="col-2 margin-l">
-                    <span class="font-medium">قطعه {{album.musics.length}}</span>
-                  </div>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-3 padding-l">
+                      <span class="font-medium">قطعه {{album.musics.length}}</span>
+                    </div>
 
-                  <div class="col-9">
-                    <div class="single-album-info text-right margin-r margin-l">
-                      <span class="color-primary font-big">{{album.title}}</span> _
-                      <span class="font-medium">{{album.artist.name}}</span>
+                    <div class="col-8 p-0">
+                      <div class="single-album-info text-right">
+                        <span class="color-primary font-big">{{album.title}}</span> _
+                        <span class="font-medium">{{album.artist.name}}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -81,7 +83,30 @@ export default {
   data() {
     return {
       isLoading: true,
-      album: {},
+      album: {
+        id: "",
+        artist_id: "",
+        title: "",
+        image: "",
+        isbest: "",
+        slug: "",
+        musics: [
+          {
+            id: "",
+            title: "",
+            artist: {
+              id: "",
+              name: ""
+            },
+            image: "",
+            link320: ""
+          }
+        ],
+        artist: {
+          id: "",
+          name: ""
+        }
+      },
       playlist: []
     };
   },

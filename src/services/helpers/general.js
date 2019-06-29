@@ -19,9 +19,9 @@ function initialize(store, router) {
       router.push({
         name: "login"
       });
+      // store.dispatch("refresh", store.state.currentUser.access_token, router);
     }
     return Promise.reject(error);
   });
-
 }
 export default initialize;

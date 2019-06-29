@@ -13,8 +13,15 @@
     background: white;
     .row {
       .col-6 {
-        img {
-          width: 20px;
+        .img-logout {
+          cursor: pointer;
+          width: 40px;
+          padding: 0 0 20px 20px;
+        }
+        .img-alert {
+          cursor: pointer;
+          width: 40px;
+          padding: 0 20px 20px 0;
         }
       }
     }

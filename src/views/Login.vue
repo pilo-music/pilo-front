@@ -110,6 +110,7 @@ export default {
   },
   methods: {
     doLogin() {
+      this.error.password = "";
       this.$refs.spinner.style.visibility = "visible";
       login(this.email, this.password)
         .then(response => {

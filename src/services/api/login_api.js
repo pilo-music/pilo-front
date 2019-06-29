@@ -18,12 +18,28 @@ export function login(email, password) {
   });
 }
 
+export function register(email, password) {
+  return new Promise((resolve, reject) => {
+    http
+      .post("/register", {
+        email,
+        password
+      })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
 export function logout() {
   return new Promise((resolve, reject) => {
     http
       .post("/logout", null, {
         headers: {
-          Authorization: `Bearer ${user.token}`
+          Authorization: `Bearer ${user.access_token}`
         }
       })
       .then(response => {
@@ -38,7 +54,11 @@ export function logout() {
 export function refresh() {
   return new Promise((resolve, reject) => {
     http
-      .post("/refresh")
+      .post("/refresh", null, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`
+        }
+      })
       .then(response => {
         resolve(response);
       })
@@ -53,7 +73,7 @@ export function me() {
     http
       .post("/me", null, {
         headers: {
-          Authorization: `Bearer ${user.token}`
+          Authorization: `Bearer ${user.access_token}`
         }
       })
       .then(response => {

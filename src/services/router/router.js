@@ -50,6 +50,9 @@ export default new Router({
           component: () => import("@/views/Search.vue")
         },
         {
+          meta: {
+            requiresAuth: true
+          },
           path: "profile",
           name: "profile",
           component: () => import("@/views/Profile.vue")

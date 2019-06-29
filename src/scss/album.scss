@@ -1,3 +1,5 @@
+@import "general";
+
 .single-album-box {
   .album-top {
     position: relative;
@@ -21,16 +23,16 @@
       height: 65px;
       justify-content: end;
       .play {
+        cursor: pointer;
         margin-right: 32px;
-        width: 100px;
+        width: 80px;
         position: relative;
-
-        top: -45px;
+        top: -35px;
       }
       .shuffle {
+        cursor: pointer;
         border-radius: 50px;
-        margin-right: 16px;
-        width: 50px;
+        width: 40px;
         position: relative;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         top: -20px;
@@ -39,12 +41,13 @@
         }
       }
       .like {
+        cursor: pointer;
         border-radius: 50px;
         position: relative;
         top: -20px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         margin-right: 16px;
-        width: 50px;
+        width: 40px;
         &:hover {
           opacity: 1 !important;
         }

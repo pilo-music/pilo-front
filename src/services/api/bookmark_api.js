@@ -6,7 +6,7 @@ export function like(action, post_id, post_type) {
   return new Promise((resolve, reject) => {
     http
       .post(
-        `/like`,
+        `/bookmark`,
         {
           action,
           post_id,
@@ -25,4 +25,6 @@ export function like(action, post_id, post_type) {
   });
 }
 
-export function list() {}
+export function list() {
+    
+}

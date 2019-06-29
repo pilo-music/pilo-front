@@ -1,79 +1,80 @@
 @import "general";
+
 .item {
-    .music-box {
-        margin-bottom: 10px;
-        transition: all 0.5s;
-        position: relative;
-        border-radius: 20px;
+  .music-box {
+    margin-bottom: 10px;
+    transition: all 0.5s;
+    position: relative;
+    border-radius: 20px;
 
-        .music-play {
-            transition: all 0.5s;
-            z-index: 9999;
-            position: absolute;
-            width: 100%;
-            height: 98%;
-            top: 2px;
-            left: 0em;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            visibility: hidden;
+    .music-play {
+      transition: all 0.5s;
+      z-index: 9999;
+      position: absolute;
+      width: 100%;
+      height: 98%;
+      top: 2px;
+      left: 0em;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      visibility: hidden;
 
-            i {
-                font-size: 50px;
-            }
-        }
-
-        img {
-            border-radius: 10px;
-            transition: all 0.5s;
-        }
-
-        a {
-            text-decoration: none;
-
-            div {
-                position: relative;
-            }
-
-            div {
-                span {
-                    margin-top: 10px;
-                    margin-right: 20px;
-                    background-color: $colorPrimary;
-                    color: white;
-                    border-radius: 15px;
-                    padding: 5px 10px;
-                }
-            }
-        }
-
-        &:hover {
-            .music-play {
-                visibility: visible;
-            }
-
-            img,
-            .music-play {
-                transform: scale(1.05);
-            }
-        }
-
-        .music-title {
-            margin: 0;
-            color: #358595;
-            font-size: 17px;
-            text-align: center;
-        }
-
-        .music-artist {
-            margin: 0;
-            text-align: center;
-            font-size: 14px;
-            color: #828282;
-        }
+      i {
+        font-size: 50px;
+      }
     }
+
+    img {
+      border-radius: 10px;
+      transition: all 0.5s;
+    }
+
+    a {
+      text-decoration: none;
+
+      div {
+        position: relative;
+      }
+
+      div {
+        span {
+          margin-top: 10px;
+          margin-right: 20px;
+          background-color: $colorPrimary;
+          color: white;
+          border-radius: 15px;
+          padding: 5px 10px;
+        }
+      }
+    }
+
+    &:hover {
+      .music-play {
+        visibility: visible;
+      }
+
+      img,
+      .music-play {
+        transform: scale(1.05);
+      }
+    }
+
+    .music-title {
+      margin: 0;
+      color: #358595;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    .music-artist {
+      margin: 0;
+      text-align: center;
+      font-size: 14px;
+      color: #828282;
+    }
+  }
 }
