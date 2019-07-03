@@ -63,7 +63,7 @@ export default new Router({
           component: () => import("@/views/Music.vue")
         },
         {
-          path: "musics/:filter?",
+          path: "musics/:artist?/:filter?",
           name: "musics",
           component: () => import("@/views/Musics.vue")
         },
@@ -73,7 +73,7 @@ export default new Router({
           component: () => import("@/views/Album.vue")
         },
         {
-          path: "albums/:filter?",
+          path: "albums/:artist?/:filter?",
           name: "albums",
           component: () => import("@/views/Albums.vue")
         },
@@ -83,14 +83,19 @@ export default new Router({
           component: () => import("@/views/Video.vue")
         },
         {
-          path: "videos/:filter?",
+          path: "videos/:artist?/:filter?",
           name: "videos",
           component: () => import("@/views/Videos.vue")
         },
         {
           path: "artist/:slug",
           name: "artist",
-          component: () => import("@/views/Music.vue")
+          component: () => import("@/views/Artist.vue")
+        },
+        {
+          path: "artists",
+          name: "artists",
+          component: () => import("@/views/Artists.vue")
         }
       ]
     }

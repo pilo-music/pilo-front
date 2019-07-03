@@ -3,7 +3,7 @@ import http from "./../httpService";
 export function single(slug) {
   return new Promise((resolve, reject) => {
     http
-      .get(`/video/${slug}`)
+      .get(`/artist/${slug}`)
       .then(response => {
         resolve(response);
       })
@@ -13,13 +13,10 @@ export function single(slug) {
   });
 }
 
-export function get(type, page, artist) {
-  var url = "";
-  if (artist) `/videos/${page}/${artist}/${type}`;
-  else `/videos/${page}/${type}`;
+export function get(type, page) {
   return new Promise((resolve, reject) => {
     http
-      .get(url)
+      .get(`/artists/${page}`)
       .then(response => {
         resolve(response);
       })

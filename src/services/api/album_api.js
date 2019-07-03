@@ -13,10 +13,14 @@ export function single(slug) {
   });
 }
 
-export function get(type, page) {
+export function get(type, page, artist) {
+  var url = "";
+  if (artist) `/albums/${page}/${artist}/${type}`;
+  else `/albums/${page}/${type}`;
+
   return new Promise((resolve, reject) => {
     http
-      .get(`/albums/${page}/${type}`)
+      .get(url)
       .then(response => {
         resolve(response);
       })

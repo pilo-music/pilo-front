@@ -11,7 +11,7 @@
                   @click="$router.go(-1)"
                   src="@/assets/panel/img/icon/left-arrow.svg"
                   alt="back-to-prev-page"
-                >
+                />
               </div>
               <div>
                 <span>لیست موزیک</span>
@@ -28,7 +28,7 @@
                     class="play"
                     src="@/assets/panel/img/icon/music-player-play-primary.svg"
                     alt="play"
-                  >
+                  />
                 </div>
               </div>
               <div class="col-6">
@@ -38,7 +38,7 @@
                     class="shuffle"
                     src="@/assets/panel/img/icon/music_shuffle_primary.svg"
                     alt="play"
-                  >
+                  />
                 </div>
               </div>
             </div>
@@ -47,9 +47,12 @@
           <div class="margin-t">
             <div v-if="!isLoading" class="row">
               <div v-for="i in musics" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
-                <music-item :music="i"/>
+                <music-item :music="i" />
               </div>
-              <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+              <infinite-loading spinner="spiral" @infinite="infiniteHandler">
+                <div slot="no-more">مورد یافت نشد</div>
+                <div slot="no-results">مورد یافت نشد</div>
+              </infinite-loading>
             </div>
             <div v-else></div>
           </div>
@@ -81,8 +84,11 @@ export default {
     infiniteHandler($state) {
       var filter = "";
       if (this.$route.params.filter === "best") filter = "best";
+      var artist = null;
+      if (this.$route.params.artist != null && this.$route.params.artist != "")
+        filter = this.$route.params.artist;
 
-      get(filter, this.page)
+      get(filter, this.page, this.artist)
         .then(response => {
           if (response.data.data.length) {
             this.page += 1;
@@ -100,8 +106,11 @@ export default {
   mounted($state) {
     var filter = "";
     if (this.$route.params.filter === "best") filter = "best";
+    var artist = null;
+    if (this.$route.params.artist != null && this.$route.params.artist != "")
+      filter = this.$route.params.artist;
 
-    get(filter, this.page)
+    get(filter, this.page, this.artist)
       .then(response => {
         this.page += 1;
         this.musics = this.musics.concat(response.data.data);

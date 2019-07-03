@@ -1,80 +1,52 @@
 @import "general";
 
-.item {
-  .music-box {
-    margin-bottom: 10px;
-    transition: all 0.5s;
-    position: relative;
-    border-radius: 20px;
-
-    .music-play {
-      transition: all 0.5s;
-      z-index: 9999;
-      position: absolute;
-      width: 100%;
-      height: 98%;
-      top: 2px;
-      left: 0em;
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
+.artist-single-box {
+  .artist-profile {
+    background: rgb(221, 249, 255);
+    background: linear-gradient(
+      321deg,
+      rgba(221, 249, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    margin: -30px;
+    padding: 46px 30px 16px 30px;
+    border-bottom-right-radius: 70px;
+    text-align: right;
+    .artist-img {
+      @include btnShadow;
+      border-radius: 50px;
+    }
+    .artist-info-top {
+      padding-right: 16px;
       display: flex;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
-      z-index: 99999;
-      visibility: hidden;
-
-      i {
-        font-size: 50px;
-      }
-    }
-
-    img {
-      border-radius: 10px;
-      transition: all 0.5s;
-    }
-
-    a {
-      text-decoration: none;
-
       div {
-        position: relative;
-      }
-
-      div {
-        span {
-          margin-top: 10px;
-          margin-right: 20px;
-          background-color: $colorPrimary;
+        h2 {
+          font-size: $font-medium;
+        }
+        button {
+          @include btnShadow;
           color: white;
-          border-radius: 15px;
-          padding: 5px 10px;
+          font-size: $font-medium;
+          background: $colorPrimary;
+          border-radius: 50px;
+          border: none;
+          padding: 6px 23px;
         }
       }
     }
-
-    &:hover {
-      .music-play {
-        visibility: visible;
-      }
-
-      img,
-      .music-play {
-        transform: scale(1.05);
-      }
-    }
-
-    .music-title {
-      margin: 0;
-      color: #358595;
-      font-size: 17px;
+    .artist-info-bottom {
+      margin-top: 16px;
       text-align: center;
-    }
-
-    .music-artist {
-      margin: 0;
-      text-align: center;
-      font-size: 14px;
-      color: #828282;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-right: 16px;
+      p {
+        font-size: $font-small;
+      }
     }
   }
 }

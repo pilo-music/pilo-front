@@ -14,15 +14,15 @@
                 />
               </div>
               <div>
-                <span>لیست موزیک ویدیو ها</span>
+                <span>لیست خوانندگان ها</span>
               </div>
             </div>
           </b-navbar>
           <!-- Music Items -->
-          <div class="margin-t">
+          <div class="margin-t padding-t">
             <div v-if="!isLoading" class="row">
-              <div v-for="i in videos" :key="i.id" class="col-md-6 col-sm-6 col-lg-4 mb-3">
-                <video-item :video="i" />
+              <div v-for="i in artists" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
+                <artist-item :artist="i" />
               </div>
               <infinite-loading spinner="spiral" @infinite="infiniteHandler">
                 <div slot="no-more">مورد یافت نشد</div>
@@ -38,20 +38,20 @@
 </template>
 
 <script>
-import VideoItem from "@/components/VideoItem.vue";
+import ArtistItem from "@/components/ArtistItem.vue";
 import InfiniteLoading from "vue-infinite-loading";
-import { get } from "@/services/api/video_api.js";
+import { get } from "@/services/api/artist_api.js";
 
 export default {
   components: {
-    VideoItem,
+    ArtistItem,
     InfiniteLoading
   },
-  name: "views.videos",
+  name: "views.artists",
   data() {
     return {
       page: 1,
-      videos: [],
+      artists: [],
       isLoading: true
     };
   },
@@ -59,15 +59,12 @@ export default {
     infiniteHandler($state) {
       var filter = "";
       if (this.$route.params.filter === "best") filter = "best";
-      var artist = null;
-      if (this.$route.params.artist != null && this.$route.params.artist != "")
-        filter = this.$route.params.artist;
 
-      get(filter, this.page, artist)
+      get(filter, this.page)
         .then(response => {
           if (response.data.data.length) {
             this.page += 1;
-            this.videos = this.videos.concat(response.data.data);
+            this.artists = this.artists.concat(response.data.data);
             $state.loaded();
           } else {
             $state.complete();
@@ -81,14 +78,10 @@ export default {
   mounted($state) {
     var filter = "";
     if (this.$route.params.filter === "best") filter = "best";
-    var artist = null;
-    if (this.$route.params.artist != null && this.$route.params.artist != "")
-      filter = this.$route.params.artist;
-
-    get(filter, this.page, artist)
+    get(filter, this.page)
       .then(response => {
         this.page += 1;
-        this.videos = this.videos.concat(response.data.data);
+        this.artists = this.artists.concat(response.data.data);
         this.isLoading = false;
       })
       .catch(err => {
@@ -99,5 +92,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../scss/musics.scss";
+@import "../scss/artists.scss";
 </style>

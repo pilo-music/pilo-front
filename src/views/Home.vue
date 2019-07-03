@@ -30,7 +30,7 @@
     <div class="row">
       <div class="section-title col-12 pr-4">
         <h2 class="text-right">خوانندگان برگزیده</h2>
-        <a href="#">نمایش همه</a>
+        <router-link :to="{name:'artists'}">نمایش همه</router-link>
       </div>
     </div>
     <div v-if="!isLoading">
