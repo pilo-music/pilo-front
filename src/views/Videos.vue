@@ -21,7 +21,7 @@
           <!-- Music Items -->
           <div class="margin-t">
             <div v-if="!isLoading" class="row">
-              <div v-for="i in videos" :key="i.id" class="col-md-6 col-sm-6 col-lg-4 mb-3">
+              <div v-for="(index,i) in videos" :key="index" class="col-md-6 col-sm-6 col-lg-4 mb-3">
                 <video-item :video="i" />
               </div>
               <infinite-loading spinner="spiral" @infinite="infiniteHandler">

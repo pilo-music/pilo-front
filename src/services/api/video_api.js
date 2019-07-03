@@ -15,8 +15,8 @@ export function single(slug) {
 
 export function get(type, page, artist) {
   var url = "";
-  if (artist) `/videos/${page}/${artist}/${type}`;
-  else `/videos/${page}/${type}`;
+  if (artist) url = `/videos/${artist}/${type}/${page}`;
+  else url = `/videos/${type}/${page}`;
   return new Promise((resolve, reject) => {
     http
       .get(url)
