@@ -66,7 +66,7 @@
                 </div>
               </div>
               <div>
-                <a :href="currentSong.link320">
+                <a :href="currentSong.url">
                   <img
                     class="float-right"
                     src="@/assets/panel/img/icon/download.svg"
@@ -132,7 +132,7 @@
     <audio
       :loop="innerLoop"
       ref="audiofile"
-      :src="currentSong.link320"
+      :src="currentSong.url"
       preload
       class="d-none"
       controls
@@ -249,7 +249,7 @@ export default {
     /**Music player methods
      * these methods are used to control the music player*/
     initPlayer() {
-      this.audioPlayer.src = this.currentSong.link320;
+      this.audioPlayer.src = this.currentSong.url;
       this.audioPlayer.addEventListener("timeupdate", this.updateTimer);
       this.audioPlayer.addEventListener("loadeddata", this.load);
       this.audioPlayer.addEventListener("pause", () => {
@@ -281,7 +281,7 @@ export default {
               this.playCurrentSong();
               console.log("playMethod", "song already in playlist");
             }
-            this.setAudio(song.link320);
+            this.setAudio(song.url);
             this.setCurrentSong(song);
             this.setCurrentIndex(
               this.getObjectIndexFromArray(song, this.playlist)
@@ -290,7 +290,7 @@ export default {
             this.audioPlayer.play();
           }
         } else {
-          this.setAudio(song.link320);
+          this.setAudio(song.url);
           this.audioPlayer.play();
         }
         this.$store.commit("SET_IS_PLAYING", true);
@@ -355,7 +355,7 @@ export default {
         this.setCurrentIndex(this.playlist.length - 1);
       }
 
-      this.audioPlayer.src = this.playlist[this.currentIndex].link320;
+      this.audioPlayer.src = this.playlist[this.currentIndex].url;
       this.setCurrentSong(this.playlist[this.currentIndex]);
 
       //the code below checks if a song is playing so it can go ahead and auto play
@@ -454,7 +454,7 @@ export default {
             this.setCurrentIndex(randomNumber);
 
             //set the src of the audio player
-            this.audioPlayer.src = this.playlist[this.currentIndex].link320;
+            this.audioPlayer.src = this.playlist[this.currentIndex].url;
             //set the current song
             this.setCurrentSong(this.playlist[this.currentIndex]);
             //begin to play
@@ -480,7 +480,7 @@ export default {
               }
             }
 
-            this.audioPlayer.src = this.playlist[this.currentIndex].link320;
+            this.audioPlayer.src = this.playlist[this.currentIndex].url;
             this.setCurrentSong(this.playlist[this.currentIndex]);
             this.audioPlayer.play();
             this.setCurrentIndex((this.currentIndex += 1));
