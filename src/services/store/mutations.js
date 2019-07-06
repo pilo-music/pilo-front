@@ -12,5 +12,8 @@ export default {
   },
   SET_IS_PLAYING(state, isPlaying) {
     state.isPlaying = isPlaying;
+  },
+  SET_CURRENT_INDEX(state, index) {
+    state.currentIndex = index;
   }
 };

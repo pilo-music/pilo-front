@@ -7,7 +7,7 @@ export function messages() {
     http
       .post("/messages", null, {
         headers: {
-          Authorization: `Bearer ${user.token}`
+          Authorization: `Bearer ${user.access_token}`
         }
       })
       .then(response => {
@@ -33,7 +33,7 @@ export function edit(name, password, phone, birth, gender) {
         },
         {
           headers: {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${user.access_token}`
           }
         }
       )

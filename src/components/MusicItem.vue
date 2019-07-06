@@ -2,7 +2,7 @@
   <div class="item music-box">
     <router-link :to="{name:'music',params:{slug:music.slug}}">
       <div class="position-relative">
-        <img class="img-fluid" :src="music.image" :alt="music.title">
+        <img class="img-fluid" :src="music.image" :alt="music.title" />
         <div class="type-box position-absolute">MP3</div>
         <a class="play-music">
           <div class="music-play position-absolute">
@@ -11,7 +11,7 @@
               alt="play"
               src="@/assets/panel/img/icon/music-play-white.svg"
               class="text-white img-fluid"
-            >
+            />
           </div>
         </a>
       </div>
@@ -19,11 +19,11 @@
     <div class="mt-2 text-center">
       <a
         class="music-title color-primary-dark d-block"
-        :to="{name:'music',params:{slug:'sd'}}"
+        :to="{name:'music',params:{slug:music.slug}}"
       >{{music.title}}</a>
       <router-link
         class="music-artist d-block"
-        :to="{name:'artist',params:{slug:'sd'}}"
+        :to="{name:'artist',params:{slug:music.slug}}"
       >{{music.artist.name}}</router-link>
     </div>
   </div>

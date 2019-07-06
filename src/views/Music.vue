@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
-        <div class="single-music-box">
+        <div class="single-music-box" v-if="!isLoading">
           <!-- header -->
           <b-navbar :sticky="true">
             <div class="music-header">
@@ -11,7 +11,7 @@
                   @click="$router.go(-1)"
                   src="@/assets/panel/img/icon/left-arrow.svg"
                   alt="back-to-prev-page"
-                >
+                />
               </div>
               <div>
                 <span>{{currentSong.title}}</span>
@@ -20,30 +20,15 @@
                 <img
                   src="@/assets/panel/img/icon/ellipsis.svg"
                   alt="back-to-prev-page"
-                  @click="showMenu = !showMenu"
-                >
-
-                <div v-show="showMenu" class="menu">
-                  <div class="menu-item">
-                    صفحه خواننده
-                    <img src="@/assets/panel/img/icon/profile.svg" alt="profile">
-                  </div>
-                  <div class="menu-item">
-                    اضافه کردن به پلی لیست
-                    <img src="@/assets/panel/img/icon/plus.svg" alt="plus">
-                  </div>
-                  <div class="menu-item">
-                    اشتراک گذاری
-                    <img src="@/assets/panel/img/icon/share.svg" alt="plus">
-                  </div>
-                </div>
+                  @click="showCustomModal = !showCustomModal"
+                />
               </div>
             </div>
           </b-navbar>
-          <div class="margin-t">
+          <div class="padding-t">
             <!-- music image -->
             <div class="music-image">
-              <img :src="currentSong.image" :alt="currentSong.title">
+              <img :src="currentSong.image" :alt="currentSong.title" />
             </div>
             <!-- music info -->
             <div class="music-info">
@@ -58,7 +43,7 @@
                   @click="repeat"
                   :src="loop.state == false ? repeat_off : repeat_on"
                   alt="share"
-                >
+                />
                 <div class="repeat-info" v-if="onRepeat">{{loop.value}}</div>
               </div>
               <div class="flex-grow-1">
@@ -81,12 +66,13 @@
                 </div>
               </div>
               <div>
-                <img
-                  v-b-modal="'download-box'"
-                  class="float-right"
-                  src="@/assets/panel/img/icon/download.svg"
-                  alt="more-verc"
-                >
+                <a :href="currentSong.link320">
+                  <img
+                    class="float-right"
+                    src="@/assets/panel/img/icon/download.svg"
+                    alt="download"
+                  />
+                </a>
               </div>
             </div>
             <!-- Controls -->
@@ -97,14 +83,14 @@
                   @click="shuffleToggle"
                   :src="shuffle ? shuffleOn : shuffleOff"
                   alt="shuffle"
-                >
+                />
               </div>
               <div class="prev">
                 <img
                   @click="skip('backward')"
                   src="@/assets/panel/img/icon/fast-forward-left.svg"
                   alt="prev"
-                >
+                />
               </div>
               <div>
                 <img
@@ -113,32 +99,32 @@
                   alt="play"
                   class="play"
                   src="@/assets/panel/img/icon/main-play.svg"
-                >
+                />
                 <img
                   class="play"
                   @click="pause"
                   v-else
                   src="@/assets/panel/img/icon/main-pause.svg"
                   alt="pause"
-                >
+                />
               </div>
               <div class="next">
                 <img
                   @click="skip('forward')"
                   src="@/assets/panel/img/icon/fast-forward-right.svg"
                   alt="next"
-                >
+                />
               </div>
-              <like :post_id="currentSong.id" post_type="music" :hasLike="currentSong.has_like"/>
+              <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
             </div>
-            <hr>
+            <hr />
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <!-- play list -->
         <div v-if="!isLoading">
-          <playlist :items="playlist" v-on:play="play($event)"/>
+          <playlist :items="playlist" v-on:play="play($event)" />
         </div>
       </div>
     </div>
@@ -151,17 +137,61 @@
       class="d-none"
       controls
     ></audio>
+    <!-- Custom Modal for create Playlist -->
+    <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
+      <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
+    </custom-modal>
+
+    <!-- Custom Modal -->
+    <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
+      <div class="modal-body" v-if="!isLoading">
+        <div class="menu-item">
+          <router-link
+            :to="{name:'artist',params:{
+                     slug:currentSong.artist.slug
+                   }}"
+          >
+            صفحه خواننده
+            <img src="@/assets/panel/img/icon/profile.svg" alt="profile" />
+          </router-link>
+        </div>
+        <div class="menu-item">
+          بوک مارک
+          <Bookmark
+            :post_id="this.currentSong.id"
+            post_type="music"
+            :has_bookmark="this.currentSong.has_bookmark"
+          />
+        </div>
+
+        <div class="menu-item" @click="openCreatePlaylist">
+          اضافه کردن به پلی لیست
+          <img src="@/assets/panel/img/icon/plus.svg" alt="plus" />
+        </div>
+        <div @click="shareLink" class="menu-item">
+          اشتراک گذاری
+          <img src="@/assets/panel/img/icon/share.svg" alt="plus" />
+        </div>
+      </div>
+    </custom-modal>
   </div>
 </template>
 
 <script>
 import Playlist from "@/components/SmallMusicList.vue";
 import Like from "@/components/Like.vue";
+import Bookmark from "@/components/Bookmark.vue";
 import { single } from "@/services/api/music_api.js";
+import CustomModal from "@/components/CustomModal";
+import AddToPlaylist from "@/components/AddToPlaylist";
+
 export default {
   components: {
     Playlist,
-    Like
+    Like,
+    CustomModal,
+    Bookmark,
+    AddToPlaylist
   },
   name: "views.music",
   data() {
@@ -190,42 +220,11 @@ export default {
         value: 1
       },
       orginal_playlist: [],
-      playlist: [
-        {
-          id: 1,
-          title: "2دوستت دارم",
-          artist: {
-            name: "مهدی احمدوند"
-          },
-          image:
-            "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-          link128:
-            "https://dl.taksound.com/music/Donyam Shodi Raft_5cf7f801a17d6.mp3"
-        },
-        {
-          id: 2,
-          title: "4دوستت دارم",
-          artist: {
-            name: "مهدی احمدوند"
-          },
-          image:
-            "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-          link128:
-            "https://dl.taksound.com/music/Donyam Shodi Raft_5cf7f801a17d6.mp3"
-        }
-      ],
-      currentSong: {
-        id: 3,
-        title: " 3دوستت دارم",
-        artist: {
-          name: "مهدی احمدوند"
-        },
-        image:
-          "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg",
-        link128:
-          "https://dl.taksound.com/music/Donyam Shodi Raft_5cf7f801a17d6.mp3"
-      },
-      showMenu: false
+      playlist: [],
+      currentSong: {},
+      showCustomModal: false,
+      showCreatePlaylistModal: false,
+      previousPlaylistIndex: 0
     };
   },
   created() {
@@ -233,9 +232,9 @@ export default {
   },
 
   mounted() {
+    this.audioPlayer = this.$el.querySelectorAll("audio")[0];
     single(this.$route.params.slug)
       .then(response => {
-        this.audioPlayer = this.$el.querySelectorAll("audio")[0];
         this.isLoading = false;
         this.currentSong = response.data.data.music;
         this.playlist = response.data.data.playlist;
@@ -243,16 +242,14 @@ export default {
       .catch(err => {
         console.log(err);
       });
+    this.initPlayer();
   },
 
   methods: {
     /**Music player methods
      * these methods are used to control the music player*/
-
     initPlayer() {
-      this.audioPlayer.src = this.playlist[0].link320;
-      this.setCurrentSong(this.playlist[0]);
-
+      this.audioPlayer.src = this.currentSong.link320;
       this.audioPlayer.addEventListener("timeupdate", this.updateTimer);
       this.audioPlayer.addEventListener("loadeddata", this.load);
       this.audioPlayer.addEventListener("pause", () => {
@@ -286,11 +283,10 @@ export default {
             }
             this.setAudio(song.link320);
             this.setCurrentSong(song);
-            this.playlist.currentIndex = this.getObjectIndexFromArray(
-              song,
-              this.playlist
+            this.setCurrentIndex(
+              this.getObjectIndexFromArray(song, this.playlist)
             );
-            this.previousPlaylistIndex = this.playlist.currentIndex;
+            this.previousPlaylistIndex = this.currentIndex;
             this.audioPlayer.play();
           }
         } else {
@@ -341,28 +337,33 @@ export default {
 
     skip(direction) {
       if (direction === "forward") {
-        this.playlist.currentIndex += 1;
+        this.setCurrentIndex(this.currentIndex + 1);
       } else if (direction === "backward") {
-        this.playlist.currentIndex -= 1;
+        this.setCurrentIndex(this.currentIndex - 1);
       }
 
-      /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
-       reset the index to 0. It could also mean that the playlist is at its end. */
+      /** 
+        if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
+        reset the index to 0. It could also mean that the playlist is at its end. 
+      **/
 
-      if (this.playlist.currentIndex >= this.playlist.length) {
-        this.playlist.currentIndex = 0;
+      if (this.currentIndex >= this.playlist.length) {
+        this.setCurrentIndex(0);
       }
 
-      if (this.playlist.currentIndex < 0) {
-        this.playlist.currentIndex = this.playlist.length - 1;
+      if (this.currentIndex < 0) {
+        this.setCurrentIndex(this.playlist.length - 1);
       }
 
-      this.audioPlayer.src = this.playlist[this.playlist.currentIndex].link320;
-      this.setCurrentSong(this.playlist[this.playlist.currentIndex]);
+      this.audioPlayer.src = this.playlist[this.currentIndex].link320;
+      this.setCurrentSong(this.playlist[this.currentIndex]);
 
       //the code below checks if a song is playing so it can go ahead and auto play
       if (this.isPlaying) {
-        this.audioPlayer.play();
+        this.pause();
+        setTimeout(() => {
+          this.playCurrentSong();
+        }, 1000);
       }
     },
 
@@ -402,7 +403,6 @@ export default {
         this.audioPlayer.currentTime = songPlayTimeAfterSeek;
 
         this.progressPercentageValue = seekPosPercentage;
-        console.log(this.progressPercentageValue);
       } else {
         throw new Error("Song Not Loaded");
       }
@@ -424,7 +424,7 @@ export default {
 
       //insert the song at that position
 
-      let indexOfCurrentSong = this.playlist.currentIndex;
+      let indexOfCurrentSong = this.currentIndex;
 
       this.playlist.splice(indexOfCurrentSong + 1, 0, selectedSong);
     },
@@ -451,43 +451,39 @@ export default {
             );
 
             //set the current index of the playlist
-            this.playlist.currentIndex = randomNumber;
+            this.setCurrentIndex(randomNumber);
 
             //set the src of the audio player
-            this.audioPlayer.src = this.playlist[
-              this.playlist.currentIndex
-            ].url;
+            this.audioPlayer.src = this.playlist[this.currentIndex].link320;
             //set the current song
-            this.setCurrentSong(this.playlist[this.playlist.currentIndex]);
+            this.setCurrentSong(this.playlist[this.currentIndex]);
             //begin to play
             this.audioPlayer.play();
           } else {
             /**if the current Index of the playlist is equal to the index of the last song played skip that song
              and add 1*/
 
-            if (this.playlist.currentIndex === this.previousPlaylistIndex) {
+            if (this.currentIndex === this.previousPlaylistIndex) {
               //increment the current index of the playlist by 1
-              this.playlist.currentIndex += 1;
+              this.setCurrentIndex((this.currentIndex += 1));
             }
 
             /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
              reset the index to 0. It could also mean that the playlist is at its end. */
 
-            if (this.playlist.currentIndex >= this.playlist.length) {
+            if (this.currentIndex >= this.playlist.length) {
               if (this.onRepeat && this.loop.value === "all") {
                 //if repeat is on then replay from the top
-                this.playlist.currentIndex = 0;
+                this.setCurrentIndex(0);
               } else {
                 return;
               }
             }
 
-            this.audioPlayer.src = this.playlist[
-              this.playlist.currentIndex
-            ].url;
-            this.setCurrentSong(this.playlist[this.playlist.currentIndex]);
+            this.audioPlayer.src = this.playlist[this.currentIndex].link320;
+            this.setCurrentSong(this.playlist[this.currentIndex]);
             this.audioPlayer.play();
-            this.playlist.currentIndex++;
+            this.setCurrentIndex((this.currentIndex += 1));
           }
         } else {
         }
@@ -503,11 +499,10 @@ export default {
         this.playlist = this.shuffleArray(this.playlist);
 
         //reset the playlist index when changed and rest the previous playlist index
-        this.playlist.currentIndex = this.getObjectIndexFromArray(
-          this.currentSong,
-          this.playlist
+        this.setCurrentIndex(
+          this.getObjectIndexFromArray(this.currentSong, this.playlist)
         );
-        this.previousPlaylistIndex = this.playlist.currentIndex;
+        this.previousPlaylistIndex = this.currentIndex;
         this.shuffle = true;
       } else {
         this.playlist = this.orginal_playlist;
@@ -537,8 +532,6 @@ export default {
       }
     },
 
-    playlistHelper() {},
-
     containsObjectWithSameId(obj, list) {
       let i;
       for (i = 0; i < list.length; i++) {
@@ -560,7 +553,7 @@ export default {
 
     setCurrentSong(song) {
       this.currentSong = song;
-      this.previousPlaylistIndex = this.playlist.currentIndex;
+      this.previousPlaylistIndex = this.currentIndex;
     },
 
     generateRandomNumber(min, max, except) {
@@ -586,6 +579,26 @@ export default {
         array[index] = temp;
       }
       return array;
+    },
+    setCurrentIndex(index) {
+      this.$store.commit("SET_CURRENT_INDEX", index);
+    },
+    shareLink() {
+      // TODO : add toast here
+      navigator.clipboard
+        .writeText("https://m.taksound.com/" + this.$route.fullPath)
+        .then(
+          function() {
+            console.log("Async: Copying to clipboard was successful!");
+          },
+          function(err) {
+            console.error("Async: Could not copy text: ", err);
+          }
+        );
+    },
+    openCreatePlaylist() {
+      this.showCustomModal = false;
+      this.showCreatePlaylistModal = true;
     }
   },
 
@@ -605,6 +618,9 @@ export default {
     },
     isPlaying() {
       return this.$store.getters.isPlaying;
+    },
+    currentIndex() {
+      return this.$store.getters.currentIndex;
     }
   },
   watch: {

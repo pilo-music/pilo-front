@@ -6,14 +6,14 @@ export function like(action, post_id, post_type) {
   return new Promise((resolve, reject) => {
     http
       .post(
-        `/like`,
+        `/like/add`,
         {
           action,
-          post_id,
-          post_type
+          likeable_id: post_id,
+          likeable_type: post_type
         },
         {
-          headers: { Authorization: "bearer " + user.token }
+          headers: { Authorization: "bearer " + user.access_token }
         }
       )
       .then(response => {

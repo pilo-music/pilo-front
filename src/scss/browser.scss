@@ -1,0 +1,23 @@
+@import "./general";
+.browser-boxs {
+  .browser-box {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    background: #ddf9ff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    span {
+      font-size: $font-medium;
+      color: $colorPrimaryDark;
+    }
+    div {
+      align-items: center;
+      display: flex;
+    }
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

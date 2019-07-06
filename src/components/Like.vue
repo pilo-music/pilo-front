@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <img @click="action" class="like" :src="hasLike ? header_src_on : header_src_off" alt="like">
+  <div @click="action">
+    <img class="like" :src="hasLike ? header_src_on : header_src_off" alt="like" />
   </div>
 </template>
 
@@ -21,15 +21,27 @@ export default {
       this.hasLike = this.has_like;
     },
     action() {
-      this.hasLike = !this.hasLike;
+      if (!this.currentUser) {
+        this.$router.push({
+          name: "login"
+        });
+        return;
+      }
       var action = "";
-      if (this.hasLike) action = "dislike";
-      else action = "like";
+      if (this.hasLike) action = "remove";
+      else action = "add";
+      this.hasLike = !this.hasLike;
+
       like(action, this.post_id, this.post_type)
         .then(response => {})
         .catch(err => {
           console.log(err);
         });
+    }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.currentUser;
     }
   },
   mounted() {

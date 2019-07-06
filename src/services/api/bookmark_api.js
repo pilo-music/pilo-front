@@ -2,18 +2,18 @@ import http from "./../httpService";
 import store from "./../store/index";
 let user = store.getters.currentUser;
 
-export function like(action, post_id, post_type) {
+export function bookmark(action, post_id, post_type) {
   return new Promise((resolve, reject) => {
     http
       .post(
-        `/bookmark`,
+        `/bookmark/add`,
         {
           action,
-          post_id,
-          post_type
+          bookmarkable_id: post_id,
+          bookmarkable_type: post_type
         },
         {
-          headers: { Authorization: "bearer " + user.token }
+          headers: { Authorization: "bearer " + user.access_token }
         }
       )
       .then(response => {
@@ -25,6 +25,4 @@ export function like(action, post_id, post_type) {
   });
 }
 
-export function list() {
-    
-}
+export function list() {}

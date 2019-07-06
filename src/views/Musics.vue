@@ -46,7 +46,7 @@
           <!-- Music Items -->
           <div class="margin-t">
             <div v-if="!isLoading" class="row">
-              <div v-for="(index,i) in musics" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
+              <div v-for="(i,index) in musics" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
                 <music-item :music="i" />
               </div>
               <infinite-loading spinner="spiral" @infinite="infiniteHandler">
@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     infiniteHandler($state) {
-      var filter = "";
+      var filter = "latest";
       if (this.$route.params.filter === "best") filter = "best";
       var artist = null;
       if (this.$route.params.artist != null && this.$route.params.artist != "")
@@ -91,7 +91,7 @@ export default {
       get(filter, this.page, this.artist)
         .then(response => {
           if (response.data.data.length) {
-            this.page += 1;
+            this.page++;
             this.musics = this.musics.concat(response.data.data);
             $state.loaded();
           } else {
@@ -104,15 +104,15 @@ export default {
     }
   },
   mounted($state) {
-    var filter = "";
+    var filter = "latest";
     if (this.$route.params.filter === "best") filter = "best";
     var artist = null;
     if (this.$route.params.artist != null && this.$route.params.artist != "")
-      filter = this.$route.params.artist;
+      artist = this.$route.params.artist;
 
     get(filter, this.page, this.artist)
       .then(response => {
-        this.page += 1;
+        this.page++;
         this.musics = this.musics.concat(response.data.data);
         this.isLoading = false;
       })

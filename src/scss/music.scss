@@ -152,7 +152,30 @@
   }
 }
 
-.modal-title {
-  width: 100%;
+.menu-item {
+  margin-top: 16px;
+  font-size: $font-medium;
+  border-radius: 5px;
   text-align: right;
+  direction: rtl;
+  color: #212529;
+  padding: 0.25rem 1.5rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  img {
+    margin: 0;
+    width: 12px;
+    float: left;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.menu-item:hover {
+  background-color: #f4f6f6;
+  cursor: pointer;
 }

@@ -50,9 +50,6 @@ export default new Router({
           component: () => import("@/views/Search.vue")
         },
         {
-          meta: {
-            requiresAuth: true
-          },
           path: "profile",
           name: "profile",
           component: () => import("@/views/Profile.vue")
@@ -96,6 +93,19 @@ export default new Router({
           path: "artists",
           name: "artists",
           component: () => import("@/views/Artists.vue")
+        },
+        {
+          meta: {
+            requiresAuth: true
+          },
+          path: "bookmarks",
+          name: "bookmarks",
+          component: () => import("@/views/Bookmarks.vue")
+        },
+        {
+          path: "playlists/:filter?",
+          name: "playlists",
+          component: () => import("@/views/Playlists.vue")
         }
       ]
     }

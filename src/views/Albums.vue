@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     infiniteHandler($state) {
-      var filter = "";
+      var filter = "latest";
       if (this.$route.params.filter === "best") filter = "best";
       var artist = null;
       if (this.$route.params.artist != null && this.$route.params.artist != "")
@@ -66,11 +66,11 @@ export default {
       get(filter, this.page, artist)
         .then(response => {
           if (response.data.data.length) {
-            this.page += 1;
+            this.page++;
             this.albums = this.albums.concat(response.data.data);
-            $state.loaded();
+            this.$state.loaded();
           } else {
-            $state.complete();
+            this.$state.complete();
           }
         })
         .catch(err => {
@@ -79,15 +79,15 @@ export default {
     }
   },
   mounted($state) {
-    var filter = "";
+    var filter = "latest";
     if (this.$route.params.filter === "best") filter = "best";
     var artist = null;
     if (this.$route.params.artist != null && this.$route.params.artist != "")
-      filter = this.$route.params.artist;
+      artist = this.$route.params.artist;
 
     get(filter, this.page, artist)
       .then(response => {
-        this.page += 1;
+        this.page++;
         this.albums = this.albums.concat(response.data.data);
         this.isLoading = false;
       })

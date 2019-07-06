@@ -41,6 +41,18 @@
     }
   }
 
+  .login-btn {
+    @include btnShadow;
+    color: white;
+    font-size: $font-medium;
+    background: $colorPrimary;
+    border-radius: 50px;
+    border: none;
+    padding: 6px 23px;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+
   .profile-bottom {
     padding: 0px 16px 16px 16px;
     border-radius: 10px;
