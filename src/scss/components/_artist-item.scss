@@ -1,16 +1,25 @@
-.artist-box{
+.artist-box {
   transition: all 0.5s;
-  a{
+  a {
     transition: all 0.5s;
-    img{
+    img {
       width: 300px;
-      background: #556080;
       height: auto;
-      border-radius: 100%;
+      border-radius: 0 200px 200px 200px;
+      -moz-border-radius: 0 200px 200px 200px;
+      -webkit-border-radius: 0 200px 200px 200px;
+      transition: all 0.5s;
+      background: #556080;
+
+      &:hover {
+        transform: scale(1.05);
+        opacity: 0.8;
+      }
     }
-  }
-  &:hover{
-    transform: scale(1.05);
-    opacity: 0.8;
+
+    .artist-title {
+      color: black;
+      text-decoration: none;
+    }
   }
 }

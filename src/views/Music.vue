@@ -129,14 +129,7 @@
       </div>
     </div>
     <!-- Audio -->
-    <audio
-      :loop="innerLoop"
-      ref="audiofile"
-      :src="currentSong.url"
-      preload
-      class="d-none"
-      controls
-    ></audio>
+    <audio :loop="innerLoop" ref="audiofile" :src="currentSong.url" preload class="d-none" controls></audio>
     <!-- Custom Modal for create Playlist -->
     <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
       <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
@@ -263,11 +256,11 @@ export default {
     },
 
     play(song = {}) {
+      console.log(song);
       if (typeof song === "object") {
         if (this.isLoaded) {
           //check if song exists in playlist
           if (this.currentSong.id === song.id && this.isPlaying) {
-            console.log("pause");
             this.pause();
           } else if (this.currentSong.id === song.id && !this.isPlaying) {
             console.log("playCurrentSong");
@@ -290,8 +283,12 @@ export default {
             this.audioPlayer.play();
           }
         } else {
+          this.currentSong = song;
           this.setAudio(song.url);
-          this.audioPlayer.play();
+          this.pause();
+          setTimeout(() => {
+            this.playCurrentSong();
+          }, 1000);
         }
         this.$store.commit("SET_IS_PLAYING", true);
       } else {

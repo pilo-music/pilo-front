@@ -1,8 +1,18 @@
-@import "reset";
-@import "./components/bottom-navigation";
-@import "fonts";
-@import "mixins";
-@import "variables";
+/*
+    this styles apply to hole of project;
+*/
+@import "global/reset";
+@import "global/fonts";
+@import "global/general";
+@import "components/page-header";
+@import "components/bottom-navigation";
+@import "components/custom_modal";
+@import "components/comment";
+@import "components/album-item";
+@import "components/artist-item";
+@import "components/music-item";
+@import "components/video-item";
+@import "components/small-music";
 
 .uk-icon,
 .icon {
@@ -234,38 +244,6 @@
   }
 }
 
-// menu mobile
-#offcanvas-usage {
-  z-index: 999999;
-
-  .uk-offcanvas-bar {
-    background: white;
-    -webkit-box-shadow: 10px 0 5px -2px #888;
-    box-shadow: 10px 10px 15px 10px #888;
-
-    .uk-offcanvas-close {
-      left: 0;
-      margin-left: 16px;
-    }
-
-    .uk-list {
-      line-height: 2.5;
-    }
-  }
-}
-
-.type-box {
-  color: white;
-  padding: 2px 6px;
-  font-size: 10px;
-  background: #373737;
-  position: absolute;
-  top: 5px;
-  border-radius: 5px;
-  left: 7px;
-  opacity: 0.7;
-}
-
 //// global css
 .shimmer {
   background-color: #f3f3f3;
@@ -282,6 +260,55 @@
   }
 }
 
+.like,
+.shuffle,
+.bookmark {
+  color: $colorDark;
+  transition: all 0.7s;
+  cursor: pointer;
+  width: 40px;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.type-box {
+  color: white;
+  padding: 2px 6px;
+  font-size: 10px;
+  background: #373737;
+  position: absolute;
+  top: 5px;
+  border-radius: 5px;
+  left: 7px;
+  opacity: 0.7;
+}
+
+.section-title {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  h2 {
+    font-size: $font-ultra-big;
+    font-family: iransans;
+    color: $colorPrimary;
+    direction: rtl;
+    font-weight: 500;
+    float: right;
+    cursor: pointer;
+    &:hover {
+      color: $colorPrimaryDark;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-size: $font-medium;
+    &:hover {
+      color: $colorPrimaryDark;
+    }
+  }
+}
 //// responsive
 
 @include sm {

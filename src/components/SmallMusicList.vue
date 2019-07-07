@@ -1,13 +1,9 @@
 <template>
   <div class="small-music">
-    <div
-      v-for="i in items"
-      :key="i.id"
-      :class="{ small_music_item_playing: currentSong.id == i.id }"
-    >
+    <div v-for="i in items" :key="i.id" :class="getClass(i.id)">
       <div class="small-music-item uk-box-shadow-small">
         <div>
-          <img @click="play(i)" alt="music-play" class="music-play" :src="getStatus(i.id)">
+          <img @click="play(i)" alt="music-play" class="music-play" :src="getStatus(i.id)" />
         </div>
         <div class="pb-2">
           <span>{{i.artist.name}}</span>
@@ -16,7 +12,7 @@
           <span class="color-primary-dark">{{i.title}}</span>
         </div>
         <div>
-          <img class="music-image" :src="i.image" :alt="i.title">
+          <img class="music-image" :src="i.image" :alt="i.title" />
         </div>
       </div>
     </div>
@@ -37,8 +33,15 @@ export default {
     play(music) {
       this.$emit("play", music);
       this.getStatus(music.id);
+      this.getClass(music.id);
+    },
+    getClass(id) {
+      if (this.isPlaying && id == this.currentSong.id)
+        return "small_music_item_playing";
     },
     getStatus(id) {
+      // console.log("current :" + id, "song :" + this.currentSong.id);
+
       if (this.isPlaying && id == this.currentSong.id)
         return this.pauseImagePath;
       else return this.playImagePath;

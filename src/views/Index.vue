@@ -5,21 +5,21 @@
         <div class="row">
           <div class="main col-md-8 col-lg-10 col-sm-12">
             <!-- Header -->
-            <Header/>
+            <Header />
             <!-- end Header -->
             <!-- end Slider -->
             <div class="clearfix"></div>
             <!-- Content -->
             <layout>
-              <router-view/>
+              <router-view />
             </layout>
             <!-- End Content -->
-            <sidebar/>
+            <sidebar />
           </div>
         </div>
       </div>
     </div>
-    <bottom-navigation/>
+    <bottom-navigation />
   </div>
 </template>
 
@@ -40,7 +40,3 @@ export default {
   name: "views.panel"
 };
 </script>
-
-<style lang="scss">
-@import "../scss/panel.scss";
-</style>

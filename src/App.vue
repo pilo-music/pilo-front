@@ -1,7 +1,7 @@
 <template>
   <div>
     <layout>
-      <router-view/>
+      <router-view />
     </layout>
   </div>
 </template>
@@ -16,5 +16,5 @@ export default {
 };
 </script>
 <style lang="sass">
-@import './scss/general.scss'
+@import './scss/app.scss'
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- hearo slider -->
-    <home-hero-carousel/>
+    <home-hero-carousel />
     <!-- music slider -->
     <div class="row">
       <div class="section-title col-12 pr-4">
@@ -10,18 +10,18 @@
       </div>
     </div>
     <div v-if="!isLoading">
-      <home-musics-carousel :items="data.best_musics"/>
+      <home-musics-carousel :items="data.best_musics" />
     </div>
     <div v-else>
       <div class="row">
         <div class="col-4">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
         <div class="col-4">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
         <div class="col-4">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
       </div>
     </div>
@@ -34,18 +34,18 @@
       </div>
     </div>
     <div v-if="!isLoading">
-      <home-artists-carousel :items="data.artists"/>
+      <home-artists-carousel :items="data.artists" />
     </div>
     <div v-else>
       <div class="row">
         <div class="col-4">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
         <div class="col-4">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
         <div class="col-4">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
       </div>
     </div>
@@ -58,12 +58,12 @@
       </div>
     </div>
     <div v-if="!isLoading">
-      <home-videos-carousel :items="data.videos"/>
+      <home-videos-carousel :items="data.videos" />
     </div>
     <div v-else>
       <div class="row">
         <div class="col-12">
-          <shimmer-box/>
+          <shimmer-box />
         </div>
       </div>
     </div>
@@ -78,15 +78,15 @@
               <router-link :to="{name:'albums'}">نمایش همه</router-link>
             </div>
             <div v-if="!isLoading">
-              <home-albums-carousel :items="data.albums"/>
+              <home-albums-carousel :items="data.albums" />
             </div>
             <div v-else>
               <div class="row">
                 <div class="col-6">
-                  <shimmer-box/>
+                  <shimmer-box />
                 </div>
                 <div class="col-6">
-                  <shimmer-box/>
+                  <shimmer-box />
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@
             </div>
             <div class="daily-music w-100 mt-2">
               <div v-if="!isLoading">
-                <home-last-musics :items="data.last_musics"/>
+                <home-last-musics :items="data.last_musics" />
               </div>
             </div>
           </div>
@@ -151,5 +151,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../scss/panel.scss";
+@import "../scss/home.scss";
 </style>
