@@ -25,4 +25,15 @@ export function like(action, post_id, post_type) {
   });
 }
 
-export function list() {}
+export function get() {
+  return new Promise((resolve, reject) => {
+    http
+      .get(`/likes?token=${user.access_token}`)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}

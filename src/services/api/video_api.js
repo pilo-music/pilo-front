@@ -1,9 +1,16 @@
 import http from "./../httpService";
+import store from "./../store/index";
+let user = store.getters.currentUser;
 
 export function single(slug) {
+  let url = `/video/${slug}`;
+  if (user) {
+    url = `/video/user/${slug}?token=${user.access_token}`;
+  }
+
   return new Promise((resolve, reject) => {
     http
-      .get(`/video/${slug}`)
+      .get(url)
       .then(response => {
         resolve(response);
       })

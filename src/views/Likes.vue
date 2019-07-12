@@ -15,7 +15,7 @@
                   />
                 </div>
                 <div>
-                  <span>لیست بوک مارک ها</span>
+                  <span>لیست لایک ها</span>
                 </div>
               </div>
             </b-navbar>
@@ -83,14 +83,14 @@ import ArtistItem from "@/components/ArtistItem";
 import MusicItem from "@/components/MusicItem";
 import AlbumItem from "@/components/AlbumItem";
 import VideoItem from "@/components/VideoItem";
-import { get } from "@/services/api/bookmark_api";
+import { get } from "@/services/api/like_api";
 import Layout from "@/layouts/Layout";
 
 export default {
   components: {
     Layout
   },
-  name: "views.bookmarks",
+  name: "views.likes",
   data() {
     return {
       result: {}

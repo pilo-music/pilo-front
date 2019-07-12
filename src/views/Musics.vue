@@ -1,74 +1,78 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="musics-list-box">
-          <!-- header -->
-          <b-navbar :sticky="true">
-            <div class="music-header full">
-              <div>
-                <img
-                  @click="$router.go(-1)"
-                  src="@/assets/panel/img/icon/left-arrow.svg"
-                  alt="back-to-prev-page"
-                />
-              </div>
-              <div>
-                <span>لیست موزیک</span>
-              </div>
-            </div>
-          </b-navbar>
-          <!-- Controls -->
-          <div class="margin-t">
-            <div class="row">
-              <div class="col-6">
-                <div class="musics-controls">
-                  <span>پخش</span>
+  <layout name="Default">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="musics-list-box">
+            <!-- header -->
+            <b-navbar :sticky="true">
+              <div class="music-header full">
+                <div>
                   <img
-                    class="play"
-                    src="@/assets/panel/img/icon/music-player-play-primary.svg"
-                    alt="play"
+                    @click="$router.go(-1)"
+                    src="@/assets/panel/img/icon/left-arrow.svg"
+                    alt="back-to-prev-page"
                   />
                 </div>
+                <div>
+                  <span>لیست موزیک</span>
+                </div>
               </div>
-              <div class="col-6">
-                <div class="musics-controls">
-                  <span>شافل</span>
-                  <img
-                    class="shuffle"
-                    src="@/assets/panel/img/icon/music_shuffle_primary.svg"
-                    alt="play"
-                  />
+            </b-navbar>
+            <!-- Controls -->
+            <div class="margin-t">
+              <div class="row">
+                <div class="col-6">
+                  <div class="musics-controls">
+                    <span>پخش</span>
+                    <img
+                      class="play"
+                      src="@/assets/panel/img/icon/music-player-play-primary.svg"
+                      alt="play"
+                    />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="musics-controls">
+                    <span>شافل</span>
+                    <img
+                      class="shuffle"
+                      src="@/assets/panel/img/icon/music_shuffle_primary.svg"
+                      alt="play"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Music Items -->
-          <div class="margin-t">
-            <div v-if="!isLoading" class="row">
-              <div v-for="(i,index) in musics" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
-                <music-item :music="i" />
+            <!-- Music Items -->
+            <div class="margin-t">
+              <div v-if="!isLoading" class="row">
+                <div v-for="(i,index) in musics" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
+                  <music-item :music="i" />
+                </div>
+                <infinite-loading spinner="spiral" @infinite="infiniteHandler">
+                  <div slot="no-more">مورد یافت نشد</div>
+                  <div slot="no-results">مورد یافت نشد</div>
+                </infinite-loading>
               </div>
-              <infinite-loading spinner="spiral" @infinite="infiniteHandler">
-                <div slot="no-more">مورد یافت نشد</div>
-                <div slot="no-results">مورد یافت نشد</div>
-              </infinite-loading>
+              <div v-else></div>
             </div>
-            <div v-else></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
 import MusicItem from "@/components/MusicItem.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import { get } from "@/services/api/music_api.js";
+import Layout from "@/layouts/Layout";
 
 export default {
   components: {
+    Layout,
     MusicItem,
     InfiniteLoading
   },

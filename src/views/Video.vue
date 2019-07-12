@@ -1,91 +1,95 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="single-video-box">
-          <!-- header -->
-          <b-navbar :sticky="true">
-            <div class="music-header">
-              <div>
-                <img
-                  @click="$router.go(-1)"
-                  src="@/assets/panel/img/icon/left-arrow.svg"
-                  alt="back-to-prev-page"
-                >
-              </div>
-              <div>
-                <span>{{video.title}}</span>
-              </div>
-              <div>
-                <img src="@/assets/panel/img/icon/ellipsis.svg" alt="back-to-prev-page">
-              </div>
-            </div>
-          </b-navbar>
-          <!-- Video Info -->
-          <div class="margin-t">
-            <div class="single-video-info text-right margin-r margin-l">
-              <span class="color-primary font-big">{{video.title}}</span> _
-              <span class="font-medium">{{video.artist.name}}</span>
-            </div>
-          </div>
-          <!-- Video -->
-          <div class="margin-t">
-            <vue-plyr>
-              <video v-if="video.video480 != null" :poster="video.image" :src="video.video480">
-                <source
-                  v-if="video.video720 != null"
-                  :src="video.video720"
-                  type="video/mp4"
-                  size="720"
-                >
-                <source v-if="video.video1080 != null" :src="video.video1080" size="1080">
-              </video>
-            </vue-plyr>
-          </div>
-          <!-- Controls -->
-          <div class="margin-t">
-            <ul class="list-inline video-control">
-              <li class="list-inline-item">
-                <like/>
-              </li>
-              <li class="list-inline-item">
+  <layout name="Panel">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="single-video-box">
+            <!-- header -->
+            <b-navbar :sticky="true">
+              <div class="music-header full">
                 <div>
                   <img
-                    class="shuffle"
-                    src="@/assets/panel/img/icon/shuffle_circle.svg"
-                    alt="shuffle"
-                  >
+                    @click="$router.go(-1)"
+                    src="@/assets/panel/img/icon/left-arrow.svg"
+                    alt="back-to-prev-page"
+                  />
                 </div>
-              </li>
-              <li class="list-inline-item">
                 <div>
-                  <img
-                    class="download"
-                    src="@/assets/panel/img/icon/download-circle.svg"
-                    alt="download"
-                  >
+                  <span>{{video.title}}</span>
                 </div>
-              </li>
-            </ul>
-          </div>
-          <hr>
-          <!-- playlist -->
-          <div v-if="playlist.length > 0">
-            <playlist :items="playlist"/>
+                <!-- TODO: add more detail -->
+                <!-- <div>
+                <img src="@/assets/panel/img/icon/ellipsis.svg" alt="back-to-prev-page" />
+                </div>-->
+              </div>
+            </b-navbar>
+            <!-- Video Info -->
+            <div class="margin-t">
+              <div class="single-video-info text-right margin-r margin-l">
+                <span class="color-primary font-big">{{video.title}}</span> _
+                <span class="font-medium">{{video.artist.name}}</span>
+              </div>
+            </div>
+            <!-- Video -->
+            <div class="margin-t">
+              <vue-plyr>
+                <video :poster="video.image" :src="video.url">
+                  <source
+                    v-if="video.video720 != null"
+                    :src="video.video720"
+                    type="video/mp4"
+                    size="720"
+                  />
+                  <source
+                    type="video/mp4"
+                    v-if="video.video1080 != null"
+                    :src="video.video1080"
+                    size="1080"
+                  />
+                </video>
+              </vue-plyr>
+            </div>
+            <!-- Controls -->
+            <div class="margin-t">
+              <ul class="list-inline video-control">
+                <li class="list-inline-item">
+                  <like :post_id="video.id" post_type="video" :has_like="video.has_like" />
+                </li>
+
+                <li class="list-inline-item">
+                  <a :href="video.url">
+                    <div>
+                      <img
+                        class="download"
+                        src="@/assets/panel/img/icon/download-circle.svg"
+                        alt="download"
+                      />
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <hr />
+            <!-- playlist -->
+            <div v-if="playlist.length > 0">
+              <playlist :items="playlist" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
 import Like from "@/components/Like.vue";
 import { single } from "@/services/api/video_api.js";
 import Playlist from "@/components/SmallMusicList.vue";
+import Layout from "@/layouts/Layout";
 
 export default {
   components: {
+    Layout,
     Playlist,
     Like
   },

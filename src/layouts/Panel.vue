@@ -12,7 +12,6 @@
         </div>
       </div>
     </div>
-    <music-player />
     <bottom-navigation />
   </div>
 </template>

@@ -1,18 +1,19 @@
 <template>
   <div>
-    <layout>
-      <router-view />
-    </layout>
+    <component :is="layout">
+      <router-view :layout.sync="layout" />
+    </component>
   </div>
 </template>
 
 <script>
-import Layout from "@/layouts/Default.vue";
 export default {
-  components: {
-    Layout
-  },
-  name: "app"
+  name: "app",
+  data() {
+    return {
+      layout: `div`
+    };
+  }
 };
 </script>
 <style lang="sass">

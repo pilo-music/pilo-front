@@ -1,20 +1,26 @@
 <template>
-  <div class="moving-zone">
-    <div class="popup">
-      <div class="popup-content">
-        <div class="popup-text">
-          <b>404</b> error.
-          <br>Page
-          <b>NOT</b> Found !
+  <layout name="Simple">
+    <div class="moving-zone">
+      <div class="popup">
+        <div class="popup-content">
+          <div class="popup-text">
+            <b>404</b> error.
+            <br />Page
+            <b>NOT</b> Found !
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
+import Layout from "@/layouts/Layout";
 export default {
-  name: "views.errors.404"
+  name: "views.errors.404",
+  components: {
+    Layout
+  }
 };
 </script>
 

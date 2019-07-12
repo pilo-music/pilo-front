@@ -63,10 +63,14 @@
         margin-top: 32px;
         text-align: right;
         direction: rtl;
-        img {
-          width: 17px;
-          float: left;
-          height: 17px;
+        a {
+          text-decoration: none;
+          color: black;
+          img {
+            width: 17px;
+            float: left;
+            height: 17px;
+          }
         }
       }
     }

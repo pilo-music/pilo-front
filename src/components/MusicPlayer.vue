@@ -1,35 +1,51 @@
 <template>
-  <layout name="Panel">
-    <div class="container-fluid">
+  <transition v-if="currentSong" name="muisc-player">
+    <div
+      v-touch:swipe.up="swipeUpHandler"
+      v-touch:swipe.down="swipeDownHandler"
+      :class="[isOpen ? 'music-player-open' : 'music-player' , 'container-fluid']"
+    >
       <div class="row">
-        <div class="col-md-6">
-          <div class="single-music-box" v-if="!isLoading">
-            <!-- header -->
-            <b-navbar :sticky="true">
-              <div class="music-header">
-                <div>
-                  <img
-                    @click="$router.go(-1)"
-                    src="@/assets/panel/img/icon/left-arrow.svg"
-                    alt="back-to-prev-page"
-                  />
-                </div>
-                <div>
-                  <span>{{currentSong.title}}</span>
-                </div>
-                <div class="header-drop-down">
-                  <img
-                    src="@/assets/panel/img/icon/ellipsis.svg"
-                    alt="back-to-prev-page"
-                    @click="showCustomModal = !showCustomModal"
-                  />
-                </div>
+        <div class="col-12 small-music-player">
+          <div class="row">
+            <div class="col-4">
+              <img
+                @click="skip('forward')"
+                width="25"
+                height="25"
+                src="@/assets/panel/img/icon/fast-forward-black.svg"
+                alt="fast-forward-black"
+              />
+              <img
+                @click="pause"
+                v-show="isPlaying"
+                src="@/assets/panel/img/icon/pause-black.svg"
+                alt="pause"
+              />
+              <img
+                @click="playCurrentSong"
+                width="20"
+                height="20"
+                v-show="!isPlaying"
+                src="@/assets/panel/img/icon/play-black.svg"
+                alt="play"
+              />
+            </div>
+            <div class="col-8">
+              <div>
+                <span class="title">{{currentSong.title}}</span>
+                <span class="name">{{currentSong.artist.name}}</span>
               </div>
-            </b-navbar>
+              <img :src="currentSong.image" alt width="60" height="60" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="music-player-box">
             <div class="padding-t">
               <!-- music image -->
               <div class="music-image">
-                <img :src="currentSong.image" :alt="currentSong.title" />
+                <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
               </div>
               <!-- music info -->
               <div class="music-info">
@@ -45,7 +61,7 @@
                     :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
                     alt="share"
                   />
-                  <div class="repeat-info" v-if="onRepeat">{{settings.loop.value}}</div>
+                  <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
                 </div>
                 <div class="flex-grow-1">
                   <div class="progress-container">
@@ -118,113 +134,50 @@
                 </div>
                 <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
               </div>
-              <hr />
             </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <!-- play list -->
-          <div v-if="!isLoading">
-            <playlist :items="playlist" v-on:play="play($event)" />
           </div>
         </div>
       </div>
       <!-- Audio -->
       <audio
-        :loop="innerLoop"
+        :loop="settings.innerLoop"
         ref="audiofile"
         :src="currentSong.url"
         preload
         class="d-none"
         controls
       ></audio>
-      <!-- Custom Modal for create Playlist -->
-      <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
-        <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
-      </custom-modal>
-
-      <!-- Custom Modal -->
-      <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
-        <div class="modal-body" v-if="!isLoading">
-          <div class="menu-item">
-            <router-link
-              :to="{name:'artist',params:{
-                     slug:currentSong.artist.slug
-                   }}"
-            >
-              صفحه خواننده
-              <img src="@/assets/panel/img/icon/profile.svg" alt="profile" />
-            </router-link>
-          </div>
-          <div class="menu-item">
-            بوک مارک
-            <Bookmark
-              :post_id="this.currentSong.id"
-              post_type="music"
-              :has_bookmark="this.currentSong.has_bookmark"
-            />
-          </div>
-
-          <div class="menu-item" @click="openCreatePlaylist">
-            اضافه کردن به پلی لیست
-            <img src="@/assets/panel/img/icon/plus.svg" alt="plus" />
-          </div>
-          <div @click="shareLink" class="menu-item">
-            اشتراک گذاری
-            <img src="@/assets/panel/img/icon/share.svg" alt="plus" />
-          </div>
-        </div>
-      </custom-modal>
     </div>
-  </layout>
+  </transition>
 </template>
 
 <script>
 import Playlist from "@/components/SmallMusicList.vue";
 import Like from "@/components/Like.vue";
-import Bookmark from "@/components/Bookmark.vue";
-import { single } from "@/services/api/music_api.js";
-import CustomModal from "@/components/CustomModal";
-import AddToPlaylist from "@/components/AddToPlaylist";
-import Layout from "@/layouts/Layout";
 
 export default {
   components: {
     Playlist,
-    Like,
-    CustomModal,
-    Bookmark,
-    AddToPlaylist,
-    Layout
+    Like
   },
-  name: "views.music",
+  name: "components.music_player",
   data() {
     return {
-      isLoading: true,
+      isOpen: false,
       settings: {},
-      orginal_playlist: [],
-      currentSong: {},
-      showCustomModal: false,
-      showCreatePlaylistModal: false
+      currentSong: {}
     };
   },
   created() {
     this.settings = this.currentSettings;
     this.settings.innerLoop = this.settings.loop.state;
+    this.currentSong = this.current;
   },
-
   mounted() {
-    this.audioPlayer = this.$el.querySelectorAll("audio")[0];
-    single(this.$route.params.slug)
-      .then(response => {
-        this.isLoading = false;
-        this.currentSong = response.data.data.music;
-        this.playlist = response.data.data.playlist;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    this.initPlayer();
+    if (this.currentSong) {
+      this.audioPlayer = this.$el.querySelectorAll("audio")[0];
+      this.initPlayer();
+    }
   },
 
   methods: {
@@ -421,7 +374,9 @@ export default {
     },
 
     addToPlaylist(song) {
-      this.playlist.unshift(song);
+      var newPlaylist = this.playlist;
+      newPlaylist = newPlaylist.unshift(song);
+      this.$store.commit("SET_CURRENT_PLAYLIST", newPlaylist);
     },
 
     dragSeek(e) {
@@ -583,6 +538,7 @@ export default {
       }
       return array;
     },
+
     shareLink() {
       // TODO : add toast here
       navigator.clipboard
@@ -596,12 +552,13 @@ export default {
           }
         );
     },
-    openCreatePlaylist() {
-      this.showCustomModal = false;
-      this.showCreatePlaylistModal = true;
+    swipeUpHandler() {
+      this.isOpen = true;
+    },
+    swipeDownHandler() {
+      this.isOpen = false;
     }
   },
-
   computed: {
     currentPlayedTime() {
       return this.formatTime(this.settings.currentSeconds);
@@ -621,27 +578,35 @@ export default {
     isPlaying() {
       return this.$store.getters.isPlaying;
     },
+    current() {
+      return this.$store.getters.currentMusic;
+    },
     currentSettings() {
       return this.$store.getters.currentSettings;
     },
     playlist() {
-      return this.$store.getters.currentPlaylist;
+      return this.$store.getters.playlist;
     }
   },
   watch: {
+    current: function(newValue) {
+      this.currentSong = newValue;
+    },
     currentSong: function(newValue) {
       this.$store.dispatch("setCurrentMusic", newValue);
     },
-    isPlaying: function(newValue) {
-      this.$store.commit("SET_IS_PLAYING", newValue);
-    },
     settings: function(newValue) {
       this.$store.dispatch("setCurrentSetting", newValue);
+    },
+    isPlaying: function(newValue) {
+      if (newValue) {
+        this.playCurrentSong();
+      } else this.pause();
+      this.$store.commit("SET_IS_PLAYING", newValue);
     }
   }
 };
 </script>
 
-<style lang="scss">
-@import "../scss/music.scss";
+<style>
 </style>

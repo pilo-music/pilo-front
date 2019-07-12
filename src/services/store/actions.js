@@ -28,5 +28,8 @@ export default {
   },
   setCurrentMusic(context, music) {
     context.commit("SET_CURRENT_MUSIC", music);
+  },
+  setCurrentSetting(context, name, setting) {
+    context.commit("SET_CURRENT_SETTING", name, setting);
   }
 };

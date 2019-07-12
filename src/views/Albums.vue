@@ -1,51 +1,55 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="musics-list-box">
-          <!-- header -->
-          <b-navbar :sticky="true">
-            <div class="music-header full">
-              <div>
-                <img
-                  @click="$router.go(-1)"
-                  src="@/assets/panel/img/icon/left-arrow.svg"
-                  alt="back-to-prev-page"
-                />
+  <layout name="Default">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="musics-list-box">
+            <!-- header -->
+            <b-navbar :sticky="true">
+              <div class="music-header full">
+                <div>
+                  <img
+                    @click="$router.go(-1)"
+                    src="@/assets/panel/img/icon/left-arrow.svg"
+                    alt="back-to-prev-page"
+                  />
+                </div>
+                <div>
+                  <span>لیست آلبوم ها</span>
+                </div>
               </div>
-              <div>
-                <span>لیست آلبوم ها</span>
+            </b-navbar>
+            <!-- Music Items -->
+            <div class="margin-t">
+              <div v-if="!isLoading" class="row">
+                <div v-for="(i,index) in albums" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
+                  <album-item :item="i" />
+                </div>
+                <infinite-loading spinner="spiral" @infinite="infiniteHandler">
+                  <div slot="no-more">مورد یافت نشد</div>
+                  <div slot="no-results">مورد یافت نشد</div>
+                </infinite-loading>
               </div>
+              <div v-else></div>
             </div>
-          </b-navbar>
-          <!-- Music Items -->
-          <div class="margin-t">
-            <div v-if="!isLoading" class="row">
-              <div v-for="(i,index) in albums" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
-                <album-item :item="i" />
-              </div>
-              <infinite-loading spinner="spiral" @infinite="infiniteHandler">
-                <div slot="no-more">مورد یافت نشد</div>
-                <div slot="no-results">مورد یافت نشد</div>
-              </infinite-loading>
-            </div>
-            <div v-else></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
 import AlbumItem from "@/components/AlbumItem.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import { get } from "@/services/api/album_api.js";
+import Layout from "@/layouts/Layout";
 
 export default {
   components: {
     AlbumItem,
-    InfiniteLoading
+    InfiniteLoading,
+    Layout
   },
   name: "views.albums",
   data() {

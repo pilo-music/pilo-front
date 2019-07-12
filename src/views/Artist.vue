@@ -1,123 +1,126 @@
 <template>
-  <div>
-    <!-- header -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="artist-single-box">
-            <!-- header -->
-            <b-navbar :sticky="true">
-              <div class="music-header full">
-                <div>
-                  <img
-                    @click="$router.go(-1)"
-                    src="@/assets/panel/img/icon/left-arrow.svg"
-                    alt="back-to-prev-page"
-                  />
-                </div>
-                <div>
-                  <span>صفحه خواننده</span>
-                </div>
-              </div>
-            </b-navbar>
-            <!-- Artist Profile -->
-            <div class="artist-profile" v-show="!isLoading">
-              <div class="row">
-                <div class="col-9 p-0">
-                  <div class="artist-info-top">
-                    <div>
-                      <button>دنبال کردن</button>
-                    </div>
-                    <div>
-                      <h2>{{artist.name}}</h2>
-                    </div>
+  <layout name="Default">
+    <div>
+      <!-- header -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="artist-single-box">
+              <!-- header -->
+              <b-navbar :sticky="true">
+                <div class="music-header full">
+                  <div>
+                    <img
+                      @click="$router.go(-1)"
+                      src="@/assets/panel/img/icon/left-arrow.svg"
+                      alt="back-to-prev-page"
+                    />
                   </div>
-                  <div class="artist-info-bottom">
-                    <div>
-                      <span>{{artist.album_count}}</span>
-                      <p>آلبوم</p>
-                    </div>
-                    <div>
-                      <span>{{artist.music_count}}</span>
-                      <p>موزیک</p>
-                    </div>
-                    <div>
-                      <span>{{artist.video_count}}</span>
-                      <p>موزیک ویدیو</p>
-                    </div>
+                  <div>
+                    <span>صفحه خواننده</span>
                   </div>
                 </div>
-                <div class="col-3 p-0">
-                  <img
-                    class="img-fluid artist-img uk-box-shadow-small"
-                    :src="artist.image"
-                    :alt="artist.name"
-                  />
+              </b-navbar>
+              <!-- Artist Profile -->
+              <div class="artist-profile" v-show="!isLoading">
+                <div class="row">
+                  <div class="col-9 p-0">
+                    <div class="artist-info-top">
+                      <div>
+                        <!-- <button>دنبال کردن</button> -->
+                      </div>
+                      <div>
+                        <h2>{{artist.name}}</h2>
+                      </div>
+                    </div>
+                    <div class="artist-info-bottom">
+                      <div>
+                        <span>{{artist.album_count}}</span>
+                        <p>آلبوم</p>
+                      </div>
+                      <div>
+                        <span>{{artist.music_count}}</span>
+                        <p>موزیک</p>
+                      </div>
+                      <div>
+                        <span>{{artist.video_count}}</span>
+                        <p>موزیک ویدیو</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3 p-0">
+                    <img
+                      class="img-fluid artist-img uk-box-shadow-small"
+                      :src="artist.image"
+                      :alt="artist.name"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Best Music -->
-            <div class="row mt-4 pt-2">
-              <div class="section-title col-12 pr-4">
-                <h2 class="text-right">برترین موزیک ها</h2>
-                <router-link
-                  :to="{name:'musics',params:{
+              <!-- Best Music -->
+              <div class="row mt-4 pt-2">
+                <div class="section-title col-12 pr-4">
+                  <h2 class="text-right">برترین موزیک ها</h2>
+                  <router-link
+                    :to="{name:'musics',params:{
                   artist : artist.slug,
                   filter : 'best'
                 }}"
-                >نمایش همه</router-link>
+                  >نمایش همه</router-link>
+                </div>
               </div>
-            </div>
-            <div v-if="!isLoading" class="mt-3">
-              <playlist :items="best_musics" />
-            </div>
-            <!-- Last Musics -->
-            <div class="row margin-t">
-              <div class="section-title col-12 pr-4">
-                <h2 class="text-right">جدیدترین موزیک ها</h2>
-                <router-link
-                  :to="{name:'musics',params:{
+              <div v-if="!isLoading" class="mt-3">
+                <playlist :items="best_musics" />
+              </div>
+              <!-- Last Musics -->
+              <div class="row margin-t">
+                <div class="section-title col-12 pr-4">
+                  <h2 class="text-right">جدیدترین موزیک ها</h2>
+                  <router-link
+                    :to="{name:'musics',params:{
                   artist:artist.slug
                 }}"
-                >نمایش همه</router-link>
+                  >نمایش همه</router-link>
+                </div>
+
+                <div v-if="!isLoading" class="mt-3">
+                  <home-musics-carousel :items="last_musics" />
+                </div>
               </div>
-            </div>
-            <div v-if="!isLoading" class="mt-3">
-              <home-musics-carousel :items="last_musics" />
-            </div>
-            <!-- Last Albums -->
-            <div class="row margin-t">
-              <div class="section-title col-12 pr-4">
-                <h2 class="text-right">جدیدترین آلبوم ها</h2>
-                <router-link
-                  :to="{name:'albums',params:{
+              <!-- Last Albums -->
+              <div class="row margin-t">
+                <div class="section-title col-12 pr-4">
+                  <h2 class="text-right">جدیدترین آلبوم ها</h2>
+                  <router-link
+                    :to="{name:'albums',params:{
                   artist:artist.slug
                 }}"
-                >نمایش همه</router-link>
+                  >نمایش همه</router-link>
+                </div>
               </div>
-            </div>
-            <div v-if="!isLoading" class="mt-3">
-              <home-albums-carousel :items="albums" />
-            </div>
-            <!-- Last Videos -->
-            <div class="row margin-t">
-              <div class="section-title col-12 pr-4">
-                <h2 class="text-right">جدیدترین موزیک ویدیو ها</h2>
-                <router-link
-                  :to="{name:'videos',params:{
+              <div v-if="!isLoading" class="mt-3">
+                <home-albums-carousel :items="albums" />
+              </div>
+              <!-- Last Videos -->
+              <div class="row margin-t">
+                <div class="section-title col-12 pr-4">
+                  <h2 class="text-right">جدیدترین موزیک ویدیو ها</h2>
+                  <router-link
+                    :to="{name:'videos',params:{
                   artist:artist.slug
                 }}"
-                >نمایش همه</router-link>
+                  >نمایش همه</router-link>
+                </div>
               </div>
-            </div>
-            <div v-if="!isLoading" class="mt-3">
-              <home-videos-carousel :items="videos" />
+              <div v-if="!isLoading" class="mt-3">
+                <home-videos-carousel :items="videos" />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </layout>
 </template>
 
 <script>
@@ -126,8 +129,11 @@ import Playlist from "@/components/SmallMusicList";
 import HomeMusicsCarousel from "@/components/home/HomeMusicsCarousel";
 import HomeAlbumsCarousel from "@/components/home/HomeAlbumsCarousel";
 import HomeVideosCarousel from "@/components/home/HomeVideosCarousel";
+import Layout from "@/layouts/Layout";
+
 export default {
   components: {
+    Layout,
     Playlist,
     HomeMusicsCarousel,
     HomeAlbumsCarousel,
