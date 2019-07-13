@@ -1,0 +1,28 @@
+@import "./global/general";
+
+.add-message {
+  position: fixed;
+  background: $colorPrimary;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  bottom: 94px;
+  right: 16px;
+  transition: all 0.5s;
+  border-radius: 51px;
+  @include shadow();
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

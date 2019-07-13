@@ -1,5 +1,5 @@
 <template>
-  <layout name="Default">
+  <layout name="Panel">
     <div class="profile-box">
       <!-- Top Box -->
       <div class="profile-top uk-box-shadow-small">
@@ -56,12 +56,6 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{name:'music_history'}">
-              تاریخچه موزیک ها
-              <img src="@/assets/panel/img/icon/time_black.svg" alt="time" />
-            </router-link>
-          </li>
-          <li>
             <router-link :to="{name:'likes'}">
               لایک شده ها
               <img src="@/assets/panel/img/icon/heart_black.svg" alt="like" />
@@ -75,7 +69,7 @@
           </li>
           <li>
             <router-link :to="{name:'contactus'}">
-              تماس با پشتیبانی
+              ارتباط با ما
               <img src="@/assets/panel/img/icon/support_black.svg" alt="support" />
             </router-link>
           </li>

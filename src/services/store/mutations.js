@@ -1,11 +1,18 @@
 export default {
   LOGIN(state, user) {
     state.currentUser = user;
-    localStorage.setItem("user", JSON.stringify(state.currentUser));
+    localStorage.setItem("user", JSON.stringify(user));
   },
   LOGOUT(state) {
     state.currentUser = null;
+    state.currentSong = null;
+    state.isPlaying = false;
+    state.currentPlaylist = null;
+    state.currentSettings = null;
     localStorage.removeItem("user");
+    localStorage.removeItem("current_playlist");
+    localStorage.removeItem("current_settings");
+    localStorage.removeItem("current_song");
   },
   SET_CURRENT_MUSIC(state, music) {
     state.currentMusic = music;

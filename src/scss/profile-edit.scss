@@ -1,0 +1,155 @@
+@import "./global/general";
+
+.profile-edit {
+  .align {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    color: #606468;
+    font-size: 14px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    height: 100%;
+    line-height: 1.5;
+    margin: 0;
+    min-height: 100vh;
+  }
+  .upload-image {
+    @include btnShadow;
+    color: white;
+    font-size: $font-medium;
+    background: $colorPrimary;
+    border-radius: 50px;
+    border: none;
+    padding: 6px 23px;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+
+  /* helpers/grid.css */
+  .grid {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 320px;
+    max-width: 20rem;
+    width: 90%;
+  }
+
+  a {
+    color: #eee;
+    outline: 0;
+    text-decoration: none;
+  }
+
+  a:focus,
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* modules/form.css */
+
+  input {
+    background-image: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    direction: rtl;
+    text-align: right;
+    font-size: $font-medium;
+  }
+
+  input[type="submit"] {
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .form {
+    margin: -14px;
+    margin: -0.875rem;
+  }
+
+  .form input[type="password"],
+  .form input[type="text"],
+  .form input[type="submit"] {
+    width: 100%;
+  }
+
+  .form__field {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 14px;
+    margin: 0.875rem;
+  }
+
+  .form__input {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  /* modules/login.css */
+
+  .profile {
+    color: #eee;
+  }
+
+  .profile input {
+    border-radius: 5px;
+    padding: 16px;
+    padding: 1rem;
+    background: #f9f9f9;
+    color: black;
+  }
+
+  .profile input:focus,
+  .profile input:hover {
+    background-color: #ededed;
+  }
+
+  .profile input[type="submit"] {
+    background-color: $colorGreen;
+    color: #eee;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .profile input[type="submit"]:focus,
+  .profile input[type="submit"]:hover {
+    background-color: $colorGreenDark;
+  }
+
+  /* modules/text.css */
+
+  p {
+    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
+    margin-top: 24px;
+    margin-top: 1.5rem;
+  }
+
+  .text--center {
+    text-align: center;
+  }
+
+  .color-gray {
+    color: gray;
+  }
+  .spinner {
+    text-align: center;
+  }
+
+  .error {
+    text-align: center;
+    direction: rtl;
+    margin-right: 16px;
+    color: #949494;
+  }
+}

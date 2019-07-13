@@ -1,7 +1,7 @@
 <template>
   <div class="small-music">
     <div v-for="i in items" :key="i.id" :class="getClass(i.id)">
-      <div class="small-music-item uk-box-shadow-small">
+      <div class="small-music-item">
         <div>
           <img @click="play(i)" alt="music-play" class="music-play" :src="getStatus(i.id)" />
         </div>
@@ -15,6 +15,7 @@
           <img class="music-image" :src="i.image" :alt="i.title" />
         </div>
       </div>
+      <hr />
     </div>
   </div>
 </template>

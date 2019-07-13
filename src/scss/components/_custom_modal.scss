@@ -36,8 +36,10 @@
 .modal-body {
   margin: 10px 0;
 
-  input,select,p{
-    font-size:$font-medium;
+  input,
+  select,
+  p {
+    font-size: $font-medium;
   }
 }
 
@@ -51,8 +53,8 @@
     font-size: $font-medium;
   }
   .btn-success {
-    background: #35c374;
-    border-color: #35c374;
+    background: $colorGreen;
+    border-color: $colorGreen;
     color: white;
   }
 }

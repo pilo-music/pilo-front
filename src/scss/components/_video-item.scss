@@ -15,6 +15,18 @@
 }
 
 .video-box {
+  .type-box {
+    color: white;
+    padding: 2px 6px;
+    font-size: 10px;
+    background: #373737;
+    position: absolute;
+    top: 5px;
+    border-radius: 5px;
+    left: 7px;
+    opacity: 0.7;
+  }
+
   .img-fluid {
     width: 100%;
     height: auto;

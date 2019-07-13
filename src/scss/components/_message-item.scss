@@ -1,0 +1,38 @@
+.message-item {
+  .top {
+    display: flex;
+    align-items: center;
+    p {
+      font-size: $font-big;
+      text-align: right;
+      flex: 9;
+      color: $colorPrimary;
+    }
+    span {
+      font-size: $font-small;
+      text-align: left;
+      flex: 3;
+    }
+  }
+  .middle {
+    text-align: right;
+    font-size: $font-medium;
+    color: $colorDark;
+    margin-top: 8px;
+  }
+  .bottom {
+    text-align: left;
+
+    span {
+      border-radius: 50px;
+      padding: 5px 30px;
+      font-size: $font-medium;
+    }
+    .admin {
+      background: #ededed;
+    }
+    .user {
+      background: $colorPrimaryLight;
+    }
+  }
+}

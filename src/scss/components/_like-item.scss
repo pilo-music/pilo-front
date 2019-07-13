@@ -1,0 +1,45 @@
+.like-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+
+  .like-info {
+    text-align: right;
+    flex: 8;
+    padding: 0 16px;
+    p {
+      font-size: $font-medium;
+      color: $colorPrimary;
+    }
+    span {
+      font-size: $font-small;
+      color: #373737;
+    }
+  }
+  .like-type {
+    text-align: left;
+    flex: 2;
+    span {
+      font-size: $font-small;
+    }
+  }
+  .like-image {
+    text-align: right;
+    flex: 2;
+    img {
+      border-radius: 5px;
+    }
+  }
+
+  .type-box {
+    color: white;
+    padding: 2px 6px;
+    font-size: 10px;
+    background: #373737;
+    border-radius: 5px;
+    opacity: 0.7;
+    position: relative !important;
+    text-align: center;
+  }
+}
