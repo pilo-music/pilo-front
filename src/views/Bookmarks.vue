@@ -1,31 +1,25 @@
 <template>
   <layout name="Panel">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="musics-list-box">
-            <!-- header -->
-            <b-navbar :sticky="true">
-              <div class="music-header full">
-                <div>
-                  <img
-                    @click="$router.go(-1)"
-                    src="@/assets/panel/img/icon/left-arrow.svg"
-                    alt="back-to-prev-page"
-                  />
-                </div>
-                <div>
-                  <span>لیست بوک مارک ها</span>
-                </div>
-              </div>
-            </b-navbar>
-            <div class="margin-t">
-              <div v-if="!isLoading">
-                <div v-for="(i,index) in results" :key="index">
-                  <bookmark-item :item="i" />
-                </div>
-              </div>
-            </div>
+      <!-- header -->
+      <b-navbar :sticky="true">
+        <div class="music-header full">
+          <div>
+            <img
+              @click="$router.go(-1)"
+              src="@/assets/panel/img/icon/left-arrow.svg"
+              alt="back-to-prev-page"
+            />
+          </div>
+          <div>
+            <span>لیست بوک مارک ها</span>
+          </div>
+        </div>
+      </b-navbar>
+      <div class="margin-t">
+        <div v-if="!isLoading">
+          <div v-for="(i,index) in results" :key="index">
+            <bookmark-item :item="i" />
           </div>
         </div>
       </div>

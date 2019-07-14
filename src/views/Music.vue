@@ -1,133 +1,123 @@
 <template>
   <layout name="Panel">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="single-music-box" v-if="!isLoading">
-            <!-- header -->
-            <b-navbar :sticky="true">
-              <div class="music-header">
-                <div>
-                  <img
-                    @click="$router.go(-1)"
-                    src="@/assets/panel/img/icon/left-arrow.svg"
-                    alt="back-to-prev-page"
-                  />
-                </div>
-                <div>
-                  <span>{{currentSong.title}}</span>
-                </div>
-                <div class="header-drop-down">
-                  <img
-                    src="@/assets/panel/img/icon/ellipsis.svg"
-                    alt="back-to-prev-page"
-                    @click="showCustomModal = !showCustomModal"
-                  />
-                </div>
-              </div>
-            </b-navbar>
-            <div class="padding-t">
-              <!-- music image -->
-              <div class="music-image">
-                <img :src="currentSong.image" :alt="currentSong.title" />
-              </div>
-              <!-- music info -->
-              <div class="music-info">
-                <p>{{ currentSong.title}}</p>
-                <span>{{currentSong.artist.name}}</span>
-              </div>
-
-              <!-- progress bar -->
-              <div class="row music-progress-bar mt-3">
-                <div class="position-relative">
-                  <img
-                    @click="repeat"
-                    :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
-                    alt="share"
-                  />
-                  <div class="repeat-info" v-if="onRepeat">{{settings.loop.value}}</div>
-                </div>
-                <div class="flex-grow-1">
-                  <div class="progress-container">
-                    <div class="progress" id="progress-wrap">
-                      <div class="progress-handle" :style="{left:settings.progressPercentageValue}"></div>
-
-                      <div class="transparent-seeker-layer" @click="seek"></div>
-
-                      <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
-                    </div>
-                  </div>
-                  <div class="row music-time">
-                    <div class="col-6">
-                      <span>{{currentPlayedTime}}</span>
-                    </div>
-                    <div class="col-6 text-right">
-                      <span>{{duration}}</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <a :href="currentSong.url">
-                    <img
-                      class="float-right"
-                      src="@/assets/panel/img/icon/download.svg"
-                      alt="download"
-                    />
-                  </a>
-                </div>
-              </div>
-              <!-- Controls -->
-              <div class="music-controls mt-3">
-                <div>
-                  <img
-                    class="shuffle"
-                    @click="shuffleToggle"
-                    :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
-                    alt="shuffle"
-                  />
-                </div>
-                <div class="prev">
-                  <img
-                    @click="skip('backward')"
-                    src="@/assets/panel/img/icon/fast-forward-left.svg"
-                    alt="prev"
-                  />
-                </div>
-                <div>
-                  <img
-                    v-if="!isPlaying"
-                    @click="playCurrentSong"
-                    alt="play"
-                    class="play"
-                    src="@/assets/panel/img/icon/main-play.svg"
-                  />
-                  <img
-                    class="play"
-                    @click="pause"
-                    v-else
-                    src="@/assets/panel/img/icon/main-pause.svg"
-                    alt="pause"
-                  />
-                </div>
-                <div class="next">
-                  <img
-                    @click="skip('forward')"
-                    src="@/assets/panel/img/icon/fast-forward-right.svg"
-                    alt="next"
-                  />
-                </div>
-                <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
-              </div>
-              <hr />
+      <div class="single-music-box" v-if="!isLoading">
+        <!-- header -->
+        <b-navbar :sticky="true">
+          <div class="music-header">
+            <div>
+              <img
+                @click="$router.go(-1)"
+                src="@/assets/panel/img/icon/left-arrow.svg"
+                alt="back-to-prev-page"
+              />
+            </div>
+            <div>
+              <span>{{currentSong.title}}</span>
+            </div>
+            <div class="header-drop-down">
+              <img
+                src="@/assets/panel/img/icon/ellipsis.svg"
+                alt="back-to-prev-page"
+                @click="showCustomModal = !showCustomModal"
+              />
             </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <!-- play list -->
-          <div v-if="!isLoading">
-            <playlist :items="playlist" v-on:play="play($event)" />
+        </b-navbar>
+        <div class="padding-t">
+          <!-- music image -->
+          <div class="music-image">
+            <img :src="currentSong.image" :alt="currentSong.title" />
           </div>
+          <!-- music info -->
+          <div class="music-info">
+            <p>{{ currentSong.title}}</p>
+            <span>{{currentSong.artist.name}}</span>
+          </div>
+
+          <!-- progress bar -->
+          <div class="row music-progress-bar mt-3">
+            <div class="position-relative">
+              <img
+                @click="repeat"
+                :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
+                alt="share"
+              />
+              <div class="repeat-info" v-if="onRepeat">{{settings.loop.value}}</div>
+            </div>
+            <div class="flex-grow-1">
+              <div class="progress-container">
+                <div class="progress" id="progress-wrap">
+                  <div class="progress-handle" :style="{left:settings.progressPercentageValue}"></div>
+
+                  <div class="transparent-seeker-layer" @click="seek"></div>
+
+                  <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+                </div>
+              </div>
+              <div class="row music-time">
+                <div class="col-6">
+                  <span>{{currentPlayedTime}}</span>
+                </div>
+                <div class="col-6 text-right">
+                  <span>{{duration}}</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <a :href="currentSong.url">
+                <img class="float-right" src="@/assets/panel/img/icon/download.svg" alt="download" />
+              </a>
+            </div>
+          </div>
+          <!-- Controls -->
+          <div class="music-controls mt-3">
+            <div>
+              <img
+                class="shuffle"
+                @click="shuffleToggle"
+                :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
+                alt="shuffle"
+              />
+            </div>
+            <div class="prev">
+              <img
+                @click="skip('backward')"
+                src="@/assets/panel/img/icon/fast-forward-left.svg"
+                alt="prev"
+              />
+            </div>
+            <div>
+              <img
+                v-if="!isPlaying"
+                @click="playCurrentSong"
+                alt="play"
+                class="play"
+                src="@/assets/panel/img/icon/main-play.svg"
+              />
+              <img
+                class="play"
+                @click="pause"
+                v-else
+                src="@/assets/panel/img/icon/main-pause.svg"
+                alt="pause"
+              />
+            </div>
+            <div class="next">
+              <img
+                @click="skip('forward')"
+                src="@/assets/panel/img/icon/fast-forward-right.svg"
+                alt="next"
+              />
+            </div>
+            <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
+          </div>
+          <hr />
         </div>
+      </div>
+      <!-- play list -->
+      <div v-if="!isLoading">
+        <playlist :items="playlist" v-on:play="play($event)" />
       </div>
       <!-- Audio -->
       <audio

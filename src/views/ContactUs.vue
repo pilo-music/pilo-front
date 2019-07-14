@@ -2,28 +2,23 @@
   <layout name="Panel" class="profile-edit">
     <div class="align">
       <div class="container-fluid margin-t">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="musics-list-box">
-              <!-- header -->
-              <b-navbar :sticky="true">
-                <div class="music-header full">
-                  <div>
-                    <img
-                      @click="$router.go(-1)"
-                      src="@/assets/panel/img/icon/left-arrow.svg"
-                      alt="back-to-prev-page"
-                    />
-                  </div>
-                  <div>
-                    <span>ارتباط با ما</span>
-                  </div>
-                </div>
-              </b-navbar>
+        <!-- header -->
+        <b-navbar :sticky="true">
+          <div class="music-header full">
+            <div>
+              <img
+                @click="$router.go(-1)"
+                src="@/assets/panel/img/icon/left-arrow.svg"
+                alt="back-to-prev-page"
+              />
+            </div>
+            <div>
+              <span>ارتباط با ما</span>
             </div>
           </div>
-        </div>
+        </b-navbar>
       </div>
+
       <div class="grid">
         <b-alert :variant="alertStatus" class="rtl text-right" :show="alertShow">{{alertMessage}}</b-alert>
 

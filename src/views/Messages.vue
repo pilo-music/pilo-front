@@ -1,37 +1,33 @@
 <template>
   <layout name="Panel">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="musics-list-box">
-            <!-- header -->
-            <b-navbar :sticky="true">
-              <div class="music-header full">
-                <div>
-                  <img
-                    @click="$router.go(-1)"
-                    src="@/assets/panel/img/icon/left-arrow.svg"
-                    alt="back-to-prev-page"
-                  />
-                </div>
-                <div>
-                  <span>لیست پیام ها</span>
-                </div>
-              </div>
-            </b-navbar>
-            <div class="margin-t">
-              <div v-if="!isLoading">
-                <div v-for="(i,index) in results" :key="index">
-                  <message-item :item="i" />
-                </div>
-              </div>
-
-              <div class="add-message">
-                <router-link :to="{name:'contactus'}">
-                  <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
-                </router-link>
-              </div>
+      <div class="musics-list-box">
+        <!-- header -->
+        <b-navbar :sticky="true">
+          <div class="music-header full">
+            <div>
+              <img
+                @click="$router.go(-1)"
+                src="@/assets/panel/img/icon/left-arrow.svg"
+                alt="back-to-prev-page"
+              />
             </div>
+            <div>
+              <span>لیست پیام ها</span>
+            </div>
+          </div>
+        </b-navbar>
+        <div class="margin-t">
+          <div v-if="!isLoading">
+            <div v-for="(i,index) in results" :key="index">
+              <message-item :item="i" />
+            </div>
+          </div>
+
+          <div class="add-message">
+            <router-link :to="{name:'contactus'}">
+              <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
+            </router-link>
           </div>
         </div>
       </div>

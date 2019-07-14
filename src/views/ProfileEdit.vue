@@ -1,27 +1,23 @@
 <template>
   <layout name="Panel" class="profile-edit">
     <div class="align">
-      <div class="container-fluid margin-t">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="musics-list-box">
-              <!-- header -->
-              <b-navbar :sticky="true">
-                <div class="music-header full">
-                  <div>
-                    <img
-                      @click="$router.go(-1)"
-                      src="@/assets/panel/img/icon/left-arrow.svg"
-                      alt="back-to-prev-page"
-                    />
-                  </div>
-                  <div>
-                    <span>ویرایش پروفایل</span>
-                  </div>
-                </div>
-              </b-navbar>
+      <div class="container-fluid">
+        <div class="musics-list-box">
+          <!-- header -->
+          <b-navbar :sticky="true">
+            <div class="music-header full">
+              <div>
+                <img
+                  @click="$router.go(-1)"
+                  src="@/assets/panel/img/icon/left-arrow.svg"
+                  alt="back-to-prev-page"
+                />
+              </div>
+              <div>
+                <span>ویرایش پروفایل</span>
+              </div>
             </div>
-          </div>
+          </b-navbar>
         </div>
       </div>
       <div class="mb-3 text-center">
@@ -73,7 +69,6 @@
               name="password"
               class="form__input"
               placeholder="رمز عبور"
-              required
               v-model="password"
             />
           </div>
@@ -84,7 +79,6 @@
               name="confirm"
               class="form__input"
               placeholder="تکرار رمز عبور"
-              required
               v-model="confirm"
             />
           </div>
@@ -136,11 +130,11 @@ export default {
   methods: {
     editProfile() {
       this.isLoading = true;
-      if (password != confirm) {
+      if (this.password != this.confirm) {
         this.errors.confirm = "رمزهای عبور یکسان نمیباشند";
         return;
       }
-      if (name.lengh == 0) {
+      if (this.name.lengh == 0) {
         this.errors.name = "لطفا نام خود را وارد کنید.";
         return;
       }
@@ -150,18 +144,19 @@ export default {
           this.isLoading = false;
           if (response.data.data == "success") {
             this.errors.showAlert = true;
-            this.status.alertMessage = "اطلاعات با موفقیت ذخیره شد";
-            this.status.alertStatus = "success";
+            this.errors.alertMessage = "اطلاعات با موفقیت ذخیره شد";
+            this.errors.alertStatus = "success";
           } else {
             this.errors.showAlert = true;
-            this.status.alertMessage = "مشکلی در انجام عملیات رخ داده است";
-            this.status.alertStatus = "danger";
+            this.errors.alertMessage = "مشکلی در انجام عملیات رخ داده است";
+            this.errors.alertStatus = "danger";
           }
         })
         .catch(err => {
           this.isLoading = false;
           console.log(err);
         });
+      this.isLoading = false;
     }
   },
   mounted() {

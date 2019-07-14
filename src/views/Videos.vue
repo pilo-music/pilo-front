@@ -1,45 +1,35 @@
 <template>
   <layout name="Default">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="musics-list-box">
-            <!-- header -->
-            <b-navbar :sticky="true">
-              <div class="music-header full">
-                <div>
-                  <img
-                    @click="$router.go(-1)"
-                    src="@/assets/panel/img/icon/left-arrow.svg"
-                    alt="back-to-prev-page"
-                  />
-                </div>
-                <div>
-                  <span>لیست موزیک ویدیو ها</span>
-                </div>
-              </div>
-            </b-navbar>
-            <!-- Music Items -->
-            <div class="margin-t">
-              <div v-if="!isLoading" class="row">
-                <div
-                  v-for="(i,index) in videos"
-                  :key="index"
-                  class="col-md-6 col-sm-6 col-lg-4 mb-3"
-                >
-                  <video-item :video="i" />
-                </div>
-                <infinite-loading spinner="spiral" @infinite="infiniteHandler">
-                  <div slot="no-more">مورد یافت نشد</div>
-                  <div slot="no-results">مورد یافت نشد</div>
-                </infinite-loading>
-              </div>
-              <div v-else></div>
+        <!-- header -->
+        <b-navbar :sticky="true">
+          <div class="music-header full">
+            <div>
+              <img
+                @click="$router.go(-1)"
+                src="@/assets/panel/img/icon/left-arrow.svg"
+                alt="back-to-prev-page"
+              />
+            </div>
+            <div>
+              <span>لیست موزیک ویدیو ها</span>
             </div>
           </div>
+        </b-navbar>
+        <!-- Music Items -->
+        <div class="margin-t">
+          <div v-if="!isLoading" class="row">
+            <div v-for="(i,index) in videos" :key="index" class="col-md-6 col-sm-6 col-lg-4 mb-3">
+              <video-item :video="i" />
+            </div>
+            <infinite-loading spinner="spiral" @infinite="infiniteHandler">
+              <div slot="no-more">مورد یافت نشد</div>
+              <div slot="no-results">مورد یافت نشد</div>
+            </infinite-loading>
+          </div>
+          <div v-else></div>
         </div>
       </div>
-    </div>
   </layout>
 </template>
 
