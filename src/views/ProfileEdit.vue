@@ -23,15 +23,32 @@
       <div class="mb-3 text-center">
         <div class="mb-3">
           <img
-            v-if="currentUser.user.pic.length > 0"
-            :src="currentUser.user.pic"
+            v-if="pic.length > 0"
+            :src="pic"
+            class="rounded-circle"
+            alt="user-image"
+            width="100"
+            height="100"
+            @click="$refs.file.click()"
+          />
+          <img
+            class="rounded-circle"
+            v-else
+            @click="$refs.file.click()"
+            src="@/assets/panel/img/user.svg"
             alt="user-image"
             width="100"
             height="100"
           />
-          <img v-else src="@/assets/panel/img/user.svg" alt="user-image" width="100" height="100" />
+          <input
+            style="display: none;"
+            ref="file"
+            type="file"
+            @change="previewImage"
+            accept="image/*"
+          />
         </div>
-        <button class="upload-image">آپلود عکس</button>
+        <button class="upload-image" @click="$refs.file.click()">آپلود عکس</button>
       </div>
       <div class="grid">
         <b-alert
@@ -72,6 +89,9 @@
               v-model="password"
             />
           </div>
+          <div class="error">
+            <p>{{errors.password}}</p>
+          </div>
 
           <div class="form__field">
             <input
@@ -103,7 +123,7 @@
 </template>
 
 <script>
-import { edit } from "@/services/api/user_api";
+import { edit, me } from "@/services/api/user_api";
 import Layout from "@/layouts/Layout";
 
 export default {
@@ -112,12 +132,13 @@ export default {
   },
   data() {
     return {
-      pic: null,
-      name: null,
-      email: null,
-      password: null,
-      confirm: null,
+      pic: "",
+      name: "",
+      email: "",
+      password: "",
+      confirm: "",
       errors: {
+        password: "",
         confirm: "",
         name: "",
         alertStatus: "success",
@@ -134,8 +155,16 @@ export default {
         this.errors.confirm = "رمزهای عبور یکسان نمیباشند";
         return;
       }
+      if (this.password.length < 5) {
+        this.errors.password = "پسورد باید دارای حداقل 5 کاراکتر باشد";
+        return;
+      }
+
       if (this.name.lengh == 0) {
         this.errors.name = "لطفا نام خود را وارد کنید.";
+        return;
+      } else if (this.name.lengh <= 3) {
+        this.errors.name = "نام باید دارای حداقل 3 کاراکتر باشد";
         return;
       }
 
@@ -146,10 +175,16 @@ export default {
             this.errors.showAlert = true;
             this.errors.alertMessage = "اطلاعات با موفقیت ذخیره شد";
             this.errors.alertStatus = "success";
+            setTimeout(() => {
+              this.errors.showAlert = false;
+            }, 2000);
           } else {
             this.errors.showAlert = true;
             this.errors.alertMessage = "مشکلی در انجام عملیات رخ داده است";
             this.errors.alertStatus = "danger";
+            setTimeout(() => {
+              this.errors.showAlert = false;
+            }, 2000);
           }
         })
         .catch(err => {
@@ -157,13 +192,31 @@ export default {
           console.log(err);
         });
       this.isLoading = false;
+    },
+    getData() {
+      me()
+        .then(response => {
+          this.name = response.data.data.name;
+          this.pic = response.data.data.pic;
+          this.email = response.data.data.email;
+        })
+        .catch(err => {
+          console.log("profile_edit  " + err);
+        });
+    },
+    previewImage: function(event) {
+      let input = event.target;
+      if (input.files && input.files[0]) {
+        let reader = new FileReader();
+        reader.onload = e => {
+          this.pic = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   },
   mounted() {
-    this.name =
-      this.currentUser.user.name == null ? "" : this.currentUser.user.name;
-    this.email =
-      this.currentUser.user.email == null ? "" : this.currentUser.user.email;
+    this.getData();
   },
   computed: {
     currentUser() {

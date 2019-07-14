@@ -122,10 +122,19 @@ export default {
       login(this.email, this.password)
         .then(response => {
           if (response.status == 200) {
-            this.$store.dispatch("login", response.data);
-            this.$router.push({
-              name: "home"
-            });
+            if (response.data.data != null) {
+              if (response.data.data.user != null) {
+                this.$store.dispatch("login", response.data.data);
+                this.$router.push({
+                  name: "home"
+                });
+                return;
+              } else {
+                this.error.password = "مشکلی در انجام عملیات رخ داده است";
+              }
+            } else {
+              this.error.password = "مشکلی در انجام عملیات رخ داده است";
+            }
           }
           this.$refs.spinner.style.visibility = "hidden";
         })
