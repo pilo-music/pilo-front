@@ -70,7 +70,12 @@
             <div v-if="currentUser">
               <browser-playlist-carousel :items="browser.user_playlists" />
             </div>
-            <div v-else>باید لاگین کنید</div>
+            <div v-else class="text-center">
+              <router-link
+                class="login-error"
+                :to="{name:'login'}"
+              >برای نمایش این بخش باید وارد حساب کاربری خود شوید</router-link>
+            </div>
           </div>
           <!-- Your Bookmark -->
           <div class="row margin-t">
@@ -83,7 +88,12 @@
             <div v-if="currentUser">
               <browser-bookmarks-carousel :items="browser.bookmarks" />
             </div>
-            <div v-else>باید لاگین کنید</div>
+            <div v-else class="text-center">
+              <router-link
+                class="login-error"
+                :to="{name:'login'}"
+              >برای نمایش این بخش باید وارد حساب کاربری خود شوید</router-link>
+            </div>
           </div>
         </div>
       </div>

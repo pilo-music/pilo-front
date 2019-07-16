@@ -30,46 +30,45 @@
 </template>
 
 <script>
+import { getLocalSong } from "@/services/helpers/music.js";
 export default {
   name: "components.music_item",
   props: ["music"],
   methods: {
-    // play(music) {
-    //   this.$store.dispatch("setCurrentSong", muisc);
-    // }
     play(song = {}) {
+      let currentSong = getLocalSong();
       if (typeof song === "object") {
-        //     //check if song exists in playlist
-        if (this.currentSong.id === song.id && this.isPlaying) {
-          this.$store.commit("SET_IS_PLAYING", false);
-        } else if (this.currentSong.id === song.id && !this.isPlaying) {
-          this.$store.commit("SET_IS_PLAYING", true);
-        } else if (this.currentSong.id !== song.id) {
-          if (!this.containsObjectWithSameId(song, this.playlist)) {
-            this.addToPlaylist(song);
-            this.setCurrentSong(song);
-          } else {
-            this.setCurrentSong(song);
+        if (this.settings.isLoaded) {
+          //check if song exists in playlist
+          if (currentSong.id === song.id && this.isPlaying) {
+            this.$store.commit("SET_IS_PLAYING", false);
+          } else if (currentSong.id === song.id && !this.isPlaying) {
+            this.$store.commit("SET_IS_PLAYING", true);
+          } else if (currentSong.id !== song.id) {
+            if (!this.containsObjectWithSameId(song, this.playlist)) {
+              this.$store.commit("SET_IS_PLAYING", false);
+              this.addToPlaylist(song);
+            }
+            this.$store.dispatch("setCurrentMusic", song);
+            this.settings.previousPlaylistIndex = this.settings.currentIndex;
+            this.settings.currentIndex = 0;
+            setTimeout(() => {
+              this.$store.commit("SET_IS_PLAYING", true);
+            }, 1000);
           }
-          // this.settings.setCurrentIndex =
-          //   this.getObjectIndexFromArray(song, this.playlist)
-          // ;
-          // this.$store.dispatch("setCurrentSetting", this.settings.currentIndex);
-          this.$store.commit("SET_IS_PLAYING", true);
+        } else {
+          this.$store.dispatch("setCurrentMusic", song);
+          setTimeout(() => {
+            this.$store.commit("SET_IS_PLAYING", true);
+          }, 1000);
         }
-      } else {
-        throw new Error("Type Error : Song must be an object");
+        this.$store.commit("SET_IS_PLAYING", true);
       }
     },
     addToPlaylist(song) {
       var newPlaylist = this.playlist;
-      if (newPlaylist.length > 0) newPlaylist = newPlaylist.unshift(song);
-      else newPlaylist = [song];
+      newPlaylist.unshift(song);
       this.$store.commit("SET_CURRENT_PLAYLIST", newPlaylist);
-    },
-    setCurrentSong(song) {
-      this.$store.dispatch("setCurrentMusic", song);
-      console.log(this.currentSong.title);
     },
     containsObjectWithSameId(obj, list) {
       let i;
@@ -98,9 +97,6 @@ export default {
     },
     settings() {
       return this.$store.getters.currentSettings;
-    },
-    currentSong() {
-      return this.$store.getters.currentMusic;
     }
   }
 };

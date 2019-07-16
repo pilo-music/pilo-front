@@ -43,7 +43,7 @@
                 :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
                 alt="share"
               />
-              <div class="repeat-info" v-if="onRepeat">{{settings.loop.value}}</div>
+              <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
             </div>
             <div class="flex-grow-1">
               <div class="progress-container">
@@ -116,12 +116,26 @@
         </div>
       </div>
       <!-- play list -->
+      <div>
+        <div class="row">
+          <div class="section-title col-12 pr-4">
+            <h2 class="text-right">پلی لیست شما</h2>
+          </div>
+        </div>
+        <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
+      </div>
+      <!-- Related Music -->
       <div v-if="!isLoading">
-        <playlist :items="playlist" v-on:play="play($event)" />
+        <div class="row">
+          <div class="section-title col-12 pr-4">
+            <h2 class="text-right">موزیک های مرتبط</h2>
+          </div>
+        </div>
+        <home-musics-carousel :items="related" />
       </div>
       <!-- Audio -->
       <audio
-        :loop="innerLoop"
+        :loop="settings.innerLoop"
         ref="audiofile"
         :src="currentSong.url"
         preload
@@ -177,6 +191,8 @@ import { single } from "@/services/api/music_api.js";
 import CustomModal from "@/components/CustomModal";
 import AddToPlaylist from "@/components/AddToPlaylist";
 import Layout from "@/layouts/Layout";
+import HomeMusicsCarousel from "@/components/home/HomeMusicsCarousel";
+import { getLocalSong } from "@/services/helpers/music.js";
 
 export default {
   components: {
@@ -185,7 +201,8 @@ export default {
     CustomModal,
     Bookmark,
     AddToPlaylist,
-    Layout
+    Layout,
+    HomeMusicsCarousel
   },
   name: "views.music",
   data() {
@@ -194,6 +211,7 @@ export default {
       settings: {},
       orginal_playlist: [],
       currentSong: {},
+      related: [],
       showCustomModal: false,
       showCreatePlaylistModal: false
     };
@@ -209,7 +227,7 @@ export default {
       .then(response => {
         this.isLoading = false;
         this.currentSong = response.data.data.music;
-        this.playlist = response.data.data.playlist;
+        this.related = response.data.data.playlist;
       })
       .catch(err => {
         console.log(err);
@@ -235,50 +253,58 @@ export default {
     },
 
     play(song = {}) {
-      console.log(song);
       if (typeof song === "object") {
         if (this.settings.isLoaded) {
           //check if song exists in playlist
           if (this.currentSong.id === song.id && this.isPlaying) {
             this.pause();
           } else if (this.currentSong.id === song.id && !this.isPlaying) {
-            console.log("playCurrentSong");
             this.playCurrentSong();
           } else if (this.currentSong.id !== song.id) {
             if (!this.containsObjectWithSameId(song, this.playlist)) {
-              console.log("addToPlaylist");
               this.addToPlaylist(song);
             } else {
               this.setCurrentSong(song);
               this.playCurrentSong();
-              console.log("playMethod", "song already in playlist");
             }
-            this.setAudio(song.url);
+
             this.setCurrentSong(song);
-            this.settings.setCurrentIndex = this.getObjectIndexFromArray(
+            this.settings.currentIndex = this.getObjectIndexFromArray(
               song,
               this.playlist
             );
             this.settings.previousPlaylistIndex = this.settings.currentIndex;
-            this.audioPlayer.play();
+            this.playCurrentSong();
           }
         } else {
-          this.currentSong = song;
-          this.setAudio(song.url);
+          this.setCurrentSong(song);
           this.pause();
           setTimeout(() => {
             this.playCurrentSong();
           }, 1000);
         }
         this.$store.commit("SET_IS_PLAYING", true);
-      } else {
-        throw new Error("Type Error : Song must be an object");
       }
     },
 
     playCurrentSong() {
-      this.audioPlayer.play();
-      this.$store.commit("SET_IS_PLAYING", true);
+      let current = getLocalSong();
+      if (current != null && this.currentSong.url !== current.url) {
+        this.currentSong = current;
+        this.audioPlayer.src = this.currentSong.url;
+        setTimeout(() => {
+          this.audioPlayer.play();
+          this.$store.commit("SET_IS_PLAYING", true);
+        }, 1000);
+      } else {
+        if (!this.isPlaying) {
+          this.audioPlayer.play();
+          this.$store.commit("SET_IS_PLAYING", true);
+        } else {
+          this.pause();
+          this.$store.commit("SET_IS_PLAYING", false);
+        }
+      }
     },
 
     stop() {
@@ -318,33 +344,32 @@ export default {
 
     skip(direction) {
       if (direction === "forward") {
-        this.settings.currentIndex + 1;
+        this.settings.currentIndex++;
       } else if (direction === "backward") {
-        this.settings.currentIndex - 1;
+        this.settings.currentIndex--;
       }
-
-      /** 
-        if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
-        reset the index to 0. It could also mean that the playlist is at its end. 
-      **/
+      console.log(this.settings.currentIndex);
 
       if (this.settings.currentIndex >= this.playlist.length) {
         this.settings.currentIndex = 0;
       }
 
-      if (this.currentIndex < 0) {
+      if (this.settings.currentIndex < 0) {
         this.settings.currentIndex = this.playlist.length - 1;
       }
+      console.log(this.settings.currentIndex);
 
-      this.audioPlayer.src = this.playlist[this.currentIndex].url;
-      this.settings.currentIndex = this.playlist[this.currentIndex];
+      if (this.playlist[this.settings.currentIndex] != null)
+        this.setCurrentSong(this.playlist[this.settings.currentIndex]);
 
       //the code below checks if a song is playing so it can go ahead and auto play
       if (this.isPlaying) {
         this.pause();
         setTimeout(() => {
           this.playCurrentSong();
-        }, 1000);
+        }, 500);
+      } else {
+        this.playCurrentSong();
       }
     },
 
@@ -389,27 +414,6 @@ export default {
       }
     },
 
-    addAndPlayNext() {
-      let selectedSong = {
-        title: "Song Name 3",
-        artist: "Artist Name",
-        album: "Album Name",
-        url: "./song2.mp3",
-        cover_art_url: "/cover/art/url.jpg",
-        isPlaying: false
-      };
-
-      //add the song to the playlist
-
-      //get the index of the song that is currently being played in the player
-
-      //insert the song at that position
-
-      let indexOfCurrentSong = this.currentIndex;
-
-      this.playlist.splice(indexOfCurrentSong + 1, 0, selectedSong);
-    },
-
     addToPlaylist(song) {
       this.playlist.unshift(song);
     },
@@ -420,9 +424,10 @@ export default {
 
     playNextSongInPlaylist() {
       if (this.settings.onRepeat && this.settings.loop.value === 1) {
-        this.audioPlayer.play();
+        console.log("playcurrentSong");
+        this.playCurrentSong();
       } else {
-        if (this.playlist.length > 1) {
+        if (this.playlist.length > 0) {
           if (this.settings.random) {
             //generate a random number
             let randomNumber = this.generateRandomNumber(
@@ -434,14 +439,10 @@ export default {
             //set the current index of the playlist
             this.settings.currentIndex = randomNumber;
 
-            //set the src of the audio player
-            this.audioPlayer.src = this.playlist[
-              this.settings.currentIndex
-            ].url;
             //set the current song
             this.setCurrentSong(this.playlist[this.settings.currentIndex]);
             //begin to play
-            this.audioPlayer.play();
+            this.playCurrentSong();
           } else {
             /**if the current Index of the playlist is equal to the index of the last song played skip that song
              and add 1*/
@@ -450,7 +451,7 @@ export default {
               this.settings.currentIndex === this.settings.previousPlaylistIndex
             ) {
               //increment the current index of the playlist by 1
-              this.settings.currentIndex = this.settings.currentIndex += 1;
+              this.settings.currentIndex++;
             }
 
             /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
@@ -463,21 +464,22 @@ export default {
               ) {
                 //if repeat is on then replay from the top
                 this.settings.currentIndex = 0;
-              } else {
-                return;
               }
             }
 
-            this.audioPlayer.src = this.playlist[
-              this.settings.currentIndex
-            ].url;
-            this.settings.currentIndex = this.playlist[
-              this.settings.currentIndex
-            ];
-            this.audioPlayer.play();
-            this.settings.currentIndex = this.settings.currentIndex += 1;
+            if (this.playlist[this.settings.currentIndex] != null)
+              this.setCurrentSong(this.playlist[this.settings.currentIndex]);
+            if (this.isPlaying) {
+              console.log("sdas");
+              this.pause();
+              setTimeout(() => {
+                this.playCurrentSong();
+              }, 500);
+            } else {
+              this.playCurrentSong();
+            }
+            this.settings.currentIndex++;
           }
-        } else {
         }
       }
     },
@@ -576,15 +578,8 @@ export default {
     shareLink() {
       // TODO : add toast here
       navigator.clipboard
-        .writeText("https://m.taksound.com/" + this.$route.fullPath)
-        .then(
-          function() {
-            console.log("Async: Copying to clipboard was successful!");
-          },
-          function(err) {
-            console.error("Async: Could not copy text: ", err);
-          }
-        );
+        .writeText("https://dl.pilo.app/" + this.$route.fullPath)
+        .then(function() {}, function(err) {});
     },
     openCreatePlaylist() {
       this.showCustomModal = false;

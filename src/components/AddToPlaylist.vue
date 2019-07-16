@@ -33,7 +33,7 @@
     <div class="text-center">
       <b-spinner v-show="isLoading" label="Small Spinning"></b-spinner>
     </div>
-    <div class="mt-3 modal-footer text-right">
+    <div class="mt-3 modal-footer text-right" v-if="currentUser">
       <button class="btn btn-success" @click="saveToPlaylist()">ذخیره</button>
       <button class="btn" @click="close">انصراف</button>
     </div>
@@ -85,7 +85,7 @@ export default {
     }
   },
   mounted() {
-    this.getPlaylists();
+    if (this.currentUser) this.getPlaylists();
   }
 };
 </script>

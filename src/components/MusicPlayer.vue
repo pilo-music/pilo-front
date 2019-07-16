@@ -1,595 +1,642 @@
 <template>
-    <transition v-show="showMusicPlayer" name="muisc-player">
-        <div
-                v-touch:swipe.up="swipeUpHandler"
-                v-touch:swipe.down="swipeDownHandler"
-                :class="[isOpen ? 'music-player-open' : 'music-player' , 'container-fluid']"
-        >
-            <div class="row">
-                <div class="col-12 small-music-player">
-                    <div class="row">
-                        <div class="col-4">
-                            <img
-                                    @click="skip('forward')"
-                                    width="25"
-                                    height="25"
-                                    src="@/assets/panel/img/icon/fast-forward-black.svg"
-                                    alt="fast-forward-black"
-                            />
-                            <img
-                                    @click="pause"
-                                    v-show="isPlaying"
-                                    src="@/assets/panel/img/icon/pause-black.svg"
-                                    alt="pause"
-                            />
-                            <img
-                                    @click="playCurrentSong"
-                                    width="20"
-                                    height="20"
-                                    v-show="!isPlaying"
-                                    src="@/assets/panel/img/icon/play-black.svg"
-                                    alt="play"
-                            />
-                        </div>
-                        <div class="col-8">
-                            <div>
-                                <span class="title">{{currentSong.title}}</span>
-                                <span class="name">{{currentSong.artist.name}}</span>
-                            </div>
-                            <img :src="currentSong.image" alt width="60" height="60"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="music-player-box">
-                        <div class="padding-t">
-                            <!-- music image -->
-                            <div class="music-image">
-                                <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title"/>
-                            </div>
-                            <!-- music info -->
-                            <div class="music-info">
-                                <p>{{ currentSong.title}}</p>
-                                <span>{{currentSong.artist.name}}</span>
-                            </div>
-
-                            <!-- progress bar -->
-                            <div class="row music-progress-bar mt-3">
-                                <div class="position-relative">
-                                    <img
-                                            @click="repeat"
-                                            :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
-                                            alt="share"
-                                    />
-                                    <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div class="progress-container">
-                                        <div class="progress" id="progress-wrap">
-                                            <div class="progress-handle"
-                                                 :style="{left:settings.progressPercentageValue}"></div>
-
-                                            <div class="transparent-seeker-layer" @click="seek"></div>
-
-                                            <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row music-time">
-                                        <div class="col-6">
-                                            <span>{{currentPlayedTime}}</span>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <span>{{duration}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <a :href="currentSong.url">
-                                        <img
-                                                class="float-right"
-                                                src="@/assets/panel/img/icon/download.svg"
-                                                alt="download"
-                                        />
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- Controls -->
-                            <div class="music-controls mt-3">
-                                <div>
-                                    <img
-                                            class="shuffle"
-                                            @click="shuffleToggle"
-                                            :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
-                                            alt="shuffle"
-                                    />
-                                </div>
-                                <div class="prev">
-                                    <img
-                                            @click="skip('backward')"
-                                            src="@/assets/panel/img/icon/fast-forward-left.svg"
-                                            alt="prev"
-                                    />
-                                </div>
-                                <div>
-                                    <img
-                                            v-if="!isPlaying"
-                                            @click="playCurrentSong"
-                                            alt="play"
-                                            class="play"
-                                            src="@/assets/panel/img/icon/main-play.svg"
-                                    />
-                                    <img
-                                            class="play"
-                                            @click="pause"
-                                            v-else
-                                            src="@/assets/panel/img/icon/main-pause.svg"
-                                            alt="pause"
-                                    />
-                                </div>
-                                <div class="next">
-                                    <img
-                                            @click="skip('forward')"
-                                            src="@/assets/panel/img/icon/fast-forward-right.svg"
-                                            alt="next"
-                                    />
-                                </div>
-                                <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <transition name="music-player" v-show="showMusicPlayer">
+    <div
+      v-touch:swipe="swipeUpHandler"
+      :class="[isOpen ? 'music-player-open' : 'music-player' , 'container-fluid']"
+    >
+      <div class="row">
+        <div class="col-12 small-music-player">
+          <div class="row">
+            <div class="col-4">
+              <img
+                @click="skip('forward')"
+                width="25"
+                height="25"
+                src="@/assets/panel/img/icon/fast-forward-black.svg"
+                alt="fast-forward-black"
+              />
+              <img
+                @click="pause"
+                v-show="isPlaying"
+                src="@/assets/panel/img/icon/pause-black.svg"
+                alt="pause"
+              />
+              <img
+                @click="playCurrentSong"
+                width="20"
+                height="20"
+                v-show="!isPlaying"
+                src="@/assets/panel/img/icon/play-black.svg"
+                alt="play"
+              />
             </div>
-            <!-- Audio -->
-            <audio
-                    :loop="settings.innerLoop"
-                    ref="audiofile"
-                    :src="currentSong.url"
-                    preload
-                    class="d-none"
-                    controls
-            ></audio>
+            <div class="col-8">
+              <div>
+                <span class="title">{{currentSong.title}}</span>
+                <span class="name">{{currentSong.artist.name}}</span>
+              </div>
+              <img :src="currentSong.image" alt width="60" height="60" />
+            </div>
+          </div>
         </div>
-    </transition>
+        <div class="col-md-6">
+          <div class="music-player-box">
+            <!-- header -->
+            <div class="container-fluid">
+              <b-navbar :sticky="true">
+                <div class="music-header">
+                  <div>
+                    <img
+                      @click="isOpen = false"
+                      src="@/assets/panel/img/icon/left-arrow.svg"
+                      alt="back-to-prev-page"
+                    />
+                  </div>
+                  <div>
+                    <span>{{currentSong.title}}</span>
+                  </div>
+                  <div class="header-drop-down">
+                    <img
+                      src="@/assets/panel/img/icon/ellipsis.svg"
+                      alt="back-to-prev-page"
+                      @click="showCustomModal = !showCustomModal"
+                    />
+                  </div>
+                </div>
+              </b-navbar>
+            </div>
+            <div class="padding-t">
+              <!-- music image -->
+              <div class="music-image">
+                <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
+              </div>
+              <!-- music info -->
+              <div class="music-info">
+                <p>{{ currentSong.title}}</p>
+                <span>{{currentSong.artist.name}}</span>
+              </div>
+
+              <!-- progress bar -->
+              <div class="row music-progress-bar mt-3">
+                <div class="position-relative">
+                  <img
+                    @click="repeat"
+                    :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
+                    alt="share"
+                  />
+                  <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="progress-container">
+                    <div class="progress" id="progress-wrap">
+                      <div class="progress-handle" :style="{left:settings.progressPercentageValue}"></div>
+
+                      <div class="transparent-seeker-layer" @click="seek"></div>
+
+                      <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+                    </div>
+                  </div>
+                  <div class="row music-time">
+                    <div class="col-6">
+                      <span>{{currentPlayedTime}}</span>
+                    </div>
+                    <div class="col-6 text-right">
+                      <span>{{duration}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <a :href="currentSong.url">
+                    <img
+                      class="float-right"
+                      src="@/assets/panel/img/icon/download.svg"
+                      alt="download"
+                    />
+                  </a>
+                </div>
+              </div>
+              <!-- Controls -->
+              <div class="music-controls mt-3">
+                <div>
+                  <img
+                    class="shuffle"
+                    @click="shuffleToggle"
+                    :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
+                    alt="shuffle"
+                  />
+                </div>
+                <div class="prev">
+                  <img
+                    @click="skip('backward')"
+                    src="@/assets/panel/img/icon/fast-forward-left.svg"
+                    alt="prev"
+                  />
+                </div>
+                <div>
+                  <img
+                    v-if="!isPlaying"
+                    @click="playCurrentSong"
+                    alt="play"
+                    class="play"
+                    src="@/assets/panel/img/icon/main-play.svg"
+                  />
+                  <img
+                    class="play"
+                    @click="pause"
+                    v-else
+                    src="@/assets/panel/img/icon/main-pause.svg"
+                    alt="pause"
+                  />
+                </div>
+                <div class="next">
+                  <img
+                    @click="skip('forward')"
+                    src="@/assets/panel/img/icon/fast-forward-right.svg"
+                    alt="next"
+                  />
+                </div>
+                <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Modal -->
+      <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
+        <div class="modal-body" v-if="!isLoading">
+          <div class="menu-item">
+            <router-link
+              :to="{name:'artist',params:{
+                     slug:currentSong.artist.slug
+                   }}"
+            >
+              صفحه خواننده
+              <img src="@/assets/panel/img/icon/profile.svg" alt="profile" />
+            </router-link>
+          </div>
+          <div class="menu-item">
+            بوک مارک
+            <Bookmark
+              :post_id="this.currentSong.id"
+              post_type="music"
+              :has_bookmark="this.currentSong.has_bookmark"
+            />
+          </div>
+
+          <div class="menu-item" @click="openCreatePlaylist">
+            اضافه کردن به پلی لیست
+            <img src="@/assets/panel/img/icon/plus.svg" alt="plus" />
+          </div>
+          <div @click="shareLink" class="menu-item">
+            اشتراک گذاری
+            <img src="@/assets/panel/img/icon/share.svg" alt="plus" />
+          </div>
+        </div>
+      </custom-modal>
+      <!-- Audio -->
+      <audio
+        :loop="settings.innerLoop"
+        ref="audiofile"
+        :src="currentSong.url"
+        preload
+        class="d-none"
+        controls
+      ></audio>
+    </div>
+  </transition>
 </template>
 
 <script>
-    import Playlist from "@/components/SmallMusicList.vue";
-    import Like from "@/components/Like.vue";
-    import {getLocalSong} from "@/services/helpers/music.js";
+import Playlist from "@/components/SmallMusicList.vue";
+import Like from "@/components/Like.vue";
+import { getLocalSong } from "@/services/helpers/music.js";
+import Bookmark from "@/components/Bookmark.vue";
+import CustomModal from "@/components/CustomModal";
 
-    export default {
-        components: {
-            Playlist,
-            Like
-        },
-        name: "components.music_player",
-        data() {
-            return {
-                isOpen: false,
-                settings: {},
-                currentSong: {},
-                showMusicPlayer: false
-            };
-        },
-        created() {
-            let current = getLocalSong();
-            this.settings = this.currentSettings;
-            this.settings.innerLoop = this.settings.loop.state;
-            this.currentSong = current;
-            if (this.currentSong) this.showMusicPlayer = true;
-        },
-        mounted() {
-            if (this.currentSong) {
-                this.audioPlayer = this.$el.querySelectorAll("audio")[0];
-                this.initPlayer();
+export default {
+  components: {
+    Playlist,
+    Like,
+    Bookmark,
+    CustomModal
+  },
+  name: "components.music_player",
+  data() {
+    return {
+      isOpen: false,
+      settings: {},
+      currentSong: {},
+      showMusicPlayer: false,
+      showCustomModal: false,
+      isLoading: false
+    };
+  },
+  created() {
+    let current = getLocalSong();
+    this.settings = this.currentSettings;
+    this.settings.innerLoop = this.settings.loop.state;
+    this.currentSong = current;
+    if (this.currentSong) this.showMusicPlayer = true;
+  },
+  mounted() {
+    if (this.currentSong) {
+      this.audioPlayer = this.$el.querySelectorAll("audio")[0];
+      this.initPlayer();
+    }
+  },
+
+  methods: {
+    /**Music player methods
+     * these methods are used to control the music player*/
+    initPlayer() {
+      this.audioPlayer.src = this.currentSong.url;
+      this.audioPlayer.addEventListener("timeupdate", this.updateTimer);
+      this.audioPlayer.addEventListener("loadeddata", this.load);
+      this.audioPlayer.addEventListener("pause", () => {
+        this.$store.commit("SET_IS_PLAYING", false);
+      });
+      this.audioPlayer.addEventListener("play", () => {
+        this.$store.commit("SET_IS_PLAYING", true);
+      });
+
+      this.audioPlayer.addEventListener("ended", this.playNextSongInPlaylist);
+    },
+
+    play(song = {}) {
+      if (typeof song === "object") {
+        if (this.settings.isLoaded) {
+          //check if song exists in playlist
+          if (this.currentSong.id === song.id && this.isPlaying) {
+            this.pause();
+          } else if (this.currentSong.id === song.id && !this.isPlaying) {
+            this.playCurrentSong();
+          } else if (this.currentSong.id !== song.id) {
+            if (!this.containsObjectWithSameId(song, this.playlist)) {
+              this.addToPlaylist(song);
+            } else {
+              this.setCurrentSong(song);
+              this.playCurrentSong();
             }
-        },
 
-        methods: {
-            /**Music player methods
-             * these methods are used to control the music player*/
-            initPlayer() {
-                this.audioPlayer.src = this.currentSong.url;
-                this.audioPlayer.addEventListener("timeupdate", this.updateTimer);
-                this.audioPlayer.addEventListener("loadeddata", this.load);
-                this.audioPlayer.addEventListener("pause", () => {
-                    this.$store.commit("SET_IS_PLAYING", false);
-                });
-                this.audioPlayer.addEventListener("play", () => {
-                    this.$store.commit("SET_IS_PLAYING", true);
-                });
+            this.setCurrentSong(song);
+            this.settings.currentIndex = this.getObjectIndexFromArray(
+              song,
+              this.playlist
+            );
+            this.settings.previousPlaylistIndex = this.settings.currentIndex;
+            this.playCurrentSong();
+          }
+        } else {
+          this.setCurrentSong(song);
+          this.pause();
+          setTimeout(() => {
+            this.playCurrentSong();
+          }, 1000);
+        }
+        this.$store.commit("SET_IS_PLAYING", true);
+      }
+    },
 
-                this.audioPlayer.addEventListener("ended", this.playNextSongInPlaylist);
-            },
+    playCurrentSong() {
+      let current = getLocalSong();
+      if (current != null && this.currentSong.url !== current.url) {
+        this.currentSong = current;
+        this.audioPlayer.src = this.currentSong.url;
+        setTimeout(() => {
+          this.audioPlayer.play();
+          this.$store.commit("SET_IS_PLAYING", true);
+        }, 1000);
+      } else {
+        console.log(this.isPlaying);
+        if (!this.isPlaying) {
+          this.audioPlayer.play();
+          this.$store.commit("SET_IS_PLAYING", true);
+        } else {
+          this.pause();
+          this.$store.commit("SET_IS_PLAYING", false);
+        }
+      }
+    },
 
-            play(song = {}) {
-                if (typeof song === "object") {
-                    if (this.settings.isLoaded) {
-                        //check if song exists in playlist
-                        if (this.currentSong.id === song.id && this.isPlaying) {
-                            this.pause();
-                        } else if (this.currentSong.id === song.id && !this.isPlaying) {
-                            console.log("playCurrentSong");
-                            this.playCurrentSong();
-                        } else if (this.currentSong.id !== song.id) {
-                            if (!this.containsObjectWithSameId(song, this.playlist)) {
-                                console.log("addToPlaylist");
-                                this.addToPlaylist(song);
-                            } else {
-                                this.setCurrentSong(song);
-                                this.playCurrentSong();
-                                console.log("playMethod", "song already in playlist");
-                            }
-                            this.setAudio(song.url);
-                            this.setCurrentSong(song);
-                            this.settings.currentIndex = this.getObjectIndexFromArray(
-                                song,
-                                this.playlist
-                            );
-                            this.settings.previousPlaylistIndex = this.settings.currentIndex;
-                            this.audioPlayer.play();
-                        }
-                    } else {
-                        this.currentSong = song;
-                        this.setAudio(song.url);
-                        this.pause();
-                        setTimeout(() => {
-                            this.playCurrentSong();
-                        }, 1000);
-                    }
-                    this.$store.commit("SET_IS_PLAYING", true);
-                } else {
-                    throw new Error("Type Error : Song must be an object");
-                }
-            },
+    stop() {
+      this.audioPlayer.currentTime = 0;
+    },
 
-            playCurrentSong() {
-                let current = getLocalSong();
-                if (current != null && this.currentSong != current) {
-                    this.currentSong = current;
-                    this.audioPlayer.src = this.currentSong.url;
-                    setTimeout(() => {
-                        this.audioPlayer.play();
-                        this.$store.commit("SET_IS_PLAYING", true);
-                    }, 1000);
-                } else {
-                    this.audioPlayer.play();
-                    this.$store.commit("SET_IS_PLAYING", true);
-                }
-            },
+    pause() {
+      this.audioPlayer.pause();
+      this.$store.commit("SET_IS_PLAYING", false);
+    },
 
-            stop() {
-                this.audioPlayer.currentTime = 0;
-            },
+    repeat() {
+      if (!this.settings.loop.state && !this.settings.onRepeat) {
+        //firstclick
+        this.settings.loop.state = true;
+        this.settings.loop.value = 1;
+        this.settings.onRepeat = true;
+      } else if (
+        this.settings.loop.state &&
+        this.settings.onRepeat &&
+        this.settings.loop.value === 1
+      ) {
+        //second click
+        this.settings.loop.state = true;
+        this.settings.loop.value = "all";
+        this.settings.onRepeat = true;
+      } else if (
+        this.settings.loop.state &&
+        this.settings.onRepeat &&
+        this.settings.loop.value === "all"
+      ) {
+        this.settings.loop.state = false;
+        this.settings.loop.value = 1;
+        this.settings.onRepeat = false;
+      }
+    },
 
-            pause() {
-                this.audioPlayer.pause();
-                this.$store.commit("SET_IS_PLAYING", false);
-            },
+    skip(direction) {
+      if (direction === "forward") {
+        this.settings.currentIndex++;
+      } else if (direction === "backward") {
+        this.settings.currentIndex--;
+      }
 
-            repeat() {
-                if (!this.settings.loop.state && !this.settings.onRepeat) {
-                    //firstclick
-                    this.settings.loop.state = true;
-                    this.settings.loop.value = 1;
-                    this.settings.onRepeat = true;
-                } else if (
-                    this.settings.loop.state &&
-                    this.settings.onRepeat &&
-                    this.settings.loop.value === 1
-                ) {
-                    //second click
-                    this.settings.loop.state = true;
-                    this.settings.loop.value = "all";
-                    this.settings.onRepeat = true;
-                } else if (
-                    this.settings.loop.state &&
-                    this.settings.onRepeat &&
-                    this.settings.loop.value === "all"
-                ) {
-                    this.settings.loop.state = false;
-                    this.settings.loop.value = 1;
-                    this.settings.onRepeat = false;
-                }
-            },
+      if (this.settings.currentIndex >= this.playlist.length) {
+        this.settings.currentIndex = 0;
+      }
 
-            skip(direction) {
-                if (direction === "forward") {
-                    this.settings.currentIndex + 1;
-                } else if (direction === "backward") {
-                    this.settings.currentIndex - 1;
-                }
+      if (this.settings.currentIndex < 0) {
+        this.settings.currentIndex = this.playlist.length - 1;
+      }
 
-                if (this.settings.currentIndex >= this.playlist.length) {
-                    this.settings.currentIndex = 0;
-                }
+      if (this.playlist[this.settings.currentIndex] != null)
+        this.setCurrentSong(this.playlist[this.settings.currentIndex]);
 
-                if (this.settings.currentIndex < 0) {
-                    this.settings.currentIndex = this.playlist.length - 1;
-                }
+      //the code below checks if a song is playing so it can go ahead and auto play
+      if (this.isPlaying) {
+        this.pause();
+        setTimeout(() => {
+          this.playCurrentSong();
+        }, 500);
+      } else {
+        this.playCurrentSong();
+      }
+    },
 
-                if (this.playlist[this.settings.currentIndex])
-                    this.setCurrentSong(this.playlist[this.settings.currentIndex]);
+    mute() {
+      //this.muted is a computed variable available down below
 
+      if (this.settings.muted) {
+        return (this.settings.volume = this.settings.previousVolume);
+      } else {
+        this.settings.previousVolume = this.settings.volume;
+        this.settings.volume = 0;
+      }
+    },
 
-                //the code below checks if a song is playing so it can go ahead and auto play
-                if (this.isPlaying) {
-                    this.pause();
-                    setTimeout(() => {
-                        this.playCurrentSong();
-                    }, 1000);
-                } else {
-                    this.playCurrentSong();
-                }
-            },
+    updateTimer() {
+      this.settings.currentSeconds = parseInt(this.audioPlayer.currentTime);
+      this.settings.progressPercentageValue =
+        ((this.settings.currentSeconds / parseInt(this.audioPlayer.duration)) *
+          100 || 0) + "%";
+    },
 
-            mute() {
-                //this.muted is a computed variable available down below
+    seek(e) {
+      if (this.settings.isLoaded) {
+        let el = e.target.getBoundingClientRect();
+        let seekPos = (e.clientX - el.left) / el.width;
+        let seekPosPercentage = seekPos * 100 + "%";
 
-                if (this.settings.muted) {
-                    return (this.settings.volume = this.settings.previousVolume);
-                } else {
-                    this.settings.previousVolume = this.settings.volume;
-                    this.settings.volume = 0;
-                }
-            },
+        /**
+         *  calculating the portion of the song based on where the user clicked
+         *
+         */
 
-            updateTimer() {
-                this.settings.currentSeconds = parseInt(this.audioPlayer.currentTime);
-                this.settings.progressPercentageValue =
-                    ((this.settings.currentSeconds / parseInt(this.audioPlayer.duration)) *
-                        100 || 0) + "%";
-            },
+        let songPlayTimeAfterSeek = parseInt(
+          this.audioPlayer.duration * seekPos
+        );
 
-            seek(e) {
-                if (this.settings.isLoaded) {
-                    let el = e.target.getBoundingClientRect();
-                    let seekPos = (e.clientX - el.left) / el.width;
-                    let seekPosPercentage = seekPos * 100 + "%";
+        this.audioPlayer.currentTime = songPlayTimeAfterSeek;
 
-                    /**
-                     *  calculating the portion of the song based on where the user clicked
-                     *
-                     */
+        this.settings.progressPercentageValue = seekPosPercentage;
+      } else {
+        throw new Error("Song Not Loaded");
+      }
+    },
 
-                    let songPlayTimeAfterSeek = parseInt(
-                        this.audioPlayer.duration * seekPos
-                    );
+    addToPlaylist(song) {
+      let newPlaylist = this.playlist;
+      newPlaylist = newPlaylist.unshift(song);
+      this.$store.commit("SET_CURRENT_PLAYLIST", newPlaylist);
+    },
 
-                    this.audioPlayer.currentTime = songPlayTimeAfterSeek;
+    dragSeek(e) {
+      let el = e.target.getBoundingClientRect();
+    },
 
-                    this.settings.progressPercentageValue = seekPosPercentage;
-                } else {
-                    throw new Error("Song Not Loaded");
-                }
-            },
+    playNextSongInPlaylist() {
+      if (this.settings.onRepeat && this.settings.loop.value === 1) {
+        this.playCurrentSong();
+      } else {
+        if (this.playlist.length > 1) {
+          if (this.settings.random) {
+            //generate a random number
+            //set the current index of the playlist
+            this.settings.currentIndex = this.generateRandomNumber(
+              0,
+              this.playlist.length - 1,
+              this.settings.previousPlaylistIndex
+            );
 
-            addToPlaylist(song) {
-                var newPlaylist = this.playlist;
-                newPlaylist = newPlaylist.unshift(song);
-                this.$store.commit("SET_CURRENT_PLAYLIST", newPlaylist);
-            },
-
-            dragSeek(e) {
-                let el = e.target.getBoundingClientRect();
-            },
-
-            playNextSongInPlaylist() {
-                if (this.settings.onRepeat && this.settings.loop.value === 1) {
-                    this.audioPlayer.play();
-                } else {
-                    if (this.playlist.length > 1) {
-                        if (this.settings.random) {
-                            //generate a random number
-                            let randomNumber = this.generateRandomNumber(
-                                0,
-                                this.playlist.length - 1,
-                                this.settings.previousPlaylistIndex
-                            );
-
-                            //set the current index of the playlist
-                            this.settings.currentIndex = randomNumber;
-
-                            //set the src of the audio player
-                            this.audioPlayer.src = this.playlist[
-                                this.settings.currentIndex
-                                ].url;
-                            //set the current song
-                            this.setCurrentSong(this.playlist[this.settings.currentIndex]);
-                            //begin to play
-                            this.audioPlayer.play();
-                        } else {
-                            /**if the current Index of the playlist is equal to the index of the last song played skip that song
+            //set the src of the audio player
+            this.audioPlayer.src = this.playlist[
+              this.settings.currentIndex
+            ].url;
+            //set the current song
+            this.setCurrentSong(this.playlist[this.settings.currentIndex]);
+            //begin to play
+            this.playCurrentSong();
+          } else {
+            /**if the current Index of the playlist is equal to the index of the last song played skip that song
                              and add 1*/
 
-                            if (
-                                this.settings.currentIndex === this.settings.previousPlaylistIndex
-                            ) {
-                                //increment the current index of the playlist by 1
-                                this.settings.currentIndex = this.settings.currentIndex += 1;
-                            }
+            if (
+              this.settings.currentIndex === this.settings.previousPlaylistIndex
+            ) {
+              //increment the current index of the playlist by 1
+              this.settings.currentIndex = this.settings.currentIndex += 1;
+            }
 
-                            /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
+            /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
                              reset the index to 0. It could also mean that the playlist is at its end. */
 
-                            if (this.settings.currentIndex >= this.playlist.length) {
-                                if (
-                                    this.settings.onRepeat &&
-                                    this.settings.loop.value === "all"
-                                ) {
-                                    //if repeat is on then replay from the top
-                                    this.settings.currentIndex = 0;
-                                } else {
-                                    return;
-                                }
-                            }
-
-                            this.audioPlayer.src = this.playlist[
-                                this.settings.currentIndex
-                                ].url;
-                            this.settings.currentIndex = this.playlist[
-                                this.settings.currentIndex
-                                ];
-                            this.audioPlayer.play();
-                            this.settings.currentIndex = this.settings.currentIndex += 1;
-                        }
-                    } else {
-                    }
-                }
-            },
-
-            shuffleToggle() {
-                if (!this.settings.shuffle) {
-                    //shuffle the playlist songs and rearrange
-                    if (this.orginal_playlist.length == 0) {
-                        this.orginal_playlist = this.playlist;
-                    }
-                    this.playlist = this.shuffleArray(this.playlist);
-
-                    //reset the playlist index when changed and rest the previous playlist index
-                    this.settings.currentIndex = this.getObjectIndexFromArray(
-                        this.currentSong,
-                        this.playlist
-                    );
-                    this.settings.previousPlaylistIndex = this.settings.currentIndex;
-                    this.shuffle = true;
-                } else {
-                    this.playlist = this.orginal_playlist;
-                    this.settings.shuffle = false;
-                }
-            },
-
-            /** Helper methods
-             * these methods are usually used within other methods*/
-
-            formatTime(secs) {
-                var minutes = Math.floor(secs / 60) || 0;
-                var seconds = Math.floor(secs - minutes * 60) || 0;
-                return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-            },
-
-            setAudio(song) {
-                this.audioPlayer.src = song;
-            },
-
-            load() {
-                if (this.audioPlayer.readyState >= 2) {
-                    this.settings.isLoaded = true;
-                    this.settings.durationSeconds = parseInt(this.audioPlayer.duration);
-                } else {
-                    throw new Error("Failed to load sound file.");
-                }
-            },
-
-            containsObjectWithSameId(obj, list) {
-                let i;
-                for (i = 0; i < list.length; i++) {
-                    if (list[i].id === obj.id) {
-                        return true;
-                    }
-                }
-            },
-
-            getObjectIndexFromArray(obj, list) {
-                //this function just returns the index of the item with the id
-                let i;
-                for (i = 0; i < list.length; i++) {
-                    if (list[i].id === obj.id) {
-                        return i;
-                    }
-                }
-            },
-
-            setCurrentSong(song) {
-                this.currentSong = song;
-                this.settings.previousPlaylistIndex = this.settings.currentIndex;
-            },
-
-            generateRandomNumber(min, max, except) {
-                let num = null;
-                num = Math.floor(Math.random() * (max - min + 1)) + min;
-                return num === except ? this.generateRandomNumber(min, max, except) : num;
-            },
-
-            shuffleArray(array) {
-                let ctr = array.length;
-                let temp;
-                let index;
-
-                // While there are elements in the array
-                while (ctr > 0) {
-                    // Pick a random index
-                    index = Math.floor(Math.random() * ctr);
-                    // Decrease ctr by 1
-                    ctr--;
-                    // And swap the last element with it
-                    temp = array[ctr];
-                    array[ctr] = array[index];
-                    array[index] = temp;
-                }
-                return array;
-            },
-
-            shareLink() {
-                // TODO : add toast here
-                navigator.clipboard
-                    .writeText("https://dl.pilo.app/" + this.$route.fullPath)
-                    .then(
-                        function () {
-                            console.log("Async: Copying to clipboard was successful!");
-                        },
-                        function (err) {
-                            console.error("Async: Could not copy text: ", err);
-                        }
-                    );
-            },
-            swipeUpHandler() {
-                this.isOpen = true;
-            },
-            swipeDownHandler() {
-                this.isOpen = false;
+            if (this.settings.currentIndex >= this.playlist.length) {
+              if (
+                this.settings.onRepeat &&
+                this.settings.loop.value === "all"
+              ) {
+                //if repeat is on then replay from the top
+                this.settings.currentIndex = 0;
+              } else {
+                return;
+              }
             }
-        },
-        computed: {
-            currentPlayedTime() {
-                return this.formatTime(this.settings.currentSeconds);
-            },
-            duration() {
-                return this.formatTime(this.settings.durationSeconds);
-            },
-            progressPercentage() {
-                return parseInt(
-                    (this.settings.currentSeconds / this.settings.durationSeconds) * 100
-                );
-            },
-            muted() {
-                //this returns true or false
-                return this.settings.volume / 100 === 0;
-            },
-            isPlaying() {
-                return this.$store.getters.isPlaying;
-            },
-            currentSettings() {
-                return this.$store.getters.currentSettings;
-            },
-            playlist() {
-                return this.$store.getters.currentPlaylist;
-            }
-        },
-        watch: {
-            currentSong: function (newValue) {
-                if (newValue != null) this.$store.dispatch("setCurrentMusic", newValue);
-            },
-            settings: function (newValue) {
-                this.$store.dispatch("setCurrentSetting", newValue);
-            },
-            isPlaying: function (newValue) {
-                if (newValue) {
-                    this.playCurrentSong();
-                } else this.pause();
-            }
+            this.setCurrentSong(this.playlist[this.settings.currentIndex]);
+            this.playCurrentSong();
+            this.settings.currentIndex = this.settings.currentIndex += 1;
+          }
+        } else {
         }
-    };
+      }
+    },
+
+    shuffleToggle() {
+      if (!this.settings.shuffle) {
+        //shuffle the playlist songs and rearrange
+        if (this.orginal_playlist.length === 0) {
+          this.orginal_playlist = this.playlist;
+        }
+        this.playlist = this.shuffleArray(this.playlist);
+
+        //reset the playlist index when changed and rest the previous playlist index
+        this.settings.currentIndex = this.getObjectIndexFromArray(
+          this.currentSong,
+          this.playlist
+        );
+        this.settings.previousPlaylistIndex = this.settings.currentIndex;
+        this.shuffle = true;
+      } else {
+        this.playlist = this.orginal_playlist;
+        this.settings.shuffle = false;
+      }
+    },
+
+    /** Helper methods
+     * these methods are usually used within other methods*/
+
+    formatTime(secs) {
+      let minutes = Math.floor(secs / 60) || 0;
+      let seconds = Math.floor(secs - minutes * 60) || 0;
+      return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    },
+
+    setAudio(song) {
+      this.audioPlayer.src = song;
+    },
+
+    load() {
+      if (this.audioPlayer.readyState >= 2) {
+        this.settings.isLoaded = true;
+        this.settings.durationSeconds = parseInt(this.audioPlayer.duration);
+      } else {
+        throw new Error("Failed to load sound file.");
+      }
+    },
+
+    containsObjectWithSameId(obj, list) {
+      let i;
+      for (i = 0; i < list.length; i++) {
+        if (list[i].id === obj.id) {
+          return true;
+        }
+      }
+    },
+
+    getObjectIndexFromArray(obj, list) {
+      //this function just returns the index of the item with the id
+      let i;
+      for (i = 0; i < list.length; i++) {
+        if (list[i].id === obj.id) {
+          return i;
+        }
+      }
+    },
+
+    setCurrentSong(song) {
+      this.currentSong = song;
+      this.settings.previousPlaylistIndex = this.settings.currentIndex;
+    },
+
+    generateRandomNumber(min, max, except) {
+      let num = null;
+      num = Math.floor(Math.random() * (max - min + 1)) + min;
+      return num === except ? this.generateRandomNumber(min, max, except) : num;
+    },
+
+    shuffleArray(array) {
+      let ctr = array.length;
+      let temp;
+      let index;
+
+      // While there are elements in the array
+      while (ctr > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+        // Decrease ctr by 1
+        ctr--;
+        // And swap the last element with it
+        temp = array[ctr];
+        array[ctr] = array[index];
+        array[index] = temp;
+      }
+      return array;
+    },
+    shareLink() {
+      // TODO : add toast here
+      navigator.clipboard
+        .writeText("https://dl.pilo.app/" + this.$route.fullPath)
+        .then(function() {}, function(err) {});
+    },
+    openCreatePlaylist() {
+      this.showCustomModal = false;
+      this.showCreatePlaylistModal = true;
+    },
+    swipeUpHandler(direction) {
+      if (direction == "top") this.isOpen = true;
+      else this.isOpen = false;
+    }
+  },
+  computed: {
+    currentPlayedTime() {
+      return this.formatTime(this.settings.currentSeconds);
+    },
+    duration() {
+      return this.formatTime(this.settings.durationSeconds);
+    },
+    progressPercentage() {
+      return parseInt(
+        (this.settings.currentSeconds / this.settings.durationSeconds) * 100
+      );
+    },
+    muted() {
+      //this returns true or false
+      return this.settings.volume / 100 === 0;
+    },
+    isPlaying() {
+      return this.$store.getters.isPlaying;
+    },
+    currentSettings() {
+      return this.$store.getters.currentSettings;
+    },
+    playlist() {
+      return this.$store.getters.currentPlaylist;
+    }
+  },
+  watch: {
+    currentSong: function(newValue) {
+      if (newValue != null) this.$store.dispatch("setCurrentMusic", newValue);
+    },
+    settings: function(newValue) {
+      this.$store.dispatch("setCurrentSetting", newValue);
+    },
+    isPlaying: function(newValue) {
+      if (newValue) {
+        let current = getLocalSong();
+        if (current.url != this.currentSong.url) this.playCurrentSong();
+      } else this.pause();
+    }
+  }
+};
 </script>
 
 <style>

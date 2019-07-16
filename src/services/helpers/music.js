@@ -1,4 +1,4 @@
-export function getCurrentSong() {
+export function getLocalSong() {
   const current_song = localStorage.getItem("current_song");
   if (!current_song) {
     return null;
@@ -6,7 +6,7 @@ export function getCurrentSong() {
   return JSON.parse(current_song);
 }
 
-export function getCurrentPlaylist() {
+export function getLocalPlaylist() {
   const current_playlist = localStorage.getItem("current_playlist");
   if (!current_playlist) {
     return [];
@@ -14,7 +14,7 @@ export function getCurrentPlaylist() {
   return JSON.parse(current_playlist);
 }
 
-export function getCurrentSettings() {
+export function getLocalSettings() {
   const current_settings = localStorage.getItem("current_settings");
   if (!current_settings) {
     return {

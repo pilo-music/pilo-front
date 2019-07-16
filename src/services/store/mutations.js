@@ -28,7 +28,11 @@ export default {
   SET_IS_PLAYING(state, isPlaying) {
     state.isPlaying = isPlaying;
   },
-  SET_CURRENT_SETTING(state, name, setting) {
-    state.currentSettings.name = setting;
+  SET_CURRENT_SETTING(state, setting) {
+    state.currentSettings = setting;
+    localStorage.setItem(
+      "current_settings",
+      JSON.stringify(state.currentSettings)
+    );
   }
 };
