@@ -1,0 +1,96 @@
+.aside {
+  padding-right: 0px;
+  padding-left: 0px;
+  bottom: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow: scroll;
+  padding-bottom: 10em;
+  background: #f9f9f9;
+  .box-profile {
+    padding: 16px;
+    background: $colorPrimaryLight;
+    display: flex;
+    flex-direction: row;
+    .img-profile {
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    .btn-show-profile {
+      margin-right: 16px;
+      display: flex;
+      flex-direction: column;
+      font-size: $font-medium;
+      span {
+          margin-top: 10px;
+        margin-right: 10px;
+      }
+      a {
+        margin-top: 8px;
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.5s;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 50px;
+        width: 100px;
+        background: $colorPrimary;
+        &:hover {
+          background-color: $colorPrimaryDark;
+        }
+      }
+    }
+  }
+
+  .aside-menu {
+    text-align: right;
+    direction: rtl;
+
+    ul {
+      margin-left: 20px;
+      list-style: none;
+      line-height: 3;
+      padding: 0;
+      margin-right: 20px;
+
+      li {
+        font-size: $font-small;
+        color: $colorGray;
+        transition: all 0.5s;
+
+        i {
+          margin-left: 10px;
+          font-size: 20px;
+        }
+
+        a {
+          text-decoration: none;
+          color: black;
+          font-size: $font-big;
+
+          &:after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: $colorPrimary;
+            transition: width 0.3s;
+          }
+
+          &:hover:after {
+            width: 100%;
+            transition: width 0.3s;
+          }
+        }
+      }
+
+      .aside-menu-active {
+        color: black;
+        font-weight: bold;
+      }
+    }
+  }
+}

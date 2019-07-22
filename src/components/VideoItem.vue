@@ -22,6 +22,3 @@ export default {
   name: "components.video_item"
 };
 </script>
-
-<style>
-</style>

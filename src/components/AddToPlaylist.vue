@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getPlaylists() {
-      get(this.playlistName)
+      get()
         .then(response => {
           this.playlists = response.data.data;
         })
@@ -89,6 +89,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

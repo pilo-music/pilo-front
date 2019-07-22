@@ -18,12 +18,72 @@
   background: white;
   z-index: 99999;
   transform: max-height 0.15s ease-out;
+  overflow: scroll;
 
   .small-music-player {
     display: none;
   }
 }
 
+.progress-container {
+  position: relative;
+  height: 10px;
+  width: auto;
+  display: flex;
+  align-items: center;
+
+  .progress {
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 6px;
+    //width: calc(75% - 30px);
+    width: 100%;
+    margin: 0;
+    padding: 0 2px;
+    border-radius: 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+    .progress-handle {
+      display: block;
+      position: absolute;
+      z-index: 6;
+      margin-top: 0;
+      margin-left: -2px;
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+      background-color: $colorPrimary;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+
+      &:hover {
+        background-color: #000;
+      }
+    }
+
+    .transparent-seeker-layer {
+      //please do not delete this layer unless you know what you are doing
+      // this code allows the seeker click position to function well
+      width: 100%;
+      height: 6px;
+      background-color: transparent;
+      position: absolute;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .bar {
+      border-radius: 5px;
+      width: 0;
+      background-color: $colorPrimary;
+      height: 6px;
+      position: absolute;
+    }
+  }
+}
 .small-music-player {
   .row {
     height: 80px;
@@ -151,65 +211,6 @@
       }
     }
   }
-  .progress-container {
-    position: relative;
-    height: 10px;
-    width: auto;
-    display: flex;
-    align-items: center;
-
-    .progress {
-      background-color: rgba(0, 0, 0, 0.05);
-      height: 6px;
-      //width: calc(75% - 30px);
-      width: 100%;
-      margin: 0;
-      padding: 0 2px;
-      border-radius: 0;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-
-      .progress-handle {
-        display: block;
-        position: absolute;
-        z-index: 6;
-        margin-top: 0;
-        margin-left: -2px;
-        width: 15px;
-        height: 15px;
-        border-radius: 100%;
-        background-color: $colorPrimary;
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-
-        &:hover {
-          background-color: #000;
-        }
-      }
-
-      .transparent-seeker-layer {
-        //please do not delete this layer unless you know what you are doing
-        // this code allows the seeker click position to function well
-        width: 100%;
-        height: 6px;
-        background-color: transparent;
-        position: absolute;
-        cursor: pointer;
-        z-index: 5;
-      }
-
-      .bar {
-        border-radius: 5px;
-        width: 0;
-        background-color: $colorPrimary;
-        height: 6px;
-        position: absolute;
-      }
-    }
-  }
 
   .menu-item {
     margin-top: 16px;
@@ -219,8 +220,8 @@
     direction: rtl;
     color: #212529;
     padding: 0.25rem 1.5rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     img {
       margin: 0;
@@ -248,8 +249,8 @@
   direction: rtl;
   color: #212529;
   padding: 0.25rem 1.5rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   img {
     margin: 0;
@@ -266,4 +267,110 @@
 .menu-item:hover {
   background-color: #f4f6f6;
   cursor: pointer;
+}
+
+/// music player desktop
+
+.music-player-desktop {
+  position: fixed;
+  z-index: 9999999;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  box-shadow: 0px 2px 18px -5px rgba(0, 0, 0, 0.2);
+  background: white;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  .controls {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex: 1;
+    div {
+      img {
+        width: 35px;
+      }
+      .play {
+        width: 70px;
+        margin-top: 10px;
+      }
+    }
+  }
+  .progress-div {
+    margin-right: 16px;
+    width: 100%;
+    flex: 4;
+    position: relative;
+    top: 7px;
+
+    .progress-time {
+      display: flex;
+      justify-content: space-between;
+      font-size: $font-small;
+      margin-top: 5px;
+    }
+  }
+  .music-info {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    text-align: right;
+    align-items: center;
+    flex-direction: row;
+    justify-content: right;
+    margin-right: 32px;
+    .music-image {
+      margin-top: 5px;
+      width: 65px;
+      border-radius: 5px;
+    }
+    .music-artist {
+      margin-right: 16px;
+      color: $colorPrimary;
+      font-size: $font-big;
+    }
+    .music-title {
+      margin-right: 16px;
+      color: $colorDark;
+      font-size: $font-medium;
+    }
+  }
+  .options {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .volume {
+    flex: 1;
+    align-items: center;
+    padding-right: 16px;
+    img {
+      width: 20px;
+      float: left;
+      margin-right: 10px;
+      position: relative;
+      bottom: 4px;
+    }
+  }
+}
+
+@include lg {
+  .music-info {
+    flex: 2 !important;
+  }
+  .progress-div {
+    flex: 3 !important;
+  }
+}
+@include md {
+  .music-info {
+    flex: 2 !important;
+  }
+  .progress-div {
+    flex: 3 !important;
+  }
 }

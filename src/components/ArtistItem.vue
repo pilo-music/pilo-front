@@ -25,6 +25,3 @@ export default {
   name: "components.artist_item"
 };
 </script>
-
-<style>
-</style>

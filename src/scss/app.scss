@@ -4,6 +4,7 @@
 @import "global/reset";
 @import "global/fonts";
 @import "global/general";
+@import "components/sidebar";
 @import "components/page-header";
 @import "components/bottom-navigation";
 @import "components/custom_modal";
@@ -105,105 +106,6 @@
 
     &:hover {
       border: 1px solid $colorPrimary;
-    }
-  }
-}
-
-.aside {
-  padding-right: 0px;
-  padding-left: 0px;
-  bottom: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  overflow: scroll;
-  padding-bottom: 10em;
-  display: none;
-  @include sidebarBackground();
-
-  .btn-show-profile {
-    font-size: 12px;
-    text-align: center;
-    transition: all 0.5s;
-    border: 1px solid $colorPrimary;
-    color: black;
-
-    &:hover {
-      transform: scale(1.05);
-      background-color: $colorPrimary;
-      color: white;
-      @include btnShadow();
-    }
-  }
-
-  .sidebar-logo {
-    text-align: center;
-    padding-bottom: 10px;
-    background: $colorPrimary;
-
-    .logo {
-      margin-left: 10px;
-    }
-
-    .logo-text {
-      position: fixed !important;
-      visibility: hidden;
-      top: 999999px !important;
-      left: 9999999999px !important;
-    }
-  }
-
-  .aside-menu {
-    text-align: right;
-    direction: rtl;
-
-    div {
-      padding-top: 1em;
-      margin-right: 16px;
-      margin-left: 16px;
-    }
-
-    ul {
-      margin-left: 20px;
-      list-style: none;
-      line-height: 3;
-      padding: 0;
-      margin-right: 20px;
-
-      li {
-        font-size: $font-small;
-        color: $colorGray;
-        transition: all 0.5s;
-
-        i {
-          margin-left: 10px;
-          font-size: 20px;
-        }
-
-        a {
-          text-decoration: none;
-          color: black;
-
-          &:after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 2px;
-            background: $colorPrimary;
-            transition: width 0.3s;
-          }
-
-          &:hover:after {
-            width: 100%;
-            transition: width 0.3s;
-          }
-        }
-      }
-
-      .aside-menu-active {
-        color: black;
-        font-weight: bold;
-      }
     }
   }
 }

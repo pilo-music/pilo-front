@@ -21,6 +21,3 @@ export default {
   props: ["item"]
 };
 </script>
-
-<style>
-</style>
