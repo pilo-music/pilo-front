@@ -2,7 +2,12 @@
   <div>
     <div class="modal-header">
       <h3>افزودن به پلی لیست</h3>
-      <img src="@/assets/panel/img/icon/plus.svg" alt="logo" width="20" height="20" />
+      <img
+        src="@/assets/panel/img/icon/plus.svg"
+        alt="logo"
+        width="20"
+        height="20"
+      />
     </div>
     <div class="modal-body">
       <div v-if="currentUser">
@@ -22,12 +27,16 @@
         <div class="mt-3">
           <p>پلی لیست های شما</p>
           <select v-model="selectedPlaylist" class="form-control mt-3">
-            <option v-for="i in playlists" :key="i.id" :value="i.title">{{i.title}}</option>
+            <option v-for="i in playlists" :key="i.id" :value="i.title">{{
+              i.title
+            }}</option>
           </select>
         </div>
       </div>
       <div class="text-center" v-else>
-        <router-link :to="{name:'login'}">لطفا وارد حساب کاربری خود شوید</router-link>
+        <router-link :to="{ name: 'login' }"
+          >لطفا وارد حساب کاربری خود شوید</router-link
+        >
       </div>
     </div>
     <div class="text-center">

@@ -19,7 +19,11 @@
       <!-- Music Items -->
       <div class="margin-t">
         <div v-if="!isLoading" class="row">
-          <div v-for="(i,index) in albums" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
+          <div
+            v-for="(i, index) in albums"
+            :key="index"
+            class="col-md-2 col-sm-6 col-6 mb-3"
+          >
             <album-item :item="i" />
           </div>
           <infinite-loading spinner="spiral" @infinite="infiniteHandler">

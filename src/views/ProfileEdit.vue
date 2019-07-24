@@ -48,14 +48,17 @@
             accept="image/*"
           />
         </div>
-        <button class="upload-image" @click="$refs.file.click()">آپلود عکس</button>
+        <button class="upload-image" @click="$refs.file.click()">
+          آپلود عکس
+        </button>
       </div>
       <div class="grid">
         <b-alert
           :variant="errors.alertStatus"
           class="rtl text-right"
           :show="errors.showAlert"
-        >{{errors.alertMessage}}</b-alert>
+          >{{ errors.alertMessage }}</b-alert
+        >
 
         <form v-on:submit.prevent="editProfile" class="form profile padding-t">
           <div class="form__field">
@@ -90,7 +93,7 @@
             />
           </div>
           <div class="error">
-            <p>{{errors.password}}</p>
+            <p>{{ errors.password }}</p>
           </div>
 
           <div class="form__field">
@@ -103,7 +106,7 @@
             />
           </div>
           <div class="error">
-            <p>{{errors.confirm}}</p>
+            <p>{{ errors.confirm }}</p>
           </div>
 
           <div ref="spinner" class="spinner" v-show="isLoading">
@@ -114,7 +117,7 @@
             <input type="submit" value="ذخیره" />
           </div>
           <div class="success">
-            <p>{{errors.confirm}}</p>
+            <p>{{ errors.confirm }}</p>
           </div>
         </form>
       </div>

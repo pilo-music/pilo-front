@@ -13,7 +13,7 @@
               />
             </div>
             <div>
-              <span>{{currentSong.title}}</span>
+              <span>{{ currentSong.title }}</span>
             </div>
             <div class="header-drop-down">
               <img
@@ -31,8 +31,8 @@
           </div>
           <!-- music info -->
           <div class="music-info">
-            <p>{{ currentSong.title}}</p>
-            <span>{{currentSong.artist.name}}</span>
+            <p>{{ currentSong.title }}</p>
+            <span>{{ currentSong.artist.name }}</span>
           </div>
 
           <!-- progress bar -->
@@ -40,33 +40,49 @@
             <div class="position-relative">
               <img
                 @click="repeat"
-                :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
+                :src="
+                  settings.loop.state == false
+                    ? settings.repeat_off
+                    : settings.repeat_on
+                "
                 alt="share"
               />
-              <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
+              <div class="repeat-info" v-if="settings.onRepeat">
+                {{ settings.loop.value }}
+              </div>
             </div>
             <div class="flex-grow-1">
               <div class="progress-container">
                 <div class="progress" id="progress-wrap">
-                  <div class="progress-handle" :style="{left:settings.progressPercentageValue}"></div>
+                  <div
+                    class="progress-handle"
+                    :style="{ left: settings.progressPercentageValue }"
+                  ></div>
 
                   <div class="transparent-seeker-layer" @click="seek"></div>
 
-                  <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+                  <div
+                    class="bar"
+                    :style="{ width: settings.progressPercentageValue }"
+                  ></div>
                 </div>
               </div>
               <div class="row music-time">
                 <div class="col-6">
-                  <span>{{currentPlayedTime}}</span>
+                  <span>{{ currentPlayedTime }}</span>
                 </div>
                 <div class="col-6 text-right">
-                  <span>{{duration}}</span>
+                  <span>{{ duration }}</span>
                 </div>
               </div>
             </div>
             <div>
               <a :href="currentSong.url">
-                <img class="float-right" src="@/assets/panel/img/icon/download.svg" alt="download" />
+                <img
+                  class="float-right"
+                  src="@/assets/panel/img/icon/download.svg"
+                  alt="download"
+                />
               </a>
             </div>
           </div>
@@ -76,7 +92,9 @@
               <img
                 class="shuffle"
                 @click="shuffleToggle"
-                :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
+                :src="
+                  settings.shuffle ? settings.shuffleOn : settings.shuffleOff
+                "
                 alt="shuffle"
               />
             </div>
@@ -110,7 +128,11 @@
                 alt="next"
               />
             </div>
-            <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
+            <like
+              :post_id="currentSong.id"
+              post_type="music"
+              :has_like="currentSong.has_like"
+            />
           </div>
           <hr />
         </div>
@@ -144,18 +166,30 @@
         controls
       ></audio>
       <!-- Custom Modal for create Playlist -->
-      <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
-        <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
+      <custom-modal
+        :show="showCreatePlaylistModal"
+        v-on:close="showCreatePlaylistModal = false"
+      >
+        <add-to-playlist
+          :post_id="currentSong.id"
+          v-on:close="showCreatePlaylistModal = false"
+        />
       </custom-modal>
 
       <!-- Custom Modal -->
-      <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
+      <custom-modal
+        :show="showCustomModal"
+        v-on:close="showCustomModal = false"
+      >
         <div class="modal-body" v-if="!isLoading">
           <div class="menu-item">
             <router-link
-              :to="{name:'artist',params:{
-                     slug:currentSong.artist.slug
-                   }}"
+              :to="{
+                name: 'artist',
+                params: {
+                  slug: currentSong.artist.slug
+                }
+              }"
             >
               صفحه خواننده
               <img src="@/assets/panel/img/icon/profile.svg" alt="profile" />

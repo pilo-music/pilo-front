@@ -3,13 +3,18 @@
     <div v-for="i in items" :key="i.id" :class="getClass(i.id)">
       <div class="small-music-item">
         <div>
-          <img @click="play(i)" alt="music-play" class="music-play" :src="getStatus(i.id)" />
+          <img
+            @click="play(i)"
+            alt="music-play"
+            class="music-play"
+            :src="getStatus(i.id)"
+          />
         </div>
         <div class="pb-2">
-          <span>{{i.artist.name}}</span>
+          <span>{{ i.artist.name }}</span>
         </div>
         <div class="pb-2">
-          <span class="color-primary-dark">{{i.title}}</span>
+          <span class="color-primary-dark">{{ i.title }}</span>
         </div>
         <div>
           <img class="music-image" :src="i.image" :alt="i.title" />

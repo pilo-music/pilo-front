@@ -13,7 +13,7 @@
               />
             </div>
             <div>
-              <span>{{video.title}}</span>
+              <span>{{ video.title }}</span>
             </div>
             <!-- TODO: add more detail -->
             <!-- <div>
@@ -24,8 +24,8 @@
         <!-- Video Info -->
         <div class="margin-t">
           <div class="single-video-info text-right margin-r margin-l">
-            <span class="color-primary font-big">{{video.title}}</span> _
-            <span class="font-medium">{{video.artist.name}}</span>
+            <span class="color-primary font-big">{{ video.title }}</span> _
+            <span class="font-medium">{{ video.artist.name }}</span>
           </div>
         </div>
         <!-- Video -->
@@ -51,7 +51,11 @@
         <div class="margin-t">
           <ul class="list-inline video-control">
             <li class="list-inline-item">
-              <like :post_id="video.id" post_type="video" :has_like="video.has_like" />
+              <like
+                :post_id="video.id"
+                post_type="video"
+                :has_like="video.has_like"
+              />
             </li>
 
             <li class="list-inline-item">

@@ -28,20 +28,20 @@
                     <!-- <button>دنبال کردن</button> -->
                   </div>
                   <div>
-                    <h2>{{artist.name}}</h2>
+                    <h2>{{ artist.name }}</h2>
                   </div>
                 </div>
                 <div class="artist-info-bottom">
                   <div>
-                    <span>{{artist.album_count}}</span>
+                    <span>{{ artist.album_count }}</span>
                     <p>آلبوم</p>
                   </div>
                   <div>
-                    <span>{{artist.music_count}}</span>
+                    <span>{{ artist.music_count }}</span>
                     <p>موزیک</p>
                   </div>
                   <div>
-                    <span>{{artist.video_count}}</span>
+                    <span>{{ artist.video_count }}</span>
                     <p>موزیک ویدیو</p>
                   </div>
                 </div>
@@ -60,11 +60,15 @@
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">برترین موزیک ها</h2>
               <router-link
-                :to="{name:'musics',params:{
-                  artist : artist.slug,
-                  filter : 'best'
-                }}"
-              >نمایش همه</router-link>
+                :to="{
+                  name: 'musics',
+                  params: {
+                    artist: artist.slug,
+                    filter: 'best'
+                  }
+                }"
+                >نمایش همه</router-link
+              >
             </div>
           </div>
           <div v-if="!isLoading" class="mt-3">
@@ -75,10 +79,14 @@
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">جدیدترین موزیک ها</h2>
               <router-link
-                :to="{name:'musics',params:{
-                  artist:artist.slug
-                }}"
-              >نمایش همه</router-link>
+                :to="{
+                  name: 'musics',
+                  params: {
+                    artist: artist.slug
+                  }
+                }"
+                >نمایش همه</router-link
+              >
             </div>
 
             <div v-if="!isLoading" class="mt-3">
@@ -90,10 +98,14 @@
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">جدیدترین آلبوم ها</h2>
               <router-link
-                :to="{name:'albums',params:{
-                  artist:artist.slug
-                }}"
-              >نمایش همه</router-link>
+                :to="{
+                  name: 'albums',
+                  params: {
+                    artist: artist.slug
+                  }
+                }"
+                >نمایش همه</router-link
+              >
             </div>
           </div>
           <div v-if="!isLoading" class="mt-3">
@@ -104,10 +116,14 @@
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">جدیدترین موزیک ویدیو ها</h2>
               <router-link
-                :to="{name:'videos',params:{
-                  artist:artist.slug
-                }}"
-              >نمایش همه</router-link>
+                :to="{
+                  name: 'videos',
+                  params: {
+                    artist: artist.slug
+                  }
+                }"
+                >نمایش همه</router-link
+              >
             </div>
           </div>
           <div v-if="!isLoading" class="mt-3">

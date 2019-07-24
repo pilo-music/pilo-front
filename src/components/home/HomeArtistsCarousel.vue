@@ -1,7 +1,12 @@
 <template>
   <div>
-    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
-      <ArtistItem v-for="i in items" :key="i.id" :artist="i"/>
+    <carousel
+      :responsive="carousel_respansive"
+      :margin="16"
+      :freeDrag="false"
+      :dots="false"
+    >
+      <ArtistItem v-for="i in items" :key="i.id" :artist="i" />
     </carousel>
   </div>
 </template>
@@ -35,5 +40,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

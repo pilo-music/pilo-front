@@ -12,11 +12,19 @@
           </div>
           <div class="flex-10">
             <form v-on:submit.prevent="action">
-              <input v-model="text" type="search" placeholder="موزیک ، خواننده ، آلبوم و ...." />
+              <input
+                v-model="text"
+                type="search"
+                placeholder="موزیک ، خواننده ، آلبوم و ...."
+              />
             </form>
           </div>
           <transition name="fade">
-            <div @click="text=''" class="flex-1 text-right" v-show="showClose">
+            <div
+              @click="text = ''"
+              class="flex-1 text-right"
+              v-show="showClose"
+            >
               <img src="@/assets/panel/img/icon/close.svg" alt="close" />
             </div>
           </transition>
@@ -35,8 +43,14 @@
                   src="@/assets/panel/img/icon/close.svg"
                   alt="delete"
                 />
-                <span @click="historyItemClick(item)" class="text">{{item}}</span>
-                <img class="time" src="@/assets/panel/img/icon/time_black.svg" alt="time" />
+                <span @click="historyItemClick(item)" class="text">{{
+                  item
+                }}</span>
+                <img
+                  class="time"
+                  src="@/assets/panel/img/icon/time_black.svg"
+                  alt="time"
+                />
               </div>
               <hr />
             </li>
@@ -48,28 +62,44 @@
         <b-tabs content-class="mt-3" fill>
           <b-tab title="موزیک ویدیو">
             <div class="row mt-4">
-              <div v-for="i in results.videos" :key="i.id" class="col-sm-12 col-12 col-lg-6 mb-3">
+              <div
+                v-for="i in results.videos"
+                :key="i.id"
+                class="col-sm-12 col-12 col-lg-6 mb-3"
+              >
                 <video-item :video="i" />
               </div>
             </div>
           </b-tab>
           <b-tab title="آلبوم">
             <div class="row mt-4">
-              <div v-for="i in results.albums" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
+              <div
+                v-for="i in results.albums"
+                :key="i.id"
+                class="col-md-2 col-sm-6 col-6 mb-3"
+              >
                 <album-item :item="i" />
               </div>
             </div>
           </b-tab>
           <b-tab title="موزیک">
             <div class="row mt-4">
-              <div v-for="i in results.musics" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
+              <div
+                v-for="i in results.musics"
+                :key="i.id"
+                class="col-md-2 col-sm-6 col-6 mb-3"
+              >
                 <music-item :music="i" />
               </div>
             </div>
           </b-tab>
           <b-tab title="خواننده" active>
             <div class="row mt-4">
-              <div v-for="i in results.artists" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
+              <div
+                v-for="i in results.artists"
+                :key="i.id"
+                class="col-md-2 col-sm-6 col-6 mb-3"
+              >
                 <artist-item :artist="i" />
               </div>
             </div>

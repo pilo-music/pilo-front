@@ -19,14 +19,17 @@
         </b-navbar>
         <div class="margin-t">
           <div v-if="!isLoading">
-            <div v-for="(i,index) in results" :key="index">
+            <div v-for="(i, index) in results" :key="index">
               <message-item :item="i" />
             </div>
           </div>
 
           <div class="add-message">
-            <router-link :to="{name:'contactus'}">
-              <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
+            <router-link :to="{ name: 'contactus' }">
+              <img
+                src="@/assets/panel/img/icon/plus-white.svg"
+                alt="add-message"
+              />
             </router-link>
           </div>
         </div>

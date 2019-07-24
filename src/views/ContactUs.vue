@@ -20,9 +20,17 @@
       </div>
 
       <div class="grid">
-        <b-alert :variant="alertStatus" class="rtl text-right" :show="alertShow">{{alertMessage}}</b-alert>
+        <b-alert
+          :variant="alertStatus"
+          class="rtl text-right"
+          :show="alertShow"
+          >{{ alertMessage }}</b-alert
+        >
 
-        <form v-on:submit.prevent="sendMessage" class="form contactus padding-t">
+        <form
+          v-on:submit.prevent="sendMessage"
+          class="form contactus padding-t"
+        >
           <div class="form__field"></div>
           <div class="form__field">
             <input

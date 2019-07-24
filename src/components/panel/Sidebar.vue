@@ -1,12 +1,14 @@
 <template>
   <div>
-    <aside class="d-none d-sm-none d-md-block d-lg-block aside col-md-4 col-lg-2">
+    <aside
+      class="d-none d-sm-none d-md-block d-lg-block aside col-md-4 col-lg-2"
+    >
       <div>
         <div class="aside-menu">
           <!-- profile -->
           <div class="text-right box-profile">
             <div class="img-profile">
-              <router-link :to="{name:'profile'}">
+              <router-link :to="{ name: 'profile' }">
                 <img
                   v-if="currentUser != null && currentUser.user.pic.lenght > 0"
                   :src="currentUser.user.pic"
@@ -23,13 +25,15 @@
             </div>
             <div class="btn-show-profile">
               <span>کاربر مهمان</span>
-              <router-link :to="{name:'profile'}">ورود / ثبت نام</router-link>
+              <router-link :to="{ name: 'profile' }"
+                >ورود / ثبت نام</router-link
+              >
             </div>
           </div>
           <!-- end profile -->
           <ul class="list-group">
             <li>
-              <router-link :to="{name:'home'}">
+              <router-link :to="{ name: 'home' }">
                 <i class="icon ion-md-compass"></i> صفحه اصلی
               </router-link>
             </li>
@@ -59,40 +63,30 @@
         <div class="mt-4 aside-menu">
           <ul class="list-group">
             <li>
-              <a href="#">
-                <i class="icon ion-md-heart-empty"></i> لایک ها
-              </a>
+              <a href="#"> <i class="icon ion-md-heart-empty"></i> لایک ها </a>
             </li>
             <li>
-              <a href="#">
-                <i class="icon ion-md-list"></i> بعدا گوش میدهم
-              </a>
+              <a href="#"> <i class="icon ion-md-list"></i> بعدا گوش میدهم </a>
             </li>
             <li>
-              <a href="#">
-                <i class="icon ion-ios-start"></i> مورد علاقه ها
-              </a>
+              <a href="#"> <i class="icon ion-ios-start"></i> مورد علاقه ها </a>
             </li>
             <li>
-              <a href="#">
-                <i class="icon ion-md-help-buoy"></i> پشتیبانی
-              </a>
+              <a href="#"> <i class="icon ion-md-help-buoy"></i> پشتیبانی </a>
             </li>
           </ul>
         </div>
         <hr class="ml-3" />
         <div class="mt-4 mb-5 pb-5 aside-menu">
           <ul class="list-group">
-            <li v-for="(i,index) in playlists" :key="index">
+            <li v-for="(i, index) in playlists" :key="index">
               <a href="#">
                 <i class="icon ion-md-heart-empty"></i>
-                {{i.name}}
+                {{ i.name }}
               </a>
             </li>
             <li>
-              <a href="#">
-                <i class="icon ion-md-heart-empty"></i>شاد مجلسی
-              </a>
+              <a href="#"> <i class="icon ion-md-heart-empty"></i>شاد مجلسی </a>
             </li>
           </ul>
         </div>
@@ -134,5 +128,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

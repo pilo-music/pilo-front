@@ -13,7 +13,7 @@
               />
             </div>
             <div>
-              <span v-if="!isLoading">{{album.title}}</span>
+              <span v-if="!isLoading">{{ album.title }}</span>
             </div>
             <!-- TODO: add more detail -->
             <!-- <div>
@@ -29,7 +29,11 @@
             <div class="album-bot">
               <!-- Controls -->
               <div class="album-control d-flex">
-                <like :post_id="album.id" :post_type="album" :has_like="album.has_like" />
+                <like
+                  :post_id="album.id"
+                  :post_type="album"
+                  :has_like="album.has_like"
+                />
                 <div>
                   <img
                     class="shuffle"
@@ -38,20 +42,29 @@
                   />
                 </div>
                 <div>
-                  <img class="play" src="@/assets/panel/img/icon/main-play.svg" alt="play" />
+                  <img
+                    class="play"
+                    src="@/assets/panel/img/icon/main-play.svg"
+                    alt="play"
+                  />
                 </div>
               </div>
               <!-- album info -->
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-3 padding-l">
-                    <span class="font-medium">قطعه {{album.musics.length}}</span>
+                    <span class="font-medium"
+                      >قطعه {{ album.musics.length }}</span
+                    >
                   </div>
 
                   <div class="col-8 p-0">
                     <div class="single-album-info text-right">
-                      <span class="color-primary font-big">{{album.title}}</span> _
-                      <span class="font-medium">{{album.artist.name}}</span>
+                      <span class="color-primary font-big">{{
+                        album.title
+                      }}</span>
+                      _
+                      <span class="font-medium">{{ album.artist.name }}</span>
                     </div>
                   </div>
                 </div>

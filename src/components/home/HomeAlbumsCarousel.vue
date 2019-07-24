@@ -1,7 +1,12 @@
 <template>
   <div class="album-slider mb-2">
-    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
-      <AlbumItem v-for="i in items" :key="i.id" :item="i"/>
+    <carousel
+      :responsive="carousel_respansive"
+      :margin="16"
+      :freeDrag="false"
+      :dots="false"
+    >
+      <AlbumItem v-for="i in items" :key="i.id" :item="i" />
     </carousel>
   </div>
 </template>

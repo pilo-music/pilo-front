@@ -1,6 +1,10 @@
 <template>
   <div @click="action" style="display:initial">
-    <img class="bookmark" :src="hasBookmark ? header_src_on : header_src_off" alt="bookmark" />
+    <img
+      class="bookmark"
+      :src="hasBookmark ? header_src_on : header_src_off"
+      alt="bookmark"
+    />
   </div>
 </template>
 

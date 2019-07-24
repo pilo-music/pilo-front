@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="item music-box">
-      <router-link :to="{name:'playlist',params:{slug:item.slug}}">
+      <router-link :to="{ name: 'playlist', params: { slug: item.slug } }">
         <div class="position-relative">
           <img class="img-fluid" :src="item.image" :alt="item.title" />
           <div class="type-box position-absolute">PLAYLIST</div>
@@ -20,8 +20,9 @@
       <div class="mt-2 text-center">
         <a
           class="music-title color-primary-dark d-block"
-          :to="{name:'album',params:{slug:item.slug}}"
-        >{{item.title}}</a>
+          :to="{ name: 'album', params: { slug: item.slug } }"
+          >{{ item.title }}</a
+        >
       </div>
     </div>
   </div>

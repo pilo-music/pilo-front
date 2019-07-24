@@ -7,11 +7,11 @@
       :freeDrag="false"
       :dots="true"
     >
-      <HeroItem :item="item"/>
-      <HeroItem :item="item"/>
-      <HeroItem :item="item"/>
-      <HeroItem :item="item"/>
-      <HeroItem :item="item"/>
+      <HeroItem :item="item" />
+      <HeroItem :item="item" />
+      <HeroItem :item="item" />
+      <HeroItem :item="item" />
+      <HeroItem :item="item" />
     </carousel>
   </div>
 </template>

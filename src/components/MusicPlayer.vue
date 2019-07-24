@@ -3,7 +3,11 @@
     <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex">
       <!-- Options -->
       <div class="options">
-        <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
+        <like
+          :post_id="currentSong.id"
+          post_type="music"
+          :has_like="currentSong.has_like"
+        />
       </div>
       <!-- Volum -->
       <div class="volume">
@@ -11,9 +15,15 @@
         <div>
           <div class="progress-container">
             <div class="progress" id="progress-wrap">
-              <div class="progress-handle" :style="{left:settings.progressPercentageValue}"></div>
+              <div
+                class="progress-handle"
+                :style="{ left: settings.progressPercentageValue }"
+              ></div>
               <div class="transparent-seeker-layer" @click="seek"></div>
-              <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+              <div
+                class="bar"
+                :style="{ width: settings.progressPercentageValue }"
+              ></div>
             </div>
           </div>
         </div>
@@ -22,14 +32,20 @@
       <div class="progress-div">
         <div class="progress-container">
           <div class="progress" id="progress-wrap">
-            <div class="progress-handle" :style="{left:settings.progressPercentageValue}"></div>
+            <div
+              class="progress-handle"
+              :style="{ left: settings.progressPercentageValue }"
+            ></div>
             <div class="transparent-seeker-layer" @click="seek"></div>
-            <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+            <div
+              class="bar"
+              :style="{ width: settings.progressPercentageValue }"
+            ></div>
           </div>
         </div>
         <div class="progress-time">
-          <span>{{currentPlayedTime}}</span>
-          <span>{{duration}}</span>
+          <span>{{ currentPlayedTime }}</span>
+          <span>{{ duration }}</span>
         </div>
       </div>
       <!-- Controls -->
@@ -68,11 +84,15 @@
       <!-- Music Info -->
       <div class="music-info">
         <div>
-          <p class="music-artist">{{currentSong.artist.name}}</p>
-          <p class="music-title">{{currentSong.title}}</p>
+          <p class="music-artist">{{ currentSong.artist.name }}</p>
+          <p class="music-title">{{ currentSong.title }}</p>
         </div>
         <div>
-          <img class="music-image" :src="currentSong.image" :alt="currentSong.title" />
+          <img
+            class="music-image"
+            :src="currentSong.image"
+            :alt="currentSong.title"
+          />
         </div>
       </div>
     </div>
@@ -108,8 +128,8 @@
             </div>
             <div class="col-8">
               <div>
-                <span class="title">{{currentSong.title}}</span>
-                <span class="name">{{currentSong.artist.name}}</span>
+                <span class="title">{{ currentSong.title }}</span>
+                <span class="name">{{ currentSong.artist.name }}</span>
               </div>
               <img :src="currentSong.image" alt width="60" height="60" />
             </div>
@@ -131,7 +151,7 @@
                         />
                       </div>
                       <div>
-                        <span>{{currentSong.title}}</span>
+                        <span>{{ currentSong.title }}</span>
                       </div>
                       <div class="header-drop-down">
                         <img
@@ -146,12 +166,16 @@
                 <div class="padding-t">
                   <!-- music image -->
                   <div class="music-image">
-                    <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
+                    <img
+                      class="img-fluid"
+                      :src="currentSong.image"
+                      :alt="currentSong.title"
+                    />
                   </div>
                   <!-- music info -->
                   <div class="music-info">
-                    <p>{{ currentSong.title}}</p>
-                    <span>{{currentSong.artist.name}}</span>
+                    <p>{{ currentSong.title }}</p>
+                    <span>{{ currentSong.artist.name }}</span>
                   </div>
 
                   <!-- progress bar -->
@@ -159,30 +183,42 @@
                     <div class="position-relative">
                       <img
                         @click="repeat"
-                        :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
+                        :src="
+                          settings.loop.state == false
+                            ? settings.repeat_off
+                            : settings.repeat_on
+                        "
                         alt="share"
                       />
-                      <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
+                      <div class="repeat-info" v-if="settings.onRepeat">
+                        {{ settings.loop.value }}
+                      </div>
                     </div>
                     <div class="flex-grow-1">
                       <div class="progress-container">
                         <div class="progress" id="progress-wrap">
                           <div
                             class="progress-handle"
-                            :style="{left:settings.progressPercentageValue}"
+                            :style="{ left: settings.progressPercentageValue }"
                           ></div>
 
-                          <div class="transparent-seeker-layer" @click="seek"></div>
+                          <div
+                            class="transparent-seeker-layer"
+                            @click="seek"
+                          ></div>
 
-                          <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+                          <div
+                            class="bar"
+                            :style="{ width: settings.progressPercentageValue }"
+                          ></div>
                         </div>
                       </div>
                       <div class="row music-time">
                         <div class="col-6">
-                          <span>{{currentPlayedTime}}</span>
+                          <span>{{ currentPlayedTime }}</span>
                         </div>
                         <div class="col-6 text-right">
-                          <span>{{duration}}</span>
+                          <span>{{ duration }}</span>
                         </div>
                       </div>
                     </div>
@@ -202,7 +238,11 @@
                       <img
                         class="shuffle"
                         @click="shuffleToggle"
-                        :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
+                        :src="
+                          settings.shuffle
+                            ? settings.shuffleOn
+                            : settings.shuffleOff
+                        "
                         alt="shuffle"
                       />
                     </div>
@@ -252,19 +292,29 @@
                   <h2 class="text-right">پلی لیست شما</h2>
                 </div>
               </div>
-              <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
+              <playlist
+                class="p-0"
+                :items="playlist"
+                v-on:play="play($event)"
+              />
             </div>
           </div>
         </transition>
       </div>
       <!-- Custom Modal -->
-      <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
+      <custom-modal
+        :show="showCustomModal"
+        v-on:close="showCustomModal = false"
+      >
         <div class="modal-body" v-if="!isLoading">
           <div class="menu-item">
             <router-link
-              :to="{name:'artist',params:{
-                     slug:currentSong.artist.slug
-                   }}"
+              :to="{
+                name: 'artist',
+                params: {
+                  slug: currentSong.artist.slug
+                }
+              }"
             >
               صفحه خواننده
               <img src="@/assets/panel/img/icon/profile.svg" alt="profile" />
@@ -733,5 +783,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,5 +1,7 @@
 <template>
-  <div class="header-box uk-box-shadow-small d-none d-md-none d-sm-none d-lg-block">
+  <div
+    class="header-box uk-box-shadow-small d-none d-md-none d-sm-none d-lg-block"
+  >
     <div class="header">
       <div class="container-fluid">
         <div class="row">
@@ -7,12 +9,20 @@
             <ul class="list-inline">
               <li class="list-inline-item">
                 <a href="https://www.instagram.com/taksoundmusic/">
-                  <img width="20" src="@/assets/panel/img/icon/instagram.svg" alt="instagram">
+                  <img
+                    width="20"
+                    src="@/assets/panel/img/icon/instagram.svg"
+                    alt="instagram"
+                  />
                 </a>
               </li>
               <li class="list-inline-item">
                 <a href="http://t.me/taksound">
-                  <img width="20" src="@/assets/panel/img/icon/telegram.svg" alt="telegram">
+                  <img
+                    width="20"
+                    src="@/assets/panel/img/icon/telegram.svg"
+                    alt="telegram"
+                  />
                 </a>
               </li>
               <li class="list-inline-item">
@@ -48,7 +58,7 @@
                     class="search-box font-small rtl"
                     type="search"
                     placeholder="جستجو موزیک ، خواننده  و..."
-                  >
+                  />
                 </div>
                 <div class="col-1">
                   <span uk-icon="microphone" class="color-primary"></span>
@@ -68,5 +78,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -18,7 +18,7 @@
       </b-navbar>
       <div class="margin-t">
         <div v-if="!isLoading">
-          <div v-for="(i,index) in results" :key="index">
+          <div v-for="(i, index) in results" :key="index">
             <bookmark-item :item="i" />
           </div>
         </div>
@@ -64,5 +64,4 @@ export default {
 };
 </script>
 
-<style lagn="scss">
-</style>
+<style lagn="scss"></style>

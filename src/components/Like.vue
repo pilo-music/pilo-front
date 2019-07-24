@@ -1,6 +1,10 @@
 <template>
   <div @click="action">
-    <img class="like" :src="hasLike ? header_src_on : header_src_off" alt="like" />
+    <img
+      class="like"
+      :src="hasLike ? header_src_on : header_src_off"
+      alt="like"
+    />
   </div>
 </template>
 

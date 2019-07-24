@@ -1,7 +1,12 @@
 <template>
   <div class="home-music-carousel">
-    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
-      <MusicItem v-for="i in items" :key="i.id" :music="i"/>
+    <carousel
+      :responsive="carousel_respansive"
+      :margin="16"
+      :freeDrag="false"
+      :dots="false"
+    >
+      <MusicItem v-for="i in items" :key="i.id" :music="i" />
     </carousel>
   </div>
 </template>
@@ -31,5 +36,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
