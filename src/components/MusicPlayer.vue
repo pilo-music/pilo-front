@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="showMusicPlayer">
     <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex">
       <!-- Options -->
       <div class="options">
@@ -76,184 +76,186 @@
         </div>
       </div>
     </div>
-    <div v-show="showMusicPlayer">
+    <div>
       <div
         v-touch:swipe="swipeUpHandler"
-        :class="[isOpen ? 'music-player-open' : 'music-player' , 'container-fluid d-block d-sm-block d-md-none d-lg-none']"
+        class="container-fluid d-block d-sm-block d-md-none d-lg-none"
       >
-        <div class="row">
-          <div class="col-12 small-music-player">
-            <div class="row">
-              <div class="col-4">
-                <img
-                  @click="skip('forward')"
-                  width="25"
-                  height="25"
-                  src="@/assets/panel/img/icon/fast-forward-black.svg"
-                  alt="fast-forward-black"
-                />
-                <img
-                  @click="pause"
-                  v-show="isPlaying"
-                  src="@/assets/panel/img/icon/pause-black.svg"
-                  alt="pause"
-                />
-                <img
-                  @click="playCurrentSong"
-                  width="20"
-                  height="20"
-                  v-show="!isPlaying"
-                  src="@/assets/panel/img/icon/play-black.svg"
-                  alt="play"
-                />
-              </div>
-              <div class="col-8">
-                <div>
-                  <span class="title">{{currentSong.title}}</span>
-                  <span class="name">{{currentSong.artist.name}}</span>
-                </div>
-                <img :src="currentSong.image" alt width="60" height="60" />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="music-player-box">
-              <!-- header -->
-              <div class="container-fluid">
-                <b-navbar :sticky="true">
-                  <div class="music-header">
-                    <div>
-                      <img
-                        @click="isOpen = false"
-                        src="@/assets/panel/img/icon/left-arrow.svg"
-                        alt="back-to-prev-page"
-                      />
-                    </div>
-                    <div>
-                      <span>{{currentSong.title}}</span>
-                    </div>
-                    <div class="header-drop-down">
-                      <img
-                        src="@/assets/panel/img/icon/ellipsis.svg"
-                        alt="back-to-prev-page"
-                        @click="showCustomModal = !showCustomModal"
-                      />
-                    </div>
-                  </div>
-                </b-navbar>
-              </div>
-              <div class="padding-t">
-                <!-- music image -->
-                <div class="music-image">
-                  <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
-                </div>
-                <!-- music info -->
-                <div class="music-info">
-                  <p>{{ currentSong.title}}</p>
-                  <span>{{currentSong.artist.name}}</span>
-                </div>
-
-                <!-- progress bar -->
-                <div class="row music-progress-bar mt-3">
-                  <div class="position-relative">
-                    <img
-                      @click="repeat"
-                      :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
-                      alt="share"
-                    />
-                    <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
-                  </div>
-                  <div class="flex-grow-1">
-                    <div class="progress-container">
-                      <div class="progress" id="progress-wrap">
-                        <div
-                          class="progress-handle"
-                          :style="{left:settings.progressPercentageValue}"
-                        ></div>
-
-                        <div class="transparent-seeker-layer" @click="seek"></div>
-
-                        <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
-                      </div>
-                    </div>
-                    <div class="row music-time">
-                      <div class="col-6">
-                        <span>{{currentPlayedTime}}</span>
-                      </div>
-                      <div class="col-6 text-right">
-                        <span>{{duration}}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <a :href="currentSong.url">
-                      <img
-                        class="float-right"
-                        src="@/assets/panel/img/icon/download.svg"
-                        alt="download"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <!-- Controls -->
-                <div class="music-controls mt-3">
-                  <div>
-                    <img
-                      class="shuffle"
-                      @click="shuffleToggle"
-                      :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
-                      alt="shuffle"
-                    />
-                  </div>
-                  <div class="prev">
-                    <img
-                      @click="skip('backward')"
-                      src="@/assets/panel/img/icon/fast-forward-left.svg"
-                      alt="prev"
-                    />
-                  </div>
-                  <div>
-                    <img
-                      v-if="!isPlaying"
-                      @click="playCurrentSong"
-                      alt="play"
-                      class="play"
-                      src="@/assets/panel/img/icon/main-play.svg"
-                    />
-                    <img
-                      class="play"
-                      @click="pause"
-                      v-else
-                      src="@/assets/panel/img/icon/main-pause.svg"
-                      alt="pause"
-                    />
-                  </div>
-                  <div class="next">
-                    <img
-                      @click="skip('forward')"
-                      src="@/assets/panel/img/icon/fast-forward-right.svg"
-                      alt="next"
-                    />
-                  </div>
-                  <like
-                    :post_id="currentSong.id"
-                    post_type="music"
-                    :has_like="currentSong.has_like"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- play list -->
-        <div>
+        <div class="w-100 small-music-player" v-if="!isOpen">
           <div class="row">
-            <div class="section-title col-12 pr-4">
-              <h2 class="text-right">پلی لیست شما</h2>
+            <div class="col-4">
+              <img
+                @click="skip('forward')"
+                width="25"
+                height="25"
+                src="@/assets/panel/img/icon/fast-forward-black.svg"
+                alt="fast-forward-black"
+              />
+              <img
+                @click="pause"
+                v-show="isPlaying"
+                src="@/assets/panel/img/icon/pause-black.svg"
+                alt="pause"
+              />
+              <img
+                @click="playCurrentSong"
+                width="20"
+                height="20"
+                v-show="!isPlaying"
+                src="@/assets/panel/img/icon/play-black.svg"
+                alt="play"
+              />
+            </div>
+            <div class="col-8">
+              <div>
+                <span class="title">{{currentSong.title}}</span>
+                <span class="name">{{currentSong.artist.name}}</span>
+              </div>
+              <img :src="currentSong.image" alt width="60" height="60" />
             </div>
           </div>
-          <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
         </div>
+        <transition name="music-player">
+          <div class="row music-player" v-show="isOpen">
+            <div class="col-md-6">
+              <div class="music-player-box">
+                <!-- header -->
+                <div class="container-fluid">
+                  <b-navbar :sticky="true">
+                    <div class="music-header">
+                      <div>
+                        <img
+                          @click="isOpen = false"
+                          src="@/assets/panel/img/icon/left-arrow.svg"
+                          alt="back-to-prev-page"
+                        />
+                      </div>
+                      <div>
+                        <span>{{currentSong.title}}</span>
+                      </div>
+                      <div class="header-drop-down">
+                        <img
+                          src="@/assets/panel/img/icon/ellipsis.svg"
+                          alt="back-to-prev-page"
+                          @click="showCustomModal = !showCustomModal"
+                        />
+                      </div>
+                    </div>
+                  </b-navbar>
+                </div>
+                <div class="padding-t">
+                  <!-- music image -->
+                  <div class="music-image">
+                    <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
+                  </div>
+                  <!-- music info -->
+                  <div class="music-info">
+                    <p>{{ currentSong.title}}</p>
+                    <span>{{currentSong.artist.name}}</span>
+                  </div>
+
+                  <!-- progress bar -->
+                  <div class="row music-progress-bar mt-3">
+                    <div class="position-relative">
+                      <img
+                        @click="repeat"
+                        :src="settings.loop.state == false ? settings.repeat_off : settings.repeat_on"
+                        alt="share"
+                      />
+                      <div class="repeat-info" v-if="settings.onRepeat">{{settings.loop.value}}</div>
+                    </div>
+                    <div class="flex-grow-1">
+                      <div class="progress-container">
+                        <div class="progress" id="progress-wrap">
+                          <div
+                            class="progress-handle"
+                            :style="{left:settings.progressPercentageValue}"
+                          ></div>
+
+                          <div class="transparent-seeker-layer" @click="seek"></div>
+
+                          <div class="bar" :style="{width:settings.progressPercentageValue}"></div>
+                        </div>
+                      </div>
+                      <div class="row music-time">
+                        <div class="col-6">
+                          <span>{{currentPlayedTime}}</span>
+                        </div>
+                        <div class="col-6 text-right">
+                          <span>{{duration}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <a :href="currentSong.url">
+                        <img
+                          class="float-right"
+                          src="@/assets/panel/img/icon/download.svg"
+                          alt="download"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <!-- Controls -->
+                  <div class="music-controls mt-3">
+                    <div>
+                      <img
+                        class="shuffle"
+                        @click="shuffleToggle"
+                        :src="settings.shuffle ? settings.shuffleOn : settings.shuffleOff"
+                        alt="shuffle"
+                      />
+                    </div>
+                    <div class="prev">
+                      <img
+                        @click="skip('backward')"
+                        src="@/assets/panel/img/icon/fast-forward-left.svg"
+                        alt="prev"
+                      />
+                    </div>
+                    <div>
+                      <img
+                        v-if="!isPlaying"
+                        @click="playCurrentSong"
+                        alt="play"
+                        class="play"
+                        src="@/assets/panel/img/icon/main-play.svg"
+                      />
+                      <img
+                        class="play"
+                        @click="pause"
+                        v-else
+                        src="@/assets/panel/img/icon/main-pause.svg"
+                        alt="pause"
+                      />
+                    </div>
+                    <div class="next">
+                      <img
+                        @click="skip('forward')"
+                        src="@/assets/panel/img/icon/fast-forward-right.svg"
+                        alt="next"
+                      />
+                    </div>
+                    <like
+                      :post_id="currentSong.id"
+                      post_type="music"
+                      :has_like="currentSong.has_like"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- play list -->
+            <div>
+              <div class="row">
+                <div class="section-title col-12 pr-4">
+                  <h2 class="text-right">پلی لیست شما</h2>
+                </div>
+              </div>
+              <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
+            </div>
+          </div>
+        </transition>
       </div>
       <!-- Custom Modal -->
       <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">

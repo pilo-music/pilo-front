@@ -124,6 +124,7 @@
         </div>
         <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
       </div>
+      <div class="clearfix"></div>
       <!-- Related Music -->
       <div v-if="!isLoading">
         <div class="row">

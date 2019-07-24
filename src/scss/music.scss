@@ -1,5 +1,15 @@
 @import "./global/general";
 
+@include md {
+  .single-music-box {
+    float: left !important;
+    width: 50% !important;
+  }
+}
+// @include lg{
+//   .single-music-box{}
+// }
+
 .single-music-box {
   .music-image {
     text-align: center;

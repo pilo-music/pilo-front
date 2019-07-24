@@ -1,90 +1,51 @@
 .music-player {
   position: fixed;
-  bottom: 60px;
+  padding: 16px;
   right: 0;
   left: 0;
+  bottom: 0;
+  top: 0;
   background: #ffffffdb;
   z-index: 99999;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
-  max-height: 80px;
-}
-.music-player-open {
-  transition: all 0.5s;
-  position: fixed;
-  bottom: 60px;
-  right: 0;
-  left: 0;
   height: 100%;
   background: white;
   z-index: 99999;
-  transform: max-height 0.15s ease-out;
   overflow: scroll;
+  transition: all 0.3s ease;
+}
 
-  .small-music-player {
-    display: none;
+.music-player-enter {
+  opacity: 0;
+}
+
+.music-player-leave-active {
+  opacity: 0;
+  .music-player-container {
+    transform: translate(0, 100%);
   }
 }
 
-.progress-container {
-  position: relative;
-  height: 10px;
-  width: auto;
-  display: flex;
-  align-items: center;
-
-  .progress {
-    background-color: rgba(0, 0, 0, 0.05);
-    height: 6px;
-    //width: calc(75% - 30px);
-    width: 100%;
-    margin: 0;
-    padding: 0 2px;
-    border-radius: 0;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-
-    .progress-handle {
-      display: block;
-      position: absolute;
-      z-index: 6;
-      margin-top: 0;
-      margin-left: -2px;
-      width: 15px;
-      height: 15px;
-      border-radius: 100%;
-      background-color: $colorPrimary;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-
-      &:hover {
-        background-color: #000;
-      }
-    }
-
-    .transparent-seeker-layer {
-      //please do not delete this layer unless you know what you are doing
-      // this code allows the seeker click position to function well
-      width: 100%;
-      height: 6px;
-      background-color: transparent;
-      position: absolute;
-      cursor: pointer;
-      z-index: 5;
-    }
-
-    .bar {
-      border-radius: 5px;
-      width: 0;
-      background-color: $colorPrimary;
-      height: 6px;
-      position: absolute;
-    }
+.music-player-leave-active,
+.music-player-enter-active {
+  transition: all 0.5s;
+}
+.music-player-enter {
+  .music-player-container {
+    transform: translate(0, 100%);
   }
 }
+
 .small-music-player {
+  background: #ffffffdb;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  z-index: 99999;
+  padding-right: 16px;
+  right: 0;
+  left: 0;
+  height: 80px;
+  bottom: 60px;
   .row {
     height: 80px;
     .col-4 {
@@ -123,7 +84,6 @@
 ////// full height player
 
 .music-player-box {
-  margin-top: 5em;
   .music-image {
     text-align: center;
     img {
@@ -372,5 +332,67 @@
   }
   .progress-div {
     flex: 3 !important;
+  }
+}
+
+/// progress bar
+
+.progress-container {
+  position: relative;
+  height: 10px;
+  width: auto;
+  display: flex;
+  align-items: center;
+
+  .progress {
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 6px;
+    //width: calc(75% - 30px);
+    width: 100%;
+    margin: 0;
+    padding: 0 2px;
+    border-radius: 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+    .progress-handle {
+      display: block;
+      position: absolute;
+      z-index: 6;
+      margin-top: 0;
+      margin-left: -2px;
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+      background-color: $colorPrimary;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+
+      &:hover {
+        background-color: #000;
+      }
+    }
+
+    .transparent-seeker-layer {
+      //please do not delete this layer unless you know what you are doing
+      // this code allows the seeker click position to function well
+      width: 100%;
+      height: 6px;
+      background-color: transparent;
+      position: absolute;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .bar {
+      border-radius: 5px;
+      width: 0;
+      background-color: $colorPrimary;
+      height: 6px;
+      position: absolute;
+    }
   }
 }
