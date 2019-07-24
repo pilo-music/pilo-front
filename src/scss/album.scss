@@ -21,7 +21,10 @@
 
     .album-control {
       height: 65px;
-      justify-content: end;
+text-align: right;
+      div {
+        display: inline-block;
+      }
       .play {
         cursor: pointer;
         margin-right: 32px;
@@ -35,7 +38,7 @@
         width: 40px;
         position: relative;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        top: -20px;
+        top: -55px;
         &:hover {
           opacity: 1 !important;
         }
@@ -44,7 +47,7 @@
         cursor: pointer;
         border-radius: 50px;
         position: relative;
-        top: -20px;
+        top: -55px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         margin-right: 16px;
         width: 40px;

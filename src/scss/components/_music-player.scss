@@ -37,7 +37,7 @@
 }
 
 .small-music-player {
-  background: #ffffffdb;
+  background: white;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
   position: fixed;
   z-index: 99999;
@@ -48,13 +48,18 @@
   bottom: 60px;
   .row {
     height: 80px;
-    .col-4 {
+    .col-5 {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
+      padding-left: 32px;
+      .play {
+        position: relative;
+        top: 5px;
+      }
     }
-    .col-8 {
+    .col-7 {
       display: flex;
       flex-direction: row;
       justify-content: right;

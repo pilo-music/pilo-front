@@ -2,7 +2,7 @@
   <layout name="Default">
     <div>
       <!-- hearo slider -->
-      <home-hero-carousel />
+      <!-- <home-hero-carousel />  -->
       <!-- music slider -->
       <div class="row">
         <div class="section-title col-12 pr-4">

@@ -1,46 +1,27 @@
 <template>
-  <div v-show="showMusicPlayer">
-    <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex">
-      <!-- Options -->
+  <div>
+    <!-- <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex" v-if="currentSong">
       <div class="options">
-        <like
-          :post_id="currentSong.id"
-          post_type="music"
-          :has_like="currentSong.has_like"
-        />
+        <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
       </div>
-      <!-- Volum -->
       <div class="volume">
         <img src="@/assets/panel/img/icon/sound.svg" alt="volume" />
         <div>
           <div class="progress-container">
             <div class="progress" id="progress-wrap">
-              <div
-                class="progress-handle"
-                :style="{ left: settings.progressPercentageValue }"
-              ></div>
+              <div class="progress-handle" :style="{ left: settings.progressPercentageValue }"></div>
               <div class="transparent-seeker-layer" @click="seek"></div>
-              <div
-                class="bar"
-                :style="{ width: settings.progressPercentageValue }"
-              ></div>
+              <div class="bar" :style="{ width: settings.progressPercentageValue }"></div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Progress -->
       <div class="progress-div">
         <div class="progress-container">
           <div class="progress" id="progress-wrap">
-            <div
-              class="progress-handle"
-              :style="{ left: settings.progressPercentageValue }"
-            ></div>
+            <div class="progress-handle" :style="{ left: settings.progressPercentageValue }"></div>
             <div class="transparent-seeker-layer" @click="seek"></div>
-            <div
-              class="bar"
-              :style="{ width: settings.progressPercentageValue }"
-            ></div>
+            <div class="bar" :style="{ width: settings.progressPercentageValue }"></div>
           </div>
         </div>
         <div class="progress-time">
@@ -48,7 +29,6 @@
           <span>{{ duration }}</span>
         </div>
       </div>
-      <!-- Controls -->
       <div class="controls">
         <div>
           <img
@@ -81,52 +61,58 @@
           />
         </div>
       </div>
-      <!-- Music Info -->
       <div class="music-info">
         <div>
           <p class="music-artist">{{ currentSong.artist.name }}</p>
           <p class="music-title">{{ currentSong.title }}</p>
         </div>
         <div>
-          <img
-            class="music-image"
-            :src="currentSong.image"
-            :alt="currentSong.title"
-          />
+          <img class="music-image" :src="currentSong.image" :alt="currentSong.title" />
         </div>
       </div>
-    </div>
-    <div>
+    </div>-->
+    <div v-if="currentSong">
       <div
         v-touch:swipe="swipeUpHandler"
         class="container-fluid d-block d-sm-block d-md-none d-lg-none"
       >
         <div class="w-100 small-music-player" v-if="!isOpen">
           <div class="row">
-            <div class="col-4">
+            <div class="col-5">
               <img
-                @click="skip('forward')"
+                @click="skip('backward')"
                 width="25"
                 height="25"
-                src="@/assets/panel/img/icon/fast-forward-black.svg"
+                src="@/assets/panel/img/icon/fast-forward-left.svg"
                 alt="fast-forward-black"
               />
               <img
                 @click="pause"
                 v-show="isPlaying"
-                src="@/assets/panel/img/icon/pause-black.svg"
+                width="70"
+                height="70"
+                src="@/assets/panel/img/icon/main-pause.svg"
                 alt="pause"
+                class="play"
               />
               <img
                 @click="playCurrentSong"
-                width="20"
-                height="20"
+                width="70"
+                height="70"
                 v-show="!isPlaying"
-                src="@/assets/panel/img/icon/play-black.svg"
+                src="@/assets/panel/img/icon/main-play.svg"
                 alt="play"
+                class="play"
+              />
+              <img
+                @click="skip('forward')"
+                width="25"
+                height="25"
+                src="@/assets/panel/img/icon/fast-forward-right.svg"
+                alt="fast-forward-black"
               />
             </div>
-            <div class="col-8">
+            <div class="col-7">
               <div>
                 <span class="title">{{ currentSong.title }}</span>
                 <span class="name">{{ currentSong.artist.name }}</span>
@@ -166,11 +152,7 @@
                 <div class="padding-t">
                   <!-- music image -->
                   <div class="music-image">
-                    <img
-                      class="img-fluid"
-                      :src="currentSong.image"
-                      :alt="currentSong.title"
-                    />
+                    <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
                   </div>
                   <!-- music info -->
                   <div class="music-info">
@@ -190,9 +172,7 @@
                         "
                         alt="share"
                       />
-                      <div class="repeat-info" v-if="settings.onRepeat">
-                        {{ settings.loop.value }}
-                      </div>
+                      <div class="repeat-info" v-if="settings.onRepeat">{{ settings.loop.value }}</div>
                     </div>
                     <div class="flex-grow-1">
                       <div class="progress-container">
@@ -202,15 +182,9 @@
                             :style="{ left: settings.progressPercentageValue }"
                           ></div>
 
-                          <div
-                            class="transparent-seeker-layer"
-                            @click="seek"
-                          ></div>
+                          <div class="transparent-seeker-layer" @click="seek"></div>
 
-                          <div
-                            class="bar"
-                            :style="{ width: settings.progressPercentageValue }"
-                          ></div>
+                          <div class="bar" :style="{ width: settings.progressPercentageValue }"></div>
                         </div>
                       </div>
                       <div class="row music-time">
@@ -292,20 +266,13 @@
                   <h2 class="text-right">پلی لیست شما</h2>
                 </div>
               </div>
-              <playlist
-                class="p-0"
-                :items="playlist"
-                v-on:play="play($event)"
-              />
+              <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
             </div>
           </div>
         </transition>
       </div>
       <!-- Custom Modal -->
-      <custom-modal
-        :show="showCustomModal"
-        v-on:close="showCustomModal = false"
-      >
+      <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
         <div class="modal-body" v-if="!isLoading">
           <div class="menu-item">
             <router-link
@@ -372,7 +339,6 @@ export default {
       isOpen: false,
       settings: {},
       currentSong: {},
-      showMusicPlayer: false,
       showCustomModal: false,
       isLoading: false
     };
@@ -382,7 +348,6 @@ export default {
     this.settings = this.currentSettings;
     this.settings.innerLoop = this.settings.loop.state;
     this.currentSong = current;
-    if (this.currentSong) this.showMusicPlayer = true;
   },
   mounted() {
     if (this.currentSong) {

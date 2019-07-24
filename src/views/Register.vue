@@ -3,7 +3,7 @@
     <div class="align auth">
       <div>
         <router-link :to="{ name: 'home' }">
-          <img class="logo" src="@/assets/panel/img/logo_with_text.png" alt />
+          <img class="logo" src="@/assets/panel/img/pilo-logo.svg" alt />
         </router-link>
       </div>
       <div class="grid">
@@ -11,10 +11,7 @@
           <div class="form__field">
             <label for="login__username">
               <svg class="icon">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#user"
-                />
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user" />
               </svg>
               <span class="hidden">Username</span>
             </label>
@@ -35,10 +32,7 @@
           <div class="form__field">
             <label for="login__password">
               <svg class="icon">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#lock"
-                />
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock" />
               </svg>
               <span class="hidden">Password</span>
             </label>
@@ -59,10 +53,7 @@
           <div class="form__field">
             <label for="login__password">
               <svg class="icon">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#lock"
-                />
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock" />
               </svg>
               <span class="hidden">Password</span>
             </label>
@@ -88,7 +79,7 @@
         </form>
         <p class="text--center">
           حساب کاربری دارید؟
-          <router-link :to="{ name: 'login' }">ورود</router-link>
+          <router-link class="color-accent" :to="{ name: 'login' }">ورود</router-link>
         </p>
       </div>
 

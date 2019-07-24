@@ -1,15 +1,5 @@
 @import "./global/general";
 
-@include md {
-  .single-music-box {
-    float: left !important;
-    width: 50% !important;
-  }
-}
-// @include lg{
-//   .single-music-box{}
-// }
-
 .single-music-box {
   .music-image {
     text-align: center;
@@ -91,6 +81,8 @@
     }
     .play {
       transition: all 0.7s;
+      position: relative;
+      top: 5px;
       cursor: pointer;
       width: 100px;
       &:hover {
