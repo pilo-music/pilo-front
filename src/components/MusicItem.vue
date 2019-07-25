@@ -9,8 +9,16 @@
         <div @click="play(music)" class="music-play position-absolute">
           <img
             title="play"
+            v-if="isPlaying == false && music.id != currentId"
             alt="play"
             src="@/assets/panel/img/icon/music-play-white.svg"
+            class="text-white img-fluid"
+          />
+          <img
+            title="puase"
+            v-if="isPlaying == true && music.id == currentId"
+            alt="puase"
+            src="@/assets/panel/img/icon/music-pause-white.svg"
             class="text-white img-fluid"
           />
         </div>
@@ -20,13 +28,11 @@
       <a
         class="music-title color-primary-dark d-block"
         :to="{ name: 'music', params: { slug: music.slug } }"
-        >{{ music.title }}</a
-      >
+      >{{ music.title }}</a>
       <router-link
         class="music-artist d-block"
         :to="{ name: 'artist', params: { slug: music.artist.slug } }"
-        >{{ music.artist.name }}</router-link
-      >
+      >{{ music.artist.name }}</router-link>
     </div>
   </div>
 </template>
@@ -36,9 +42,15 @@ import { getLocalSong } from "@/services/helpers/music.js";
 export default {
   name: "components.music_item",
   props: ["music"],
+  data() {
+    return {
+      currentId: null
+    };
+  },
   methods: {
     play(song = {}) {
       let currentSong = getLocalSong();
+      this.currentId = currentSong.id;
       if (typeof song === "object") {
         if (this.settings.isLoaded) {
           //check if song exists in playlist
@@ -67,6 +79,7 @@ export default {
         this.$store.commit("SET_IS_PLAYING", true);
       }
     },
+
     addToPlaylist(song) {
       var newPlaylist = this.playlist;
       newPlaylist.unshift(song);
@@ -99,6 +112,14 @@ export default {
     },
     settings() {
       return this.$store.getters.currentSettings;
+    },
+    current() {
+      return this.$store.getters.currentMusic;
+    }
+  },
+  watch: {
+    isPlaying: function(newValue) {
+      if (newValue) this.currentId = this.current.id;
     }
   }
 };

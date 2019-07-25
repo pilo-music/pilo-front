@@ -36,4 +36,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.owl-item{
+  min-width: 130px;
+}
+</style>

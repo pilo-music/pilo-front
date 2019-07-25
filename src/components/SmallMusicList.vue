@@ -1,14 +1,10 @@
 <template>
   <div class="small-music">
-    <div v-for="i in items" :key="i.id" :class="getClass(i.id)">
+    <!-- small_music_item_playing -->
+    <div v-for="i in items" :key="i.id">
       <div class="small-music-item">
         <div>
-          <img
-            @click="play(i)"
-            alt="music-play"
-            class="music-play"
-            :src="getStatus(i.id)"
-          />
+          <img @click="play(i)" alt="music-play" class="music-play" :src="playImagePath" />
         </div>
         <div class="pb-2">
           <span>{{ i.artist.name }}</span>
@@ -36,31 +32,68 @@ export default {
     };
   },
   methods: {
-    play(music) {
-      this.$emit("play", music);
-      this.getStatus(music.id);
-      this.getClass(music.id);
+    play(song = {}) {
+      let currentSong = getLocalSong();
+      if (typeof song === "object") {
+        if (this.settings.isLoaded) {
+          //check if song exists in playlist
+          if (currentSong.id === song.id && this.isPlaying) {
+            this.$store.commit("SET_IS_PLAYING", false);
+          } else if (currentSong.id === song.id && !this.isPlaying) {
+            this.$store.commit("SET_IS_PLAYING", true);
+          } else if (currentSong.id !== song.id) {
+            if (!this.containsObjectWithSameId(song, this.playlist)) {
+              this.$store.commit("SET_IS_PLAYING", false);
+              this.addToPlaylist(song);
+            }
+            this.$store.dispatch("setCurrentMusic", song);
+            this.settings.previousPlaylistIndex = this.settings.currentIndex;
+            this.settings.currentIndex = 0;
+            setTimeout(() => {
+              this.$store.commit("SET_IS_PLAYING", true);
+            }, 1000);
+          }
+        } else {
+          this.$store.dispatch("setCurrentMusic", song);
+          setTimeout(() => {
+            this.$store.commit("SET_IS_PLAYING", true);
+          }, 1000);
+        }
+        this.$store.commit("SET_IS_PLAYING", true);
+      }
     },
-    getClass(id) {
-      if (this.isPlaying && id == this.currentSong.id)
-        return "small_music_item_playing";
+    addToPlaylist(song) {
+      var newPlaylist = this.playlist;
+      newPlaylist.unshift(song);
+      this.$store.commit("SET_CURRENT_PLAYLIST", newPlaylist);
     },
-    getStatus(id) {
-      // console.log("current :" + id, "song :" + this.currentSong.id);
-
-      if (this.isPlaying && id == this.currentSong.id)
-        return this.pauseImagePath;
-      else return this.playImagePath;
+    containsObjectWithSameId(obj, list) {
+      let i;
+      for (i = 0; i < list.length; i++) {
+        if (list[i].id === obj.id) {
+          return true;
+        }
+      }
+      return false;
+    },
+    getObjectIndexFromArray(obj, list) {
+      let i;
+      for (i = 0; i < list.length; i++) {
+        if (list[i].id === obj.id) {
+          return i;
+        }
+      }
     }
   },
   computed: {
-    currentSong() {
-      return this.$store.getters.currentMusic == null
-        ? {}
-        : this.$store.getters.currentMusic;
+    playlist() {
+      return this.$store.getters.currentPlaylist;
     },
     isPlaying() {
       return this.$store.getters.isPlaying;
+    },
+    settings() {
+      return this.$store.getters.currentSettings;
     }
   }
 };
