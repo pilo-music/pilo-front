@@ -340,7 +340,8 @@ export default {
       settings: {},
       currentSong: {},
       showCustomModal: false,
-      isLoading: false
+      isLoading: false,
+      orginal_playlist: []
     };
   },
   created() {
@@ -605,17 +606,22 @@ export default {
         if (this.orginal_playlist.length === 0) {
           this.orginal_playlist = this.playlist;
         }
-        this.playlist = this.shuffleArray(this.playlist);
-
+        this.$store.commit(
+          "SET_CURRENT_PLAYLIST",
+          this.shuffleArray(this.playlist)
+        );
         //reset the playlist index when changed and rest the previous playlist index
         this.settings.currentIndex = this.getObjectIndexFromArray(
           this.currentSong,
           this.playlist
         );
         this.settings.previousPlaylistIndex = this.settings.currentIndex;
-        this.shuffle = true;
+        this.settings.shuffle = true;
       } else {
-        this.playlist = this.orginal_playlist;
+        this.$store.commit(
+          "SET_CURRENT_PLAYLIST",
+          this.shuffleArray(this.orginal_playlist)
+        );
         this.settings.shuffle = false;
       }
     },
