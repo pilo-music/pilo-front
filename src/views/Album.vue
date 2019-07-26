@@ -37,7 +37,7 @@
                     alt="shuffle"
                   />
                 </div>
-                <div>
+                <div @click="play">
                   <img class="play" src="@/assets/panel/img/icon/main-play.svg" alt="play" />
                 </div>
               </div>
@@ -116,6 +116,15 @@ export default {
       playlist: []
     };
   },
+  methods: {
+    play() {
+      if (this.album.musics.length > 0) {
+        this.$store.commit("SET_CURRENT_PLAYLIST", this.album.musics);
+        this.$store.dispatch("setCurrentMusic", this.album.musics[0]);
+        this.$store.commit("SET_IS_PLAYING", true);
+      }
+    }
+  },
   mounted() {
     single(this.$route.params.slug)
       .then(response => {
@@ -132,4 +141,9 @@ export default {
 
 <style lang="scss">
 @import "../scss/album.scss";
+.single-album-box {
+  .margin {
+    margin-bottom: 60px;
+  }
+}
 </style>

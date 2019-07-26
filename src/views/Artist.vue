@@ -3,7 +3,7 @@
     <div>
       <!-- header -->
       <div class="container-fluid">
-        <div class="artist-single-box">
+        <div class="artist-single-box padding-b margin-b mb-5 pb-5">
           <!-- header -->
           <b-navbar :sticky="true">
             <div class="music-header full">
@@ -56,7 +56,7 @@
             </div>
           </div>
           <!-- Best Music -->
-          <div class="row mt-4 pt-2">
+          <div class="row mt-4 pt-2" v-if="best_musics.length > 0">
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">برترین موزیک ها</h2>
               <router-link
@@ -67,15 +67,14 @@
                     filter: 'best'
                   }
                 }"
-                >نمایش همه</router-link
-              >
+              >نمایش همه</router-link>
             </div>
           </div>
           <div v-if="!isLoading" class="mt-3">
-            <playlist :items="best_musics" />
+            <playlist :items="best_musics" v-if="best_musics.length > 0" />
           </div>
           <!-- Last Musics -->
-          <div class="row margin-t">
+          <div class="row margin-t" v-if="last_musics.length > 0">
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">جدیدترین موزیک ها</h2>
               <router-link
@@ -85,16 +84,14 @@
                     artist: artist.slug
                   }
                 }"
-                >نمایش همه</router-link
-              >
-            </div>
-
-            <div v-if="!isLoading" class="mt-3">
-              <home-musics-carousel :items="last_musics" />
+              >نمایش همه</router-link>
             </div>
           </div>
+          <div v-if="!isLoading">
+            <home-musics-carousel :items="last_musics" v-if="last_musics.length > 0" />
+          </div>
           <!-- Last Albums -->
-          <div class="row margin-t">
+          <div class="row margin-t" v-if="albums.length>0">
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">جدیدترین آلبوم ها</h2>
               <router-link
@@ -104,15 +101,14 @@
                     artist: artist.slug
                   }
                 }"
-                >نمایش همه</router-link
-              >
+              >نمایش همه</router-link>
             </div>
           </div>
-          <div v-if="!isLoading" class="mt-3">
-            <home-albums-carousel :items="albums" />
+          <div v-if="!isLoading">
+            <home-albums-carousel :items="albums" v-if="albums.length > 0" />
           </div>
           <!-- Last Videos -->
-          <div class="row margin-t">
+          <div class="row margin-t" v-if="videos.length > 0">
             <div class="section-title col-12 pr-4">
               <h2 class="text-right">جدیدترین موزیک ویدیو ها</h2>
               <router-link
@@ -122,12 +118,11 @@
                     artist: artist.slug
                   }
                 }"
-                >نمایش همه</router-link
-              >
+              >نمایش همه</router-link>
             </div>
           </div>
-          <div v-if="!isLoading" class="mt-3">
-            <home-videos-carousel :items="videos" />
+          <div v-if="!isLoading">
+            <home-videos-carousel :items="videos" v-if="videos.length > 0" />
           </div>
         </div>
       </div>
@@ -182,6 +177,7 @@ export default {
           this.albums = reponse.data.data.albums;
           this.videos = reponse.data.data.videos;
           this.isLoading = false;
+          console.log(this.best_musics.length);
         })
         .catch(err => {
           console.log(err);

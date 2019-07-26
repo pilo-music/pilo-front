@@ -124,7 +124,7 @@
         <transition name="music-player">
           <div class="row music-player" v-show="isOpen">
             <div class="w-100">
-              <div class="music-player-box">
+              <div class="music-player-box padding-r padding-l">
                 <!-- header -->
                 <div class="container-fluid">
                   <b-navbar :sticky="true">
@@ -260,7 +260,7 @@
               </div>
             </div>
             <!-- play list -->
-            <div class="w-100 margin-r margin-l">
+            <div class="w-100 margin-r margin-l" style="overflow:scroll;padding-bottom:30px;">
               <div class="row">
                 <div class="section-title col-12 pr-4">
                   <h2 class="text-right">پلی لیست شما</h2>
@@ -739,10 +739,13 @@ export default {
       this.$store.dispatch("setCurrentSetting", newValue);
     },
     isPlaying: function(newValue) {
-      if (newValue) {
+      if (newValue == true) {
         let current = getLocalSong();
         if (current.url != this.currentSong.url) this.playCurrentSong();
-      } else this.pause();
+        else this.audioPlayer.play();
+      } else {
+        this.pause();
+      }
     }
   }
 };

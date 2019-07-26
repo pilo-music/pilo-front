@@ -1,7 +1,8 @@
 <template>
   <div class="small-music">
     <div v-for="i in items" :key="i.id">
-      <div :class="getClass(i)">
+      <!-- <div :class="getClass(i)"> -->
+      <div class="small-music-item">
         <div>
           <img
             @click="play(i)"
@@ -120,7 +121,7 @@ export default {
   },
   watch: {
     isPlaying: function(newValue) {
-      if (newValue) this.currentId = this.current.id;
+      this.currentId = this.current.id;
     }
   }
 };

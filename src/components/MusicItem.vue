@@ -7,16 +7,15 @@
       </router-link>
       <a class="play-music">
         <div @click="play(music)" class="music-play position-absolute">
-          <img
+          <!-- <img
             title="puase"
             v-if="isPlaying == true && music.id == currentId"
             alt="puase"
             src="@/assets/panel/img/icon/music-pause-white.svg"
             class="text-white img-fluid"
-          />
+          />-->
           <img
             title="play"
-            v-else
             alt="play"
             src="@/assets/panel/img/icon/music-play-white.svg"
             class="text-white img-fluid"
@@ -76,7 +75,6 @@ export default {
             this.$store.commit("SET_IS_PLAYING", true);
           }, 1000);
         }
-        this.$store.commit("SET_IS_PLAYING", true);
       }
     },
 

@@ -25,6 +25,9 @@ export default {
 
 <style lang="scss">
 .album-slider {
+  .hooper {
+    height: 100%;
+  }
   .hooper-slide {
     margin: 0 8px;
   }

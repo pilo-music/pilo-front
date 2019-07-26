@@ -19,6 +19,9 @@ export default {
     localStorage.setItem("current_song", JSON.stringify(state.currentMusic));
   },
   SET_CURRENT_PLAYLIST(state, musics) {
+    if (musics.length > 20) {
+      musics.split(musics.length - 1, 1);
+    }
     state.currentPlaylist = musics;
     localStorage.setItem(
       "current_playlist",
@@ -26,6 +29,7 @@ export default {
     );
   },
   SET_IS_PLAYING(state, isPlaying) {
+    console.log(isPlaying);
     state.isPlaying = isPlaying;
   },
   SET_CURRENT_SETTING(state, setting) {
