@@ -123,7 +123,7 @@
         </div>
         <transition name="music-player">
           <div class="row music-player" v-show="isOpen">
-            <div class="col-md-6">
+            <div class="w-100">
               <div class="music-player-box">
                 <!-- header -->
                 <div class="container-fluid">
@@ -260,7 +260,7 @@
               </div>
             </div>
             <!-- play list -->
-            <div>
+            <div class="w-100 margin-r margin-l">
               <div class="row">
                 <div class="section-title col-12 pr-4">
                   <h2 class="text-right">پلی لیست شما</h2>

@@ -8,17 +8,17 @@
       <a class="play-music">
         <div @click="play(music)" class="music-play position-absolute">
           <img
-            title="play"
-            v-if="isPlaying == false && music.id != currentId"
-            alt="play"
-            src="@/assets/panel/img/icon/music-play-white.svg"
-            class="text-white img-fluid"
-          />
-          <img
             title="puase"
             v-if="isPlaying == true && music.id == currentId"
             alt="puase"
             src="@/assets/panel/img/icon/music-pause-white.svg"
+            class="text-white img-fluid"
+          />
+          <img
+            title="play"
+            v-else
+            alt="play"
+            src="@/assets/panel/img/icon/music-play-white.svg"
             class="text-white img-fluid"
           />
         </div>

@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     doRegister() {
-      if (validEmail(this.email)) {
+      if (this.validEmail(this.email)) {
         if (this.password == this.confirm) {
           this.$refs.spinner.style.visibility = "visible";
           register(this.email, this.password)

@@ -1,10 +1,22 @@
 <template>
   <div class="small-music">
-    <!-- small_music_item_playing -->
     <div v-for="i in items" :key="i.id">
-      <div class="small-music-item">
+      <div :class="getClass(i)">
         <div>
-          <img @click="play(i)" alt="music-play" class="music-play" :src="playImagePath" />
+          <img
+            @click="play(i)"
+            alt="music-play"
+            class="music-play"
+            v-if="isPlaying == true && i.id == currentId"
+            src="@/assets/panel/img/icon/circle-pause.svg"
+          />
+          <img
+            @click="play(i)"
+            alt="music-play"
+            class="music-play"
+            v-else
+            src="@/assets/panel/img/icon/circle-play.svg"
+          />
         </div>
         <div class="pb-2">
           <span>{{ i.artist.name }}</span>
@@ -22,18 +34,19 @@
 </template>
 
 <script>
+import { getLocalSong } from "@/services/helpers/music.js";
 export default {
   props: ["items"],
   name: "components.small_music_list",
   data() {
     return {
-      playImagePath: require("@/assets/panel/img/icon/circle-play.svg"),
-      pauseImagePath: require("@/assets/panel/img/icon/circle-pause.svg")
+      currentId: null
     };
   },
   methods: {
     play(song = {}) {
       let currentSong = getLocalSong();
+      this.currentId = currentSong.id;
       if (typeof song === "object") {
         if (this.settings.isLoaded) {
           //check if song exists in playlist
@@ -62,6 +75,7 @@ export default {
         this.$store.commit("SET_IS_PLAYING", true);
       }
     },
+
     addToPlaylist(song) {
       var newPlaylist = this.playlist;
       newPlaylist.unshift(song);
@@ -83,6 +97,11 @@ export default {
           return i;
         }
       }
+    },
+    getClass(music) {
+      if (this.isPlaying == true && music.id == this.currentId)
+        return "small_music_item_playing";
+      else return "small-music-item";
     }
   },
   computed: {
@@ -94,6 +113,14 @@ export default {
     },
     settings() {
       return this.$store.getters.currentSettings;
+    },
+    current() {
+      return this.$store.getters.currentMusic;
+    }
+  },
+  watch: {
+    isPlaying: function(newValue) {
+      if (newValue) this.currentId = this.current.id;
     }
   }
 };

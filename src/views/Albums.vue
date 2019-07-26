@@ -64,7 +64,6 @@ export default {
       var artist = null;
       if (this.$route.params.artist != null && this.$route.params.artist != "")
         filter = this.$route.params.artist;
-
       get(filter, this.page, artist)
         .then(response => {
           if (response.data.data.length) {

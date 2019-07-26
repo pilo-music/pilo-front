@@ -1,43 +1,42 @@
-<template>
-  <div>
-    <carousel
-      :responsive="carousel_respansive"
-      :margin="16"
-      :freeDrag="false"
-      :dots="false"
-    >
-      <ArtistItem v-for="i in items" :key="i.id" :artist="i" />
-    </carousel>
-  </div>
-</template>
+  <template>
+    <div class="home-artist-carousel">
+      <hooper :itemsToShow="3" :rtl="true">
+        <slide v-for="i in items" :key="i.id">
+          <ArtistItem :artist="i" />
+        </slide>
+      </hooper>
+    </div>
+  </template>
 
-<script>
-import carousel from "vue-owl-carousel";
-import ArtistItem from "@/components/ArtistItem";
-export default {
-  name: "components.home_artists_carousel",
-  props: ["items"],
-  components: {
-    ArtistItem,
-    carousel
-  },
-  data() {
-    return {
-      carousel_respansive: {
-        0: { items: 3, nav: false },
-        576: { items: 3, nav: false },
-        768: { items: 4, nav: false },
-        992: { items: 6, nav: false },
-        1200: { items: 8, nav: false }
-      },
-      artist: {
-        name: "test",
-        image:
-          "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg"
-      }
-    };
+  <script>
+  import ArtistItem from "@/components/ArtistItem";
+  import { Hooper, Slide } from "hooper";
+  import "hooper/dist/hooper.css";
+  export default {
+    name: "components.home_artists_carousel",
+    props: ["items"],
+    components: {
+      ArtistItem,
+      Hooper,
+      Slide
+    },
+    data() {
+      return {
+        artist: {
+          name: "test",
+          image:
+            "https://dl.taksound.com/cover/Epicure Band - Rap Dars Midam_5c2e4f73db459.jpg"
+        }
+      };
+    }
+  };
+  </script>
+
+  <style lang="scss">
+  .home-artist-carousel {
+    height: 170px;
+    .hooper-slide {
+      margin: 0 8px;
+    }
   }
-};
-</script>
-
-<style></style>
+  </style>
