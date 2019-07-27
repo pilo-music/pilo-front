@@ -1,11 +1,6 @@
 <template>
   <div>
-    <carousel
-      :responsive="carousel_respansive"
-      :margin="16"
-      :freeDrag="false"
-      :dots="true"
-    >
+    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="true">
       <VideoItem v-for="i in items" :key="i.id" :video="i" />
     </carousel>
   </div>

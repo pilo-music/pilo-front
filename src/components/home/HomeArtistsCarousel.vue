@@ -24,7 +24,6 @@ export default {
     return {
       hooperSettings: {
         itemsToShow: 3,
-        rtl: true,
         wheelControl: false,
         breakpoints: {
           800: {

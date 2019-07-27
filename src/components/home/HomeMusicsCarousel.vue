@@ -1,16 +1,13 @@
 <template>
   <div class="home-music-carousel">
-    <hooper :settings="hooperSettings">
-      <slide v-for="i in items" :key="i.id">
-        <MusicItem :music="i" />
-      </slide>
-    </hooper>
+    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
+      <MusicItem v-for="i in items" :key="i.id" :music="i" />
+    </carousel>
   </div>
 </template>
 
 <script>
-import { Hooper, Slide } from "hooper";
-import "hooper/dist/hooper.css";
+import carousel from "vue-owl-carousel";
 import MusicItem from "@/components/MusicItem";
 import { setTimeout } from "timers";
 export default {
@@ -18,35 +15,24 @@ export default {
   name: "components.home_musics_carousel",
   components: {
     MusicItem,
-    Hooper,
-    Slide
+    carousel
   },
   data() {
     return {
-      hooperSettings: {
-        itemsToShow: 2.5,
-        rtl: true,
-        wheelControl: false,
-        breakpoints: {
-          800: {
-            centerMode: false,
-            itemsToShow: 3.5
-          },
-          1000: {
-            itemsToShow: 6.5,
-            pagination: "fraction"
-          }
-        }
+      carousel_respansive: {
+        0: { items: 2, nav: false },
+        576: { items: 2, nav: false },
+        768: { items: 4, nav: false },
+        992: { items: 6, nav: false },
+        1200: { items: 8, nav: false }
       }
     };
   }
 };
 </script>
 
-<style lang="scss">
-.home-music-carousel {
-  .hooper-slide {
-    margin: 0 8px;
-  }
+<style>
+.owl-item {
+  min-width: 130px;
 }
 </style>

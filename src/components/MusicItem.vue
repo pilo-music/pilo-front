@@ -49,31 +49,38 @@ export default {
   methods: {
     play(song = {}) {
       let currentSong = getLocalSong();
-      this.currentId = currentSong.id;
-      if (typeof song === "object") {
-        if (this.settings.isLoaded) {
-          //check if song exists in playlist
-          if (currentSong.id === song.id && this.isPlaying) {
-            this.$store.commit("SET_IS_PLAYING", false);
-          } else if (currentSong.id === song.id && !this.isPlaying) {
-            this.$store.commit("SET_IS_PLAYING", true);
-          } else if (currentSong.id !== song.id) {
-            if (!this.containsObjectWithSameId(song, this.playlist)) {
+      if (currentSong == null) {
+        this.$store.dispatch("setCurrentMusic", song);
+        this.addToPlaylist(song);
+        this.settings.currentIndex = 0;
+        this.$store.commit("SET_IS_PLAYING", true);
+      } else {
+        this.currentId = currentSong.id;
+        if (typeof song === "object") {
+          if (this.settings.isLoaded) {
+            //check if song exists in playlist
+            if (currentSong.id === song.id && this.isPlaying) {
               this.$store.commit("SET_IS_PLAYING", false);
-              this.addToPlaylist(song);
+            } else if (currentSong.id === song.id && !this.isPlaying) {
+              this.$store.commit("SET_IS_PLAYING", true);
+            } else if (currentSong.id !== song.id) {
+              if (!this.containsObjectWithSameId(song, this.playlist)) {
+                this.$store.commit("SET_IS_PLAYING", false);
+                this.addToPlaylist(song);
+              }
+              this.$store.dispatch("setCurrentMusic", song);
+              this.settings.previousPlaylistIndex = this.settings.currentIndex;
+              this.settings.currentIndex = 0;
+              setTimeout(() => {
+                this.$store.commit("SET_IS_PLAYING", true);
+              }, 1000);
             }
+          } else {
             this.$store.dispatch("setCurrentMusic", song);
-            this.settings.previousPlaylistIndex = this.settings.currentIndex;
-            this.settings.currentIndex = 0;
             setTimeout(() => {
               this.$store.commit("SET_IS_PLAYING", true);
             }, 1000);
           }
-        } else {
-          this.$store.dispatch("setCurrentMusic", song);
-          setTimeout(() => {
-            this.$store.commit("SET_IS_PLAYING", true);
-          }, 1000);
         }
       }
     },

@@ -4,18 +4,17 @@
       <!-- <div :class="getClass(i)"> -->
       <div class="small-music-item">
         <div>
-          <img
+          <!-- <img
             @click="play(i)"
             alt="music-play"
             class="music-play"
             v-if="isPlaying == true && i.id == currentId"
             src="@/assets/panel/img/icon/circle-pause.svg"
-          />
+          />-->
           <img
             @click="play(i)"
             alt="music-play"
             class="music-play"
-            v-else
             src="@/assets/panel/img/icon/circle-play.svg"
           />
         </div>

@@ -1,54 +1,42 @@
 <template>
   <div class="album-slider mb-2">
-    <hooper :settings="hooperSettings">
-      <slide v-for="i in items" :key="i.id">
-        <AlbumItem :item="i" />
-      </slide>
-    </hooper>
+    <carousel
+      :responsive="carousel_respansive"
+      :margin="16"
+      :freeDrag="false"
+      :dots="false"
+    >
+      <AlbumItem v-for="i in items" :key="i.id" :item="i" />
+    </carousel>
   </div>
 </template>
 
 <script>
+import carousel from "vue-owl-carousel";
 import AlbumItem from "@/components/AlbumItem";
-import { Hooper, Slide } from "hooper";
-import "hooper/dist/hooper.css";
 export default {
   props: ["items"],
   name: "components.home_albums_carousel",
   components: {
     AlbumItem,
-    Hooper,
-    Slide
+    carousel
   },
   data() {
     return {
-      hooperSettings: {
-        itemsToShow: 2,
-        rtl: true,
-        wheelControl: false,
-        breakpoints: {
-          800: {
-            centerMode: false,
-            itemsToShow: 3
-          },
-          1000: {
-            itemsToShow: 3,
-            pagination: "fraction"
-          }
-        }
+      carousel_respansive: {
+        0: { items: 2, nav: false },
+        576: { items: 2, nav: false },
+        768: { items: 2, nav: false },
+        992: { items: 3, nav: false },
+        1200: { items: 3, nav: false }
       }
     };
   }
 };
 </script>
 
-<style lang="scss">
-.album-slider {
-  .hooper {
-    height: 100%;
-  }
-  .hooper-slide {
-    margin: 0 8px;
-  }
+<style>
+.owl-stage-outer {
+  width: 100%;
 }
 </style>

@@ -72,10 +72,7 @@
       </div>
     </div>-->
     <div v-if="currentSong">
-      <div
-        v-touch:swipe="swipeUpHandler"
-        class="container-fluid d-block d-sm-block d-md-none d-lg-none"
-      >
+      <div v-touch:swipe="swipeUp" class="container-fluid d-block d-sm-block d-md-none d-lg-none">
         <div class="w-100 small-music-player" v-if="!isOpen">
           <div class="row">
             <div class="col-5">
@@ -126,7 +123,7 @@
             <div class="w-100">
               <div class="music-player-box padding-r padding-l">
                 <!-- header -->
-                <div class="container-fluid">
+                <div class="container-fluid" v-touch:swipe="swipeBottom">
                   <b-navbar :sticky="true">
                     <div class="music-header">
                       <div>
@@ -156,7 +153,9 @@
                   </div>
                   <!-- music info -->
                   <div class="music-info">
-                    <p>{{ currentSong.title }}</p>
+                    <router-link
+                      :to="{name:'music',params:{slug:currentSong.slug}}"
+                    >{{ currentSong.title }}</router-link>
                     <span>{{ currentSong.artist.name }}</span>
                   </div>
 
@@ -706,9 +705,11 @@ export default {
       this.showCustomModal = false;
       this.showCreatePlaylistModal = true;
     },
-    swipeUpHandler(direction) {
+    swipeUp(direction) {
       if (direction == "top") this.isOpen = true;
-      else this.isOpen = false;
+    },
+    swipeBottom(direction) {
+      if (direction == "bottom") this.isOpen = false;
     }
   },
   computed: {

@@ -29,7 +29,6 @@ export default {
     );
   },
   SET_IS_PLAYING(state, isPlaying) {
-    console.log(isPlaying);
     state.isPlaying = isPlaying;
   },
   SET_CURRENT_SETTING(state, setting) {
