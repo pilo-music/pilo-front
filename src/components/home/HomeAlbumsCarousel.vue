@@ -1,6 +1,6 @@
 <template>
   <div class="album-slider mb-2">
-    <hooper :itemsToShow="2" :rtl="true">
+    <hooper :settings="hooperSettings">
       <slide v-for="i in items" :key="i.id">
         <AlbumItem :item="i" />
       </slide>
@@ -19,6 +19,25 @@ export default {
     AlbumItem,
     Hooper,
     Slide
+  },
+  data() {
+    return {
+      hooperSettings: {
+        itemsToShow: 2,
+        rtl: true,
+        wheelControl: false,
+        breakpoints: {
+          800: {
+            centerMode: false,
+            itemsToShow: 3
+          },
+          1000: {
+            itemsToShow: 3,
+            pagination: "fraction"
+          }
+        }
+      }
+    };
   }
 };
 </script>

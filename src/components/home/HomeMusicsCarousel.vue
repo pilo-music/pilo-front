@@ -1,6 +1,6 @@
 <template>
   <div class="home-music-carousel">
-    <hooper :itemsToShow="2.5" :rtl="true">
+    <hooper :settings="hooperSettings">
       <slide v-for="i in items" :key="i.id">
         <MusicItem :music="i" />
       </slide>
@@ -20,6 +20,25 @@ export default {
     MusicItem,
     Hooper,
     Slide
+  },
+  data() {
+    return {
+      hooperSettings: {
+        itemsToShow: 2.5,
+        rtl: true,
+        wheelControl: false,
+        breakpoints: {
+          800: {
+            centerMode: false,
+            itemsToShow: 3.5
+          },
+          1000: {
+            itemsToShow: 6.5,
+            pagination: "fraction"
+          }
+        }
+      }
+    };
   }
 };
 </script>
