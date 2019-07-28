@@ -17,5 +17,6 @@ export default {
 };
 </script>
 <style lang="sass">
-@import './scss/app.scss'
+@import './assets/css/fontiran.css';
+@import './scss/app.scss';
 </style>
