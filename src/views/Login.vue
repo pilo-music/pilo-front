@@ -55,7 +55,7 @@
             <input type="submit" value="ورود" />
           </div>
 
-          <div class="social">
+          <div class="social" @click="AuthProvider('google')">
             <div class="google">
               <img src="@/assets/panel/img/icon/google.svg" alt="google" />
               <span>ورود با گوگل</span>
@@ -100,6 +100,7 @@
 <script>
 import { login } from "@/services/api/login_api";
 import Layout from "@/layouts/Layout";
+import axios from "axios";
 
 export default {
   components: {
@@ -143,6 +144,29 @@ export default {
           if (err.message == "Request failed with status code 401") {
             this.error.password = "نام کاربری یا رمزعبور ناردست میباشد";
           }
+        });
+    },
+    AuthProvider(provider) {
+      var self = this;
+
+      this.$auth
+        .authenticate(provider)
+        .then(response => {
+          self.SocialLogin(provider, response);
+        })
+        .catch(err => {
+          console.log({ err: err });
+        });
+    },
+
+    SocialLogin(provider, response) {
+      axios
+        .post("https://pilo.app/api/v1/panel/login/google" + provider, response)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(err => {
+          console.log({ err: err });
         });
     }
   },

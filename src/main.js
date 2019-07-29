@@ -5,6 +5,7 @@ import Vue from "vue";
 import "./plugins/bootstrap-vue";
 import "./plugins/vue-plyr";
 import "./plugins/vue-touch";
+import "./plugins/vue-social-auth";
 
 import App from "./App.vue";
 import router from "./services/router/router";

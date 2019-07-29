@@ -5,8 +5,8 @@ Vue.use(VueSocialauth, {
   providers: {
     google: {
       clientId:
-        "402583778911-166t7uro9audj4tejtpd1m8p7o7td379.apps.googleusercontent.com",
-      redirectUri: "api.taksound.com/api/v1/panel/google/callback"
+        "833478452423-9ruc7h1elhd65bm59nbeh48i76llj032.apps.googleusercontent.com",
+      redirectUri: "https://pilo.app/api/v1/panel/google/callback"
     }
   }
 });

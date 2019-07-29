@@ -19,6 +19,7 @@
     "vue-carousel": "^0.18.0",
     "vue-infinite-loading": "^2.4.4",
     "vue-invisible-recaptcha": "^0.2.1",
+    "vue-meta": "^2.2.0",
     "vue-owl-carousel": "^2.0.3",
     "vue-plyr": "^5.1.3",
     "vue-router": "^3.0.7",
