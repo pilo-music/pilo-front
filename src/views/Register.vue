@@ -22,7 +22,7 @@
               class="form__input"
               placeholder="ایمیل"
               required
-              v-bind="email"
+              v-model="email"
             />
           </div>
           <div class="error">
@@ -43,7 +43,7 @@
               class="form__input"
               placeholder="رمز عبور"
               required
-              v-bind="password"
+              v-model="password"
             />
           </div>
           <div class="error">
@@ -64,7 +64,7 @@
               class="form__input"
               placeholder="تکرار رمز عبور"
               required
-              v-bind="confirm"
+              v-model="confirm"
             />
           </div>
           <div class="error">

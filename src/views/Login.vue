@@ -55,12 +55,12 @@
             <input type="submit" value="ورود" />
           </div>
 
-          <div class="social" @click="AuthProvider('google')">
+          <!-- <div class="social" @click="AuthProvider('google')">
             <div class="google">
               <img src="@/assets/panel/img/icon/google.svg" alt="google" />
               <span>ورود با گوگل</span>
             </div>
-          </div>
+          </div>-->
 
           <div class="divider"></div>
           <router-link :to="{ name: 'register' }">
@@ -148,7 +148,6 @@ export default {
     },
     AuthProvider(provider) {
       var self = this;
-
       this.$auth
         .authenticate(provider)
         .then(response => {

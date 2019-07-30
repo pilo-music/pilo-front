@@ -1,5 +1,5 @@
-import VueSocialauth from "vue-social-auth";
 import Vue from "vue";
+import VueSocialauth from "vue-social-auth";
 
 Vue.use(VueSocialauth, {
   providers: {
