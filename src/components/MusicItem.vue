@@ -117,14 +117,11 @@ export default {
     },
     settings() {
       return this.$store.getters.currentSettings;
-    },
-    current() {
-      return this.$store.getters.currentMusic;
     }
   },
   watch: {
     isPlaying: function(newValue) {
-      if (newValue) this.currentId = this.current.id;
+      if (newValue) this.currentId = getLocalSong.id;
     }
   }
 };

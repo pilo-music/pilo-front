@@ -7,9 +7,7 @@
       <div class="row">
         <div class="section-title col-12 pr-4">
           <h2 class="text-right">تازه های برگزیده</h2>
-          <router-link :to="{ name: 'musics', params: { filter: 'best' } }"
-            >نمایش همه</router-link
-          >
+          <router-link :to="{ name: 'musics', params: { filter: 'best' } }">نمایش همه</router-link>
         </div>
       </div>
       <div v-if="!isLoading">
@@ -123,6 +121,7 @@ import HomeAlbumsCarousel from "@/components/home/HomeAlbumsCarousel";
 import ShimmerBox from "@/components/ShimmerBox";
 import { get } from "@/services/api/home_api";
 import Layout from "@/layouts/Layout";
+import { getLocalSong } from "@/services/helpers/music.js";
 
 export default {
   name: "views.home",
@@ -142,12 +141,20 @@ export default {
       data: {}
     };
   },
-  methods: {},
+  methods: {
+    checkCurrentSong() {
+      let currentSong = getLocalSong();
+      if (currentSong == null) {
+        this.$store.dispatch("setCurrentMusic", this.data.best_musics[0]);
+      }
+    }
+  },
   mounted() {
     get()
       .then(res => {
         this.isLoading = false;
         this.data = res.data.data;
+        this.checkCurrentSong();
       })
       .catch(err => {
         console.log(err);
