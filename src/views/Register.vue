@@ -74,7 +74,13 @@
             <b-spinner label="Small Spinning"></b-spinner>
           </div>
           <div class="form__field">
-            <input type="submit" value="ثبت نام" />
+            <invisible-recaptcha
+              class="install"
+              sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
+              :callback="doRegister"
+              type="submit"
+              id="do-something-btn"
+            >ثبت نام</invisible-recaptcha>
           </div>
         </form>
         <p class="text--center">
@@ -107,10 +113,12 @@
 <script>
 import { register } from "@/services/api/login_api";
 import Layout from "@/layouts/Layout";
+import InvisibleRecaptcha from "vue-invisible-recaptcha";
 
 export default {
   components: {
-    Layout
+    Layout,
+    InvisibleRecaptcha
   },
   name: "views.register",
   data() {

@@ -47,24 +47,16 @@
                 "
                 alt="share"
               />
-              <div class="repeat-info" v-if="settings.onRepeat">
-                {{ settings.loop.value }}
-              </div>
+              <div class="repeat-info" v-if="settings.onRepeat">{{ settings.loop.value }}</div>
             </div>
             <div class="flex-grow-1">
               <div class="progress-container">
                 <div class="progress" id="progress-wrap">
-                  <div
-                    class="progress-handle"
-                    :style="{ left: settings.progressPercentageValue }"
-                  ></div>
+                  <div class="progress-handle" :style="{ left: settings.progressPercentageValue }"></div>
 
                   <div class="transparent-seeker-layer" @click="seek"></div>
 
-                  <div
-                    class="bar"
-                    :style="{ width: settings.progressPercentageValue }"
-                  ></div>
+                  <div class="bar" :style="{ width: settings.progressPercentageValue }"></div>
                 </div>
               </div>
               <div class="row music-time">
@@ -78,11 +70,7 @@
             </div>
             <div>
               <a :href="currentSong.url">
-                <img
-                  class="float-right"
-                  src="@/assets/panel/img/icon/download.svg"
-                  alt="download"
-                />
+                <img class="float-right" src="@/assets/panel/img/icon/download.svg" alt="download" />
               </a>
             </div>
           </div>
@@ -128,11 +116,7 @@
                 alt="next"
               />
             </div>
-            <like
-              :post_id="currentSong.id"
-              post_type="music"
-              :has_like="currentSong.has_like"
-            />
+            <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
           </div>
           <hr />
         </div>
@@ -166,21 +150,12 @@
         controls
       ></audio>
       <!-- Custom Modal for create Playlist -->
-      <custom-modal
-        :show="showCreatePlaylistModal"
-        v-on:close="showCreatePlaylistModal = false"
-      >
-        <add-to-playlist
-          :post_id="currentSong.id"
-          v-on:close="showCreatePlaylistModal = false"
-        />
+      <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
+        <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
       </custom-modal>
 
       <!-- Custom Modal -->
-      <custom-modal
-        :show="showCustomModal"
-        v-on:close="showCustomModal = false"
-      >
+      <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
         <div class="modal-body" v-if="!isLoading">
           <div class="menu-item">
             <router-link
@@ -240,6 +215,14 @@ export default {
     HomeMusicsCarousel
   },
   name: "views.music",
+  head: {
+    // To use "this" in the component, it is necessary to return the object through a function
+    title: function() {
+      return {
+        inner: this.$route.params.slug
+      };
+    }
+  },
   data() {
     return {
       isLoading: true,

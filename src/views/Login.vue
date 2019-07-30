@@ -52,7 +52,13 @@
           </div>
 
           <div class="form__field">
-            <input type="submit" value="ورود" />
+            <invisible-recaptcha
+              class="login-btn"
+              sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
+              :callback="doLogin"
+              type="submit"
+              id="do-something-btn"
+            >ورود</invisible-recaptcha>
           </div>
 
           <!-- <div class="social" @click="AuthProvider('google')">
@@ -101,10 +107,12 @@
 import { login } from "@/services/api/login_api";
 import Layout from "@/layouts/Layout";
 import axios from "axios";
+import InvisibleRecaptcha from "vue-invisible-recaptcha";
 
 export default {
   components: {
-    Layout
+    Layout,
+    InvisibleRecaptcha
   },
   name: "views.login",
   data() {
@@ -118,33 +126,37 @@ export default {
   },
   methods: {
     doLogin() {
-      this.error.password = "";
-      this.$refs.spinner.style.visibility = "visible";
-      login(this.email, this.password)
-        .then(response => {
-          if (response.status == 200) {
-            if (response.data.data != null) {
-              if (response.data.data.user != null) {
-                this.$store.dispatch("login", response.data.data);
-                this.$router.push({
-                  name: "home"
-                });
-                return;
+      if (this.email != "" && this.password != "") {
+        this.error.password = "";
+        this.$refs.spinner.style.visibility = "visible";
+        login(this.email, this.password)
+          .then(response => {
+            if (response.status == 200) {
+              if (response.data.data != null) {
+                if (response.data.data.user != null) {
+                  this.$store.dispatch("login", response.data.data);
+                  this.$router.push({
+                    name: "home"
+                  });
+                  return;
+                } else {
+                  this.error.password = "مشکلی در انجام عملیات رخ داده است";
+                }
               } else {
                 this.error.password = "مشکلی در انجام عملیات رخ داده است";
               }
-            } else {
-              this.error.password = "مشکلی در انجام عملیات رخ داده است";
             }
-          }
-          this.$refs.spinner.style.visibility = "hidden";
-        })
-        .catch(err => {
-          this.$refs.spinner.style.visibility = "hidden";
-          if (err.message == "Request failed with status code 401") {
-            this.error.password = "نام کاربری یا رمزعبور ناردست میباشد";
-          }
-        });
+            this.$refs.spinner.style.visibility = "hidden";
+          })
+          .catch(err => {
+            this.$refs.spinner.style.visibility = "hidden";
+            if (err.message == "Request failed with status code 401") {
+              this.error.password = "نام کاربری یا رمزعبور ناردست میباشد";
+            }
+          });
+      } else {
+        this.error.password = "لطفا ایمیل و رمزعبور خود را وارد کنید";
+      }
     },
     AuthProvider(provider) {
       var self = this;

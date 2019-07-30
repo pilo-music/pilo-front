@@ -6,6 +6,8 @@ import "./plugins/bootstrap-vue";
 import "./plugins/vue-plyr";
 import "./plugins/vue-touch";
 import "./plugins/vue-social-auth";
+import "./plugins/vue-head";
+import "./plugins/vue-progressbar";
 
 import App from "./App.vue";
 import router from "./services/router/router";
@@ -14,7 +16,7 @@ import initialize from "./services/helpers/general";
 
 import "./registerServiceWorker";
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 initialize(store, router);
 
 new Vue({

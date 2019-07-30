@@ -147,6 +147,14 @@ export default {
     HomeVideosCarousel
   },
   name: "views.artist",
+  head: {
+    // To use "this" in the component, it is necessary to return the object through a function
+    title: function() {
+      return {
+        inner: this.$route.params.slug
+      };
+    }
+  },
   data() {
     return {
       artist: {

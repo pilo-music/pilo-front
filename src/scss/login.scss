@@ -178,15 +178,21 @@ input[type="submit"] {
   background-color: #ededed;
 }
 
-.login input[type="submit"] {
+.login-btn {
   background-color: #ea4c88;
   color: #eee;
   font-weight: 700;
   text-transform: uppercase;
+  width: 100%;
+  border-radius: 0.25rem;
+  padding: 16px;
+  padding: 1rem;
+  border: none;
+  transition: background-color 0.3s;
 }
 
-.login input[type="submit"]:focus,
-.login input[type="submit"]:hover {
+.login-btn:focus,
+.login-btn:hover {
   background-color: #d44179;
 }
 

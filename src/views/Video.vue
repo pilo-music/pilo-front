@@ -51,11 +51,7 @@
         <div class="margin-t">
           <ul class="list-inline video-control">
             <li class="list-inline-item">
-              <like
-                :post_id="video.id"
-                post_type="video"
-                :has_like="video.has_like"
-              />
+              <like :post_id="video.id" post_type="video" :has_like="video.has_like" />
             </li>
 
             <li class="list-inline-item">
@@ -94,6 +90,14 @@ export default {
     Like
   },
   name: "views.video",
+  head: {
+    // To use "this" in the component, it is necessary to return the object through a function
+    title: function() {
+      return {
+        inner: this.$route.params.slug
+      };
+    }
+  },
   data() {
     return {
       video: {
