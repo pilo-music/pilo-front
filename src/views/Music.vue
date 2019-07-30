@@ -246,6 +246,9 @@ export default {
         this.isLoading = false;
         this.currentSong = response.data.data.music;
         this.related = response.data.data.playlist;
+        if (!this.containsObjectWithSameId(this.currentSong, this.playlist)) {
+          this.addToPlaylist(this.currentSong);
+        }
       })
       .catch(err => {
         console.log(err);
