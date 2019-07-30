@@ -21,7 +21,7 @@
         <div class="margin-t">
           <div class="row">
             <div class="col-6">
-              <div class="musics-controls">
+              <div class="musics-controls" @click="allPlay">
                 <span>پخش</span>
                 <img
                   class="play"
@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="musics-controls">
+              <div class="musics-controls" @click="shufflePlay">
                 <span>شافل</span>
                 <img
                   class="shuffle"
@@ -45,11 +45,7 @@
         <!-- Music Items -->
         <div class="margin-t">
           <div v-if="!isLoading" class="row">
-            <div
-              v-for="(i, index) in musics"
-              :key="index"
-              class="col-md-2 col-sm-6 col-6 mb-3"
-            >
+            <div v-for="(i, index) in musics" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
               <music-item :music="i" />
             </div>
             <infinite-loading spinner="spiral" @infinite="infiniteHandler">
@@ -105,6 +101,39 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    allPlay() {
+      if (this.musics.length > 0) {
+        this.$store.commit("SET_CURRENT_PLAYLIST", this.musics);
+        this.$store.dispatch("setCurrentMusic", this.musics[0]);
+        this.$store.commit("SET_IS_PLAYING", true);
+      }
+    },
+    shufflePlay() {
+      if (this.musics.length > 0) {
+        var newList = this.shuffleArray(this.musics);
+        this.$store.commit("SET_CURRENT_PLAYLIST", newList);
+        this.$store.dispatch("setCurrentMusic", newList[0]);
+        this.$store.commit("SET_IS_PLAYING", true);
+      }
+    },
+    shuffleArray(array) {
+      let ctr = array.length;
+      let temp;
+      let index;
+
+      // While there are elements in the array
+      while (ctr > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+        // Decrease ctr by 1
+        ctr--;
+        // And swap the last element with it
+        temp = array[ctr];
+        array[ctr] = array[index];
+        array[index] = temp;
+      }
+      return array;
     }
   },
   mounted($state) {

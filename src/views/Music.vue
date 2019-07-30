@@ -128,7 +128,7 @@
             <h2 class="text-right">پلی لیست شما</h2>
           </div>
         </div>
-        <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
+        <playlist class="p-0 playlist" :items="playlist" v-on:play="play($event)" />
       </div>
       <div class="clearfix"></div>
       <!-- Related Music -->
@@ -138,7 +138,9 @@
             <h2 class="text-right">موزیک های مرتبط</h2>
           </div>
         </div>
-        <home-musics-carousel :items="related" />
+        <div>
+          <home-musics-carousel :items="related" />
+        </div>
       </div>
       <!-- Audio -->
       <audio
