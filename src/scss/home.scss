@@ -1,9 +1,16 @@
 @import "./global/general";
 
-
 // hero slider
 .hero-item {
   img {
     border-radius: 0;
   }
+}
+.daily-music-desktop {
+  max-height: 490px !important;
+  overflow: scroll;
+}
+.daily-music {
+  max-height: 350px;
+  overflow: scroll;
 }

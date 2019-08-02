@@ -37,12 +37,10 @@
       margin-top: 0.8em;
 
       li {
-        padding-bottom: 10px;
-
         a {
           color: black;
           text-decoration: none;
-          font-size: $font-small;
+          font-size: $font-big;
           margin-left: 1em;
           padding-bottom: 10px;
 
@@ -88,16 +86,22 @@
     padding-right: 10px;
     width: 100%;
     padding-left: 10px;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .flex-2 {
+      flex: 2;
+    }
+    .mic{
+      margin-top: 6px;
+    }
     input {
       background: white;
       color: black;
+      padding-right: 8px;
+      padding-left: 8px;
       width: 100%;
-    }
-
-    .col-1 {
-      margin: 0;
-      padding: 11px 0 0 0;
+      font-size: $font-medium;
     }
 
     span {

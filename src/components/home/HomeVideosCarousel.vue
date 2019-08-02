@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       hooperSettings: {
-        itemsToShow: 2,
+        itemsToShow: 1,
         rtl: true,
         wheelControl: false,
         breakpoints: {

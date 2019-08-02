@@ -8,7 +8,7 @@
           <h2 class="text-right">تازه ترین موزیک ها</h2>
           <router-link :to="{ name: 'musics' }">نمایش همه</router-link>
         </div>
-        <div class="daily-music w-100 mt-2">
+        <div class="daily-music daily-music-desktop w-100 mt-2">
           <div v-if="!isLoading">
             <home-last-musics class="p-0" :items="data.last_musics" />
           </div>
@@ -84,7 +84,7 @@
       <div class="container-fluid">
         <div class="row">
           <!-- Music Video slider -->
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="row">
               <div class="section-title col-12">
                 <h2 class="text-right">جدیدترین موزیک ویدیوها</h2>
@@ -109,7 +109,7 @@
             </div>
           </div>
           <!-- Album slider -->
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="section-title col-12 pl-0">
               <h2 class="text-right">جدیدترین آلبوم ها</h2>
               <router-link :to="{ name: 'albums' }">نمایش همه</router-link>
@@ -183,9 +183,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-.daily-music {
-  max-height: 490px;
-  overflow: scroll;
-}
-</style>

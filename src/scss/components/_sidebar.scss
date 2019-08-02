@@ -25,7 +25,7 @@
       flex-direction: column;
       font-size: $font-medium;
       span {
-          margin-top: 10px;
+        margin-top: 10px;
         margin-right: 10px;
       }
       a {
@@ -35,7 +35,7 @@
         transition: all 0.5s;
         color: white;
         padding: 5px 10px;
-        border-radius: 50px;
+        border-radius: 5px;
         width: 100px;
         background: $colorPrimary;
         &:hover {
@@ -52,7 +52,7 @@
     ul {
       margin-left: 20px;
       list-style: none;
-      line-height: 3;
+      line-height: 2.2;
       padding: 0;
       margin-right: 20px;
 
@@ -60,6 +60,13 @@
         font-size: $font-small;
         color: $colorGray;
         transition: all 0.5s;
+        margin-top: 10px;
+
+        div {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+        }
 
         i {
           margin-left: 10px;
@@ -70,7 +77,9 @@
           text-decoration: none;
           color: black;
           font-size: $font-big;
-
+          span {
+            margin-right: 16px;
+          }
           &:after {
             content: "";
             display: block;

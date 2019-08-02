@@ -1,8 +1,6 @@
 <template>
   <div>
-    <aside
-      class="d-none d-sm-none d-md-block d-lg-block aside col-md-4 col-lg-2"
-    >
+    <aside class="d-none d-sm-none d-md-block d-lg-block aside col-md-4 col-lg-2">
       <div>
         <div class="aside-menu">
           <!-- profile -->
@@ -25,36 +23,49 @@
             </div>
             <div class="btn-show-profile">
               <span>کاربر مهمان</span>
-              <router-link :to="{ name: 'profile' }"
-                >ورود / ثبت نام</router-link
-              >
+              <router-link :to="{ name: 'profile' }">ورود / ثبت نام</router-link>
             </div>
           </div>
           <!-- end profile -->
           <ul class="list-group">
             <li>
               <router-link :to="{ name: 'home' }">
-                <i class="icon ion-md-compass"></i> صفحه اصلی
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_home.svg" alt="home" width="20" />
+                  <span>صفحه اصلی</span>
+                </div>
               </router-link>
             </li>
             <li>
               <router-link to="/musics">
-                <i class="icon ion-md-headset"></i> موزیک ها
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_music.svg" alt="music" width="20" />
+                  <span>موزیک ها</span>
+                </div>
               </router-link>
             </li>
             <li>
               <router-link to="/videos">
-                <i class="icon ion-ios-musical-notes"></i> آلبوم ها
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_album.svg" alt="album" width="20" />
+                  <span>آلبوم ها</span>
+                </div>
               </router-link>
             </li>
             <li>
               <router-link to="/artists">
-                <i class="icon ion-ios-stats"></i> خوانندگان
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_artist.svg" alt="artist" width="20" />
+                  <span>خوانندگان</span>
+                </div>
               </router-link>
             </li>
             <li>
               <router-link to="/videos">
-                <i class="icon ion-ios-film"></i> موزیک ویدیو
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_video.svg" alt="video" width="20" />
+                  <span>موزیک ویدیو ها</span>
+                </div>
               </router-link>
             </li>
           </ul>
@@ -63,30 +74,40 @@
         <div class="mt-4 aside-menu">
           <ul class="list-group">
             <li>
-              <a href="#"> <i class="icon ion-md-heart-empty"></i> لایک ها </a>
+              <a href="#">
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_like.svg" alt="like" width="20" />
+                  <span>لایک ها</span>
+                </div>
+              </a>
             </li>
             <li>
-              <a href="#"> <i class="icon ion-md-list"></i> بعدا گوش میدهم </a>
+              <a href="#">
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_bookmark.svg" alt="bookmark" width="20" />
+                  <span>بوک مارک ها</span>
+                </div>
+              </a>
             </li>
             <li>
-              <a href="#"> <i class="icon ion-ios-start"></i> مورد علاقه ها </a>
-            </li>
-            <li>
-              <a href="#"> <i class="icon ion-md-help-buoy"></i> پشتیبانی </a>
+              <a href="#">
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_support.svg" alt="support" width="20" />
+                  <span>ارتباط با ما</span>
+                </div>
+              </a>
             </li>
           </ul>
         </div>
         <hr class="ml-3" />
         <div class="mt-4 mb-5 pb-5 aside-menu">
+          <span class="color-gray font-medium margin-r">پلی لیست ها</span>
           <ul class="list-group">
             <li v-for="(i, index) in playlists" :key="index">
               <a href="#">
                 <i class="icon ion-md-heart-empty"></i>
                 {{ i.name }}
               </a>
-            </li>
-            <li>
-              <a href="#"> <i class="icon ion-md-heart-empty"></i>شاد مجلسی </a>
             </li>
           </ul>
         </div>
