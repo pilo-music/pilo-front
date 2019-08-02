@@ -24,6 +24,7 @@ export default {
     return {
       hooperSettings: {
         itemsToShow: 3,
+        rtl: true,
         wheelControl: false,
         breakpoints: {
           800: {
@@ -33,6 +34,12 @@ export default {
           1000: {
             itemsToShow: 7,
             pagination: "fraction"
+          },
+          1512: {
+            itemsToShow: 8
+          },
+          1750: {
+            itemsToShow: 9
           }
         }
       },

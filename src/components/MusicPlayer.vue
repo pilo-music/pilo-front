@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex" v-if="currentSong">
+    <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex" v-if="currentSong">
       <div class="options">
         <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
       </div>
@@ -70,7 +70,7 @@
           <img class="music-image" :src="currentSong.image" :alt="currentSong.title" />
         </div>
       </div>
-    </div>-->
+    </div>
     <div v-if="currentSong">
       <div v-touch:swipe="swipeUp" class="container-fluid d-block d-sm-block d-md-none d-lg-none">
         <div class="w-100 small-music-player" v-if="!isOpen">

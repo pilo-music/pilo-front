@@ -1,29 +1,44 @@
 <template>
   <div>
-    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="true">
-      <VideoItem v-for="i in items" :key="i.id" :video="i" />
-    </carousel>
+    <hooper :settings="hooperSettings">
+      <slide v-for="i in items" :key="i.id">
+        <VideoItem :video="i" />
+      </slide>
+    </hooper>
   </div>
 </template>
 
 <script>
-import carousel from "vue-owl-carousel";
 import VideoItem from "@/components/VideoItem";
+import { Hooper, Slide } from "hooper";
+import "hooper/dist/hooper.css";
 export default {
   props: ["items"],
   name: "components.home_videos_carousel",
   components: {
     VideoItem,
-    carousel
+    Hooper,
+    Slide
   },
   data() {
     return {
-      carousel_respansive: {
-        0: { items: 1, nav: false },
-        576: { items: 1, nav: false },
-        768: { items: 2, nav: false },
-        992: { items: 2, nav: false },
-        1200: { items: 3, nav: false }
+      hooperSettings: {
+        itemsToShow: 2,
+        rtl: true,
+        wheelControl: false,
+        breakpoints: {
+          800: {
+            centerMode: false,
+            itemsToShow: 2
+          },
+          1000: {
+            itemsToShow: 2,
+            pagination: "fraction"
+          },
+          1750: {
+            itemsToShow: 2
+          }
+        }
       }
     };
   }
@@ -31,7 +46,3 @@ export default {
 </script>
 
 <style>
-.owl-stage-outer {
-  width: 100%;
-}
-</style>

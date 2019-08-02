@@ -69,7 +69,7 @@
               </div>
             </div>
             <div>
-              <a :href="currentSong.url">
+              <a download :href="currentSong.url">
                 <img class="float-right" src="@/assets/panel/img/icon/download.svg" alt="download" />
               </a>
             </div>

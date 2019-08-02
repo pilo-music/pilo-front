@@ -32,6 +32,7 @@
                 <like :post_id="album.id" :post_type="album" :has_like="album.has_like" />
                 <div>
                   <img
+                    @click="shuffle"
                     class="shuffle"
                     src="@/assets/panel/img/icon/shuffle_circle.svg"
                     alt="shuffle"
@@ -123,6 +124,32 @@ export default {
         this.$store.dispatch("setCurrentMusic", this.album.musics[0]);
         this.$store.commit("SET_IS_PLAYING", true);
       }
+    },
+    shuffle() {
+      if (this.album.musics.length > 0) {
+        var newList = this.shuffleArray(this.album.musics);
+        this.$store.commit("SET_CURRENT_PLAYLIST", newList);
+        this.$store.dispatch("setCurrentMusic", newList[0]);
+        this.$store.commit("SET_IS_PLAYING", true);
+      }
+    },
+    shuffleArray(array) {
+      let ctr = array.length;
+      let temp;
+      let index;
+
+      // While there are elements in the array
+      while (ctr > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+        // Decrease ctr by 1
+        ctr--;
+        // And swap the last element with it
+        temp = array[ctr];
+        array[ctr] = array[index];
+        array[index] = temp;
+      }
+      return array;
     }
   },
   mounted() {

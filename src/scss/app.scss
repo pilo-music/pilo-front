@@ -182,7 +182,7 @@
   margin-top: 16px;
   margin-bottom: 16px;
   h2 {
-    font-size: $font-ultra-big;
+    font-size: $font-big;
     font-family: iransans;
     color: $colorPrimary;
     direction: rtl;
@@ -220,10 +220,5 @@
   }
   .artist-title {
     font-size: $font-medium;
-  }
-  .home-music-carousel {
-    .owl-item {
-      width: 12% !important;
-    }
   }
 }

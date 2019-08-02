@@ -1,38 +1,65 @@
 <template>
   <div class="home-music-carousel">
-    <carousel :responsive="carousel_respansive" :margin="16" :freeDrag="false" :dots="false">
-      <MusicItem v-for="i in items" :key="i.id" :music="i" />
-    </carousel>
+    <hooper :settings="hooperSettings">
+      <slide v-for="i in items" :key="i.id">
+        <MusicItem :music="i" />
+      </slide>
+    </hooper>
   </div>
 </template>
 
 <script>
-import carousel from "vue-owl-carousel";
 import MusicItem from "@/components/MusicItem";
-import { setTimeout } from "timers";
+import { Hooper, Slide } from "hooper";
+import "hooper/dist/hooper.css";
 export default {
   props: ["items"],
   name: "components.home_musics_carousel",
   components: {
     MusicItem,
-    carousel
+    Hooper,
+    Slide
   },
   data() {
     return {
-      carousel_respansive: {
-        0: { items: 2, nav: false },
-        576: { items: 2, nav: false },
-        768: { items: 4, nav: false },
-        992: { items: 6, nav: false },
-        1200: { items: 8, nav: false }
+      hooperSettings: {
+        itemsToShow: 3,
+        rtl: true,
+        wheelControl: false,
+        breakpoints: {
+          800: {
+            centerMode: false,
+            itemsToShow: 4
+          },
+          1000: {
+            itemsToShow: 6,
+            pagination: "fraction"
+          },
+          1512: {
+            itemsToShow: 7
+          },
+          1750: {
+            itemsToShow: 8
+          }
+        }
       }
     };
+  },
+  computed: {
+    ismobile() {
+      if (isMobile) return true;
+      else return false;
+    }
   }
 };
 </script>
 
 <style>
-.owl-item {
-  min-width: 130px;
+.hooper {
+  height: auto;
+}
+.hooper-slide {
+  margin-right: 8px;
+  margin-left: 8px;
 }
 </style>
