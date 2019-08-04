@@ -1,6 +1,6 @@
 <template>
   <div class="small-music">
-    <div v-for="i in items" :key="i.id">
+    <div v-for="(i,index) in items" :key="index">
       <!-- <div :class="getClass(i)"> -->
       <div class="small-music-item">
         <div>
