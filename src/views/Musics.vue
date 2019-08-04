@@ -86,9 +86,9 @@ export default {
       if (this.$route.params.filter === "best") filter = "best";
       var artist = null;
       if (this.$route.params.artist != null && this.$route.params.artist != "")
-        filter = this.$route.params.artist;
+        artist = this.$route.params.artist;
 
-      get(filter, this.page, this.artist)
+      get(filter, this.page, artist)
         .then(response => {
           if (response.data.data.length) {
             this.page++;
@@ -139,11 +139,12 @@ export default {
   mounted($state) {
     var filter = "latest";
     if (this.$route.params.filter === "best") filter = "best";
+
     var artist = null;
     if (this.$route.params.artist != null && this.$route.params.artist != "")
       artist = this.$route.params.artist;
 
-    get(filter, this.page, this.artist)
+    get(filter, this.page, artist)
       .then(response => {
         this.page++;
         this.musics = this.musics.concat(response.data.data);

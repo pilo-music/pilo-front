@@ -185,10 +185,9 @@ export default {
           this.albums = reponse.data.data.albums;
           this.videos = reponse.data.data.videos;
           this.isLoading = false;
-          console.log(this.best_musics.length);
         })
         .catch(err => {
-          console.log(err);
+          console.log("artist" + err);
           this.isLoading = false;
         });
     }

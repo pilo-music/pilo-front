@@ -19,11 +19,7 @@
       <!-- Music Items -->
       <div class="margin-t">
         <div v-if="!isLoading" class="row">
-          <div
-            v-for="(i, index) in albums"
-            :key="index"
-            class="col-md-2 col-sm-6 col-6 mb-3"
-          >
+          <div v-for="(i, index) in albums" :key="index" class="col-md-2 col-sm-6 col-6 mb-3">
             <album-item :item="i" />
           </div>
           <infinite-loading spinner="spiral" @infinite="infiniteHandler">
@@ -63,7 +59,7 @@ export default {
       if (this.$route.params.filter === "best") filter = "best";
       var artist = null;
       if (this.$route.params.artist != null && this.$route.params.artist != "")
-        filter = this.$route.params.artist;
+        artist = this.$route.params.artist;
       get(filter, this.page, artist)
         .then(response => {
           if (response.data.data.length) {

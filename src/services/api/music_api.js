@@ -24,7 +24,7 @@ export function get(type, page, artist) {
   if (type != "" && type != null) type = "/" + type;
   else type = "";
 
-  if (artist) url = `/musics/artist/${artist}/${page}`;
+  if (artist) url = `/musics/artist/${artist}/${page}${type}`;
   else url = `/musics${type}/${page}`;
 
   return new Promise((resolve, reject) => {
