@@ -3,17 +3,12 @@
     <router-link :to="{ name: 'artist', params: { slug: artist.slug } }">
       <div class="position-relative">
         <img
-          v-if="artist.image != '' && artist.image != null"
+          v-if="artist.image != '' && artist.image != null && artist.image != '.'"
           class="shadow img-fluid"
           :src="artist.image"
           :alt="artist.name"
         />
-        <img
-          v-else
-          class="shadow img-fluid"
-          src="@/assets/panel/img/user.svg"
-          alt="artist.name"
-        />
+        <img v-else class="shadow img-fluid" src="@/assets/panel/img/user.svg" alt="artist.name" />
       </div>
     </router-link>
     <div class="mt-2 text-center">

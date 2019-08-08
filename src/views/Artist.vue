@@ -48,9 +48,16 @@
               </div>
               <div class="col-3 p-0">
                 <img
+                  v-if="artist.image != '' && artist.image != null && artist.image != '.'"
                   class="img-fluid artist-img uk-box-shadow-small"
                   :src="artist.image"
                   :alt="artist.name"
+                />
+                <img
+                  v-else
+                  class="uk-box-shadow-small img-fluid"
+                  src="@/assets/panel/img/user.svg"
+                  alt="artist.name"
                 />
               </div>
             </div>

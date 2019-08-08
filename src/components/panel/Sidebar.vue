@@ -21,9 +21,16 @@
                 />
               </router-link>
             </div>
-            <div class="btn-show-profile">
+            <div class="btn-show-profile" v-if="!currentUser">
               <span>کاربر مهمان</span>
-              <router-link :to="{ name: 'profile' }">ورود / ثبت نام</router-link>
+              <router-link :to="{ name: 'login' }">ورود / ثبت نام</router-link>
+            </div>
+            <div class="btn-show-profile" v-else>
+              <span
+                v-if="currentUser.user.name != null && currentUser.user.name.lenght > 0"
+              >{{currentUser.user.name}}</span>
+              <span v-else>کاربر مهمان</span>
+              <router-link :to="{ name: 'profile' }">نمایش پروفایل</router-link>
             </div>
           </div>
           <!-- end profile -->

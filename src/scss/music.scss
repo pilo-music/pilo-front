@@ -39,25 +39,39 @@
         opacity: 0.7;
       }
     }
-  }
-  .music-time {
-    flex: 1;
-    span {
-      color: $colorDark;
-      font-size: $font-small;
+    .music-time {
+      flex: 1;
+      span {
+        color: $colorDark;
+        font-size: $font-small;
+      }
     }
   }
-  .repeat-info {
-    color: white;
-    position: absolute;
-    background: $colorAccent;
-    width: 17px;
-    height: 17px;
-    text-align: center;
-    border-radius: 50px;
-    font-size: 10px;
-    padding-top: 2px;
-    top: -13px;
+  .music-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    a,
+    img {
+      cursor: pointer;
+    }
+    .bookmark {
+      width: 17px;
+    }
+    .repeat-info {
+      color: white;
+      position: absolute;
+      background: $colorAccent;
+      width: 17px;
+      height: 17px;
+      text-align: center;
+      border-radius: 50px;
+      font-size: 10px;
+      padding-top: 2px;
+      top: -13px;
+    }
   }
 
   .music-controls {

@@ -22,17 +22,7 @@
             <span>{{ currentSong.artist.name }}</span>
           </div>
           <!-- Actions -->
-          <div>
-            <div>
-              <a download :href="currentSong.url">
-                <img
-                  width="20"
-                  class="float-right"
-                  src="@/assets/panel/img/icon/download.svg"
-                  alt="download"
-                />
-              </a>
-            </div>
+          <div class="music-actions">
             <div class="position-relative">
               <img
                 width="20"
@@ -45,6 +35,29 @@
                 alt="share"
               />
               <div class="repeat-info" v-if="settings.onRepeat">{{ settings.loop.value }}</div>
+            </div>
+            <div>
+              <Bookmark
+                :post_id="this.currentSong.id"
+                post_type="music"
+                :has_bookmark="this.currentSong.has_bookmark"
+              />
+            </div>
+            <div>
+              <img width="20" src="@/assets/panel/img/icon/plus.svg" alt="plus" />
+            </div>
+            <div>
+              <img src="@/assets/panel/img/icon/share.svg" alt="plus" width="20" />
+            </div>
+            <div>
+              <a download :href="currentSong.url">
+                <img
+                  width="20"
+                  class="float-right"
+                  src="@/assets/panel/img/icon/download.svg"
+                  alt="download"
+                />
+              </a>
             </div>
           </div>
           <!-- progress bar -->
