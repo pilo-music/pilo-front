@@ -36,7 +36,7 @@
 <script>
 import { getLocalSong } from "@/services/helpers/music.js";
 export default {
-  props: ["items"],
+  props: ["items", "type"],
   name: "components.small_music_list",
   data() {
     return {
@@ -45,6 +45,15 @@ export default {
   },
   methods: {
     play(song = {}) {
+      if (this.type != null && this.type == "video") {
+        this.$router.push({
+          name: "video",
+          params: {
+            slug: i.slug
+          }
+        });
+        return;
+      }
       let currentSong = getLocalSong();
       this.currentId = currentSong.id;
       if (typeof song === "object") {

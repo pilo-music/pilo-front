@@ -10,7 +10,7 @@
               <h2 class="text-right">دیگر ویدیو ها</h2>
             </div>
           </div>
-          <playlist :items="playlist" />
+          <playlist type="video" :items="playlist" />
         </div>
         <div class="col-6">
           <div>
