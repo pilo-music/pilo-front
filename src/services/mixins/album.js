@@ -1,11 +1,19 @@
 import Like from "@/components/Like.vue";
 import Playlist from "@/components/SmallMusicList.vue";
 import { single } from "@/services/api/album_api.js";
+import CustomModal from "@/components/CustomModal";
+import AddToPlaylist from "@/components/AddToPlaylist";
+import Bookmark from "@/components/Bookmark.vue";
+import HomeAlbumsCarousel from "@/components/home/HomeAlbumsCarousel";
 
 export default {
   components: {
+    Bookmark,
     Like,
-    Playlist
+    Playlist,
+    CustomModal,
+    AddToPlaylist,
+    HomeAlbumsCarousel
   },
   data() {
     return {
@@ -71,18 +79,11 @@ export default {
       }
       return array;
     },
-    initPlayer() {
-      this.audioPlayer.src = this.currentSong.url;
-      this.audioPlayer.addEventListener("timeupdate", this.updateTimer);
-      this.audioPlayer.addEventListener("loadeddata", this.load);
-      this.audioPlayer.addEventListener("pause", () => {
-        this.$store.commit("SET_IS_PLAYING", false);
-      });
-      this.audioPlayer.addEventListener("play", () => {
-        this.$store.commit("SET_IS_PLAYING", true);
-      });
-
-      this.audioPlayer.addEventListener("ended", this.playNextSongInPlaylist);
+    shareLink() {
+      // TODO : add toast here
+      navigator.clipboard
+        .writeText("https://dl.pilo.app/" + this.$route.fullPath)
+        .then(function() {}, function() {});
     }
   },
   mounted() {
@@ -91,8 +92,6 @@ export default {
         this.isLoading = false;
         this.album = response.data.data.album;
         this.playlist = response.data.data.playlist;
-        this.currentSong = this.playlist[0];
-        this.audioPlayer.src = this.currentSong.url;
       })
       .catch(err => {
         console.log(err);

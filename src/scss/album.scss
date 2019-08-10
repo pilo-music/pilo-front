@@ -56,3 +56,60 @@
     }
   }
 }
+
+.single-music-box-desktop {
+  display: flex;
+  flex-direction: row;
+  .album-image {
+    flex: 1;
+    img {
+      border-radius: 5px;
+    }
+  }
+  .album {
+    flex: 1;
+    .album-info {
+      display: block;
+      ul {
+        margin: 16px;
+        line-height: 2;
+      }
+      hr {
+        margin-right: 16px;
+      }
+      .album-actions {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        .play {
+          cursor: pointer;
+          width: 65px;
+          position: relative;
+          top: -6px;
+        }
+        .shuffle {
+          margin-right: 16px;
+          margin-left: 16px;
+          cursor: pointer;
+          border-radius: 50px;
+          width: 40px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          &:hover {
+            opacity: 1 !important;
+          }
+        }
+        .like {
+          margin-right: 16px;
+          margin-left: 16px;
+          cursor: pointer;
+          border-radius: 50px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          width: 40px;
+          &:hover {
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+  }
+}

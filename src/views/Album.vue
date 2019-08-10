@@ -32,7 +32,6 @@ export default {
 
 <style lang="scss">
 @import "../scss/album.scss";
-@import "../scss/music.scss";
 .single-album-box {
   .margin {
     margin-bottom: 60px;
