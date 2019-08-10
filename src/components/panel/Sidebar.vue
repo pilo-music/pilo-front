@@ -1,6 +1,6 @@
 <template>
   <div>
-    <aside class="d-none d-sm-none d-md-block d-lg-block aside col-md-4 col-lg-2">
+    <aside class="d-none d-sm-none d-md-block d-lg-block aside col-md-4 col-lg-3 col-xl-2">
       <div>
         <div class="aside-menu">
           <!-- profile -->
@@ -77,8 +77,8 @@
             </li>
           </ul>
         </div>
-        <hr class="ml-3" />
-        <div class="mt-4 aside-menu">
+        <hr class="ml-3" v-if="currentUser"/>
+        <div class="mt-4 aside-menu" v-if="currentUser">
           <ul class="list-group">
             <li>
               <a href="#">
@@ -106,8 +106,8 @@
             </li>
           </ul>
         </div>
-        <hr class="ml-3" />
-        <div class="mt-4 mb-5 pb-5 aside-menu">
+        <hr class="ml-3" v-if="currentUser"/>
+        <div class="mt-4 mb-5 pb-5 aside-menu" v-if="currentUser">
           <span class="color-gray font-medium margin-r">پلی لیست ها</span>
           <ul class="list-group">
             <li v-for="(i, index) in playlists" :key="index">

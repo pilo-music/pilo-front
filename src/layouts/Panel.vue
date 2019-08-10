@@ -2,7 +2,7 @@
   <div id="main" class="pb-5 mb-4">
     <div class="container-fluid">
       <div class="row">
-        <div class="main col-md-8 col-lg-10 col-sm-12">
+        <div class="main col-md-8 col-lg-9 col-xl-10 col-sm-12">
           <Header />
           <div class="clearfix"></div>
           <sidebar />
