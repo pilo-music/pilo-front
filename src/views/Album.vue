@@ -11,7 +11,9 @@ import Mobile from "@/pages/mobile/Album";
 import Layout from "@/layouts/Layout";
 export default {
   components: {
-    Layout
+    Layout,
+    Desktop,
+    Mobile
   },
   head: {
     title: function() {

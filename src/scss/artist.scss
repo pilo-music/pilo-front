@@ -49,3 +49,47 @@
 .small-music {
   padding-bottom: 0;
 }
+
+.artist-single-box-desktop {
+  margin: 16px;
+  .artist-profile {
+    margin: 0px;
+    padding: 20px 30px 16px 30px;
+  }
+  .artist-img {
+    @include btnShadow;
+    border-radius: 50px;
+    width: 100px;
+  }
+  .artist-info-bottom {
+    height: 100%;
+    div{
+     padding-top: 10px;
+    }
+    p {
+      font-size: $font-medium;
+    }
+    span {
+      font-size: $font-big;
+    }
+  }
+  .artist-image {
+    display: flex;
+    justify-content: end;
+    h2 {
+      font-size: $font-big !important;
+    }
+    .artist-info-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+  .artist-musics{
+    .small-music{
+      overflow: scroll;
+      max-height: 300px;
+    }
+  }
+}

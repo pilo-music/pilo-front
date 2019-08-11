@@ -47,7 +47,7 @@
               <div class="div-search row w-100">
                 <div v-if="!isLoading">
                   <svg
-                    v-if="!showSearch"
+                    v-if="!showSearch && !showHistory"
                     class="icon color-gray icon-search"
                     viewBox="0 0 24 24"
                     width="24"
@@ -58,7 +58,7 @@
                       d="M21.7 20.3l-3.7-3.7c1.2-1.5 2-3.5 2-5.6 0-5-4-9-9-9s-9 4-9 9c0 5 4 9 9 9 2.1 0 4.1-0.7 5.6-2l3.7 3.7c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4zM4 11c0-3.9 3.1-7 7-7s7 3.1 7 7c0 1.9-0.8 3.7-2 4.9 0 0 0 0 0 0s0 0 0 0c-1.3 1.3-3 2-4.9 2-4 0.1-7.1-3-7.1-6.9z"
                     />
                   </svg>
-                  <div @click="showSearch=false" v-else class="mic">
+                  <div @click="closeSearch" v-else class="mic">
                     <img src="@/assets/panel/img/icon/close.svg" width="15" alt="close" />
                   </div>
                 </div>
@@ -68,7 +68,6 @@
                 <div class="flex-2">
                   <input
                     @focus="showHistory = true"
-                    @blur="showHistory = false"
                     autocomplete="off"
                     name="name"
                     class="search-box rtl"
@@ -177,8 +176,9 @@ export default {
   mixins: [Search],
 
   methods: {
-    showAction(action) {
-      this.showHistory = action;
+    closeSearch() {
+      this.showSearch = false;
+      this.showHistory = false;
     }
   }
 };
