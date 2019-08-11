@@ -2,7 +2,7 @@
   <layout name="Default">
     <div class="container-fluid">
       <!-- header -->
-      <b-navbar :sticky="true">
+      <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
         <div class="music-header full">
           <div>
             <img
@@ -19,11 +19,7 @@
       <!-- Music Items -->
       <div class="margin-t padding-t">
         <div v-if="!isLoading" class="row">
-          <div
-            v-for="i in artists"
-            :key="i.id"
-            class="col-md-2 col-sm-6 col-6 mb-3"
-          >
+          <div v-for="i in artists" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
             <artist-item :artist="i" />
           </div>
           <infinite-loading spinner="spiral" @infinite="infiniteHandler">

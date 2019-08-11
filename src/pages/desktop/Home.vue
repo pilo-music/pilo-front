@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-4 mb-3">
     <!-- hearo slider -->
     <!-- <home-hero-carousel />  -->
     <div class="row">

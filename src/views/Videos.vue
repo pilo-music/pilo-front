@@ -2,7 +2,7 @@
   <layout name="Default">
     <div class="container-fluid">
       <!-- header -->
-      <b-navbar :sticky="true">
+      <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
         <div class="music-header full">
           <div>
             <img
