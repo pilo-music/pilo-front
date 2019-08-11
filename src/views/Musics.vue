@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="musics-list-box">
         <!-- header -->
-        <b-navbar :sticky="true">
+        <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
           <div class="music-header full">
             <div>
               <img
@@ -20,7 +20,7 @@
         <!-- Controls -->
         <div class="margin-t">
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-6 col-md-6 col-lg-2">
               <div class="musics-controls" @click="allPlay">
                 <span>پخش</span>
                 <img
@@ -30,7 +30,7 @@
                 />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6 col-md-6 col-lg-2">
               <div class="musics-controls" @click="shufflePlay">
                 <span>شافل</span>
                 <img

@@ -66,7 +66,6 @@ export default {
       localStorage.setItem("history", parsed);
     },
     historyItemClick(text) {
-      console.log(text);
       this.text = text;
       this.action();
     }
