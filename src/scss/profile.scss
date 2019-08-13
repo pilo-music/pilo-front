@@ -76,3 +76,20 @@
     }
   }
 }
+
+.profile-box-desktop {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  align-content: center;
+  align-items: center;
+  position: relative;
+  background: white;
+  .profile-top {
+    width: 30em;
+  }
+  .profile-bottom {
+    width: 30em;
+  }
+}

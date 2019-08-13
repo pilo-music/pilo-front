@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="musics-list-box">
         <!-- header -->
-        <b-navbar :sticky="true">
+        <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
           <div class="music-header full">
             <div>
               <img
@@ -18,18 +18,23 @@
           </div>
         </b-navbar>
         <div class="margin-t">
+          <div class="add-message-desktop">
+            <div>
+              <router-link :to="{ name: 'contactus' }">
+                <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
+              <span>ایجاد پیام</span>
+              </router-link>
+            </div>
+          </div>
           <div v-if="!isLoading">
             <div v-for="(i, index) in results" :key="index">
               <message-item :item="i" />
             </div>
           </div>
 
-          <div class="add-message">
+          <div class="add-message d-block d-sm-block d-md-block d-lg-none">
             <router-link :to="{ name: 'contactus' }">
-              <img
-                src="@/assets/panel/img/icon/plus-white.svg"
-                alt="add-message"
-              />
+              <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
             </router-link>
           </div>
         </div>

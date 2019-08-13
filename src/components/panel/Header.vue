@@ -24,16 +24,16 @@
                 </a>
               </li>-->
               <li class="list-inline-item">
-                <a href="#">خوانندگان</a>
+                <router-link :to="{name:'artists'}">خوانندگان</router-link>
               </li>
               <li class="list-inline-item">
-                <a href="#">آلبوم</a>
+                <router-link :to="{name:'albums'}">آلبوم</router-link>
               </li>
               <li class="list-inline-item">
-                <a href="#">موزیک ویدیو</a>
+                <router-link :to="{name:'videos'}">موزیک ویدیو</router-link>
               </li>
               <li class="list-inline-item">
-                <a href="#">موزیک</a>
+                <router-link :to="{name:'musics'}">موزیک ها</router-link>
               </li>
             </ul>
           </div>

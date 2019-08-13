@@ -3,7 +3,7 @@
     <div class="align">
       <div class="container-fluid margin-t">
         <!-- header -->
-        <b-navbar :sticky="true">
+        <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
           <div class="music-header full">
             <div>
               <img

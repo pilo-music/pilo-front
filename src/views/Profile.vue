@@ -1,6 +1,6 @@
 <template>
   <layout name="Panel">
-    <div class="profile-box">
+    <div class="profile-box profile-box-desktop">
       <!-- Top Box -->
       <div class="profile-top uk-box-shadow-small">
         <div class="container-fluid">

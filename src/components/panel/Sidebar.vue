@@ -44,7 +44,7 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/musics">
+              <router-link :to="{name:'musics'}">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_music.svg" alt="music" width="20" />
                   <span>موزیک ها</span>
@@ -52,7 +52,7 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/videos">
+              <router-link :to="{name:'albums'}">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_album.svg" alt="album" width="20" />
                   <span>آلبوم ها</span>
@@ -60,7 +60,7 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/artists">
+              <router-link :to="{name:'artists'}">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_artist.svg" alt="artist" width="20" />
                   <span>خوانندگان</span>
@@ -68,7 +68,7 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/videos">
+              <router-link :to="{name:'videos'}">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_video.svg" alt="video" width="20" />
                   <span>موزیک ویدیو ها</span>
@@ -77,36 +77,36 @@
             </li>
           </ul>
         </div>
-        <hr class="ml-3" v-if="currentUser"/>
+        <hr class="ml-3" v-if="currentUser" />
         <div class="mt-4 aside-menu" v-if="currentUser">
           <ul class="list-group">
             <li>
-              <a href="#">
+              <router-link :to="{ name: 'likes' }">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_like.svg" alt="like" width="20" />
-                  <span>لایک ها</span>
+                  <span>لایک شده ها</span>
                 </div>
-              </a>
+              </router-link>
             </li>
             <li>
-              <a href="#">
+              <router-link :to="{ name: 'bookmarks' }">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_bookmark.svg" alt="bookmark" width="20" />
                   <span>بوک مارک ها</span>
                 </div>
-              </a>
+              </router-link>
             </li>
             <li>
-              <a href="#">
+              <router-link :to="{ name: 'contactus' }">
                 <div>
                   <img src="@/assets/panel/img/icon/sidebar_support.svg" alt="support" width="20" />
                   <span>ارتباط با ما</span>
                 </div>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>
-        <hr class="ml-3" v-if="currentUser"/>
+        <hr class="ml-3" v-if="currentUser" />
         <div class="mt-4 mb-5 pb-5 aside-menu" v-if="currentUser">
           <span class="color-gray font-medium margin-r">پلی لیست ها</span>
           <ul class="list-group">

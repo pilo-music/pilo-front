@@ -26,3 +26,30 @@
     }
   }
 }
+
+.add-message-desktop {
+  display: flex;
+  justify-content: end;
+  div {
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 5px;
+      width: 200px;
+      text-decoration: none;
+      transition: all 0.5s;
+      background: $colorPrimary;
+      color: white;
+      &:hover {
+        opacity: 0.8;
+      }
+      img {
+        margin-right: 16px;
+        width: 15px;
+      }
+    }
+  }
+}

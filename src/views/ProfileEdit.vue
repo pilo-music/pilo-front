@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="musics-list-box">
           <!-- header -->
-          <b-navbar :sticky="true">
+          <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
             <div class="music-header full">
               <div>
                 <img
@@ -48,17 +48,14 @@
             accept="image/*"
           />
         </div>
-        <button class="upload-image" @click="$refs.file.click()">
-          آپلود عکس
-        </button>
+        <button class="upload-image" @click="$refs.file.click()">آپلود عکس</button>
       </div>
       <div class="grid">
         <b-alert
           :variant="errors.alertStatus"
           class="rtl text-right"
           :show="errors.showAlert"
-          >{{ errors.alertMessage }}</b-alert
-        >
+        >{{ errors.alertMessage }}</b-alert>
 
         <form v-on:submit.prevent="editProfile" class="form profile padding-t">
           <div class="form__field">
