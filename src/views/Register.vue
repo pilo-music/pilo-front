@@ -137,13 +137,24 @@ export default {
       if (this.validEmail(this.email)) {
         if (this.password == this.confirm) {
           this.$refs.spinner.style.visibility = "visible";
+          this.error.email = "";
+          this.error.confirm = "";
           register(this.email, this.password)
             .then(response => {
-              if (response.status == 200) {
-                this.$store.dispatch("login", response.data);
+              if (response.data.status == "success") {
+                this.$store.dispatch("login", response.data.data);
                 this.$router.push({
                   name: "home"
                 });
+              } else if (response.data.status == "error") {
+                for (
+                  let index = 0;
+                  index < response.data.data.length;
+                  index++
+                ) {
+                  const element = response.data.data[index];
+                  this.error.email = element + "\b";
+                }
               }
               this.$refs.spinner.style.visibility = "hidden";
             })

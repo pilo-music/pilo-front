@@ -8,7 +8,7 @@
             <div class="img-profile">
               <router-link :to="{ name: 'profile' }">
                 <img
-                  v-if="currentUser != null && currentUser.user.pic.lenght > 0"
+                  v-if="currentUser != null && currentUser.user.pic != null &&currentUser.user.pic.lenght > 0"
                   :src="currentUser.user.pic"
                   alt
                 />

@@ -29,7 +29,7 @@
         <div class="user-info">
           <div v-if="currentUser">
             <img
-              v-if="currentUser.user.pic.length > 0"
+              v-if="currentUser != null && currentUser.user.pic != null &&currentUser.user.pic.lenght > 0"
               :src="currentUser.user.pic"
               alt="user-image"
             />
@@ -42,9 +42,7 @@
             <span>{{ currentUser.user.email }}</span>
           </div>
           <div v-else>
-            <router-link class="login-btn" :to="{ name: 'login' }"
-              >ورود</router-link
-            >
+            <router-link class="login-btn" :to="{ name: 'login' }">ورود</router-link>
           </div>
         </div>
       </div>
@@ -66,40 +64,24 @@
           <li>
             <router-link :to="{ name: 'bookmarks' }">
               بوک مارک ها
-              <img
-                src="@/assets/panel/img/icon/bookmark_black.svg"
-                alt="bookmark"
-              />
+              <img src="@/assets/panel/img/icon/bookmark_black.svg" alt="bookmark" />
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'contactus' }">
               ارتباط با ما
-              <img
-                src="@/assets/panel/img/icon/support_black.svg"
-                alt="support"
-              />
+              <img src="@/assets/panel/img/icon/support_black.svg" alt="support" />
             </router-link>
           </li>
         </ul>
       </div>
-      <custom-modal
-        :show="showLogoutModal"
-        v-on:close="showLogoutModal = false"
-      >
+      <custom-modal :show="showLogoutModal" v-on:close="showLogoutModal = false">
         <div class="modal-header">
           <h3>خروج از حساب کاربری</h3>
-          <img
-            src="@/assets/panel/img/logo.png"
-            alt="logo"
-            width="40"
-            height="40"
-          />
+          <img src="@/assets/panel/img/logo.png" alt="logo" width="40" height="40" />
         </div>
         <div class="modal-body">
-          <span class="form-label"
-            >آیا مایل به خروج از حساب کاربری خود هستید؟</span
-          >
+          <span class="form-label">آیا مایل به خروج از حساب کاربری خود هستید؟</span>
         </div>
         <div class="modal-footer text-right">
           <button class="btn btn-success" @click="logoutUser">بله</button>
