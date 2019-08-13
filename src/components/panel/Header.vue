@@ -93,11 +93,7 @@
                         src="@/assets/panel/img/icon/close.svg"
                         alt="delete"
                       />
-                      <span @click="historyItemClick(item)" class="text">
-                        {{
-                        item
-                        }}
-                      </span>
+                      <span @click="historyItemClick(item)" class="text">{{item}}</span>
                       <img class="time" src="@/assets/panel/img/icon/time_black.svg" alt="time" />
                     </div>
                     <hr />

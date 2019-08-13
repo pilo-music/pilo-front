@@ -3,7 +3,7 @@
     <div class="align auth">
       <div>
         <router-link :to="{ name: 'home' }">
-          <img class="logo" src="@/assets/panel/img/pilo-logo.svg" alt />
+          <img class="logo" src="@/assets/panel/img/icon/pilo-logo-text.svg" alt />
         </router-link>
       </div>
       <div class="grid">
