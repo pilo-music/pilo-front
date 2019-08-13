@@ -79,7 +79,7 @@
               sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
               :callback="doRegister"
               type="submit"
-              id="do-something-btn"
+              id="register"
             >ثبت نام</invisible-recaptcha>
           </div>
         </form>

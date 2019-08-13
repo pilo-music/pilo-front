@@ -57,7 +57,7 @@
               sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
               :callback="doLogin"
               type="submit"
-              id="do-something-btn"
+              id="login"
             >ورود</invisible-recaptcha>
           </div>
 
@@ -71,7 +71,7 @@
           <div class="divider"></div>
           <router-link :to="{ name: 'register' }">
             <div class="form__field">
-              <input class="install" value="ثبت نام" />
+              <input type="button" class="install" value="ثبت نام" />
             </div>
           </router-link>
         </form>

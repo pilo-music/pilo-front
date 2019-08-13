@@ -254,17 +254,15 @@
           </div>
         </transition>
       </div>
-
-      <!-- Audio -->
-      <audio
-        :loop="settings.innerLoop"
-        ref="audiofile"
-        :src="currentSong.url"
-        preload
-        class="d-none"
-        controls
-      ></audio>
     </div>
+    <!-- Audio -->
+    <audio
+      :loop="settings.innerLoop"
+      ref="audiofile"
+      preload
+      class="d-none"
+      controls
+    ></audio>
   </div>
 </template>
 
@@ -277,20 +275,17 @@ export default {
   name: "components.music_player",
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      currentSong: {}
     };
   },
-  created: function() {
-    let current = getLocalSong();
-    this.settings = this.currentSettings;
-    this.settings.innerLoop = this.settings.loop.state;
-    this.currentSong = current;
-  },
   mounted: function() {
-    if (this.currentSong) {
-      this.audioPlayer = this.$el.querySelectorAll("audio")[0];
-      this.initPlayer();
+    this.audioPlayer = this.$refs.audiofile;
+    let current = getLocalSong();
+    if (this.currentSong == null) {
+      this.currentSong = current;
     }
+    this.initPlayer();
   },
 
   methods: {

@@ -16,7 +16,7 @@ export function getLocalPlaylist() {
 
 export function getLocalSettings() {
   const current_settings = localStorage.getItem("current_settings");
-  if (!current_settings) {
+  if (current_settings == null) {
     return {
       durationSeconds: 0,
       currentSeconds: 0,

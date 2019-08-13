@@ -4,7 +4,7 @@ import Bookmark from "@/components/Bookmark.vue";
 import CustomModal from "@/components/CustomModal";
 import AddToPlaylist from "@/components/AddToPlaylist";
 import HomeMusicsCarousel from "@/components/home/HomeMusicsCarousel";
-import { getLocalSong } from "@/services/helpers/music.js";
+import { getLocalSong, getLocalSettings } from "@/services/helpers/music.js";
 
 export default {
   components: {
@@ -23,10 +23,14 @@ export default {
       currentSong: {},
       related: [],
       showCustomModal: false,
-      showCreatePlaylistModal: false
+      showCreatePlaylistModal: false,
     };
   },
   name: "services.mixins.music",
+  mounted: function() {
+    this.settings = getLocalSettings();
+    this.settings.innerLoop = this.settings.loop.state;
+  },
   methods: {
     /**Music player methods
      * these methods are used to control the music player*/

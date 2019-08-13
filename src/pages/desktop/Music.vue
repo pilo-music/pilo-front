@@ -200,11 +200,6 @@ import { single } from "@/services/api/music_api.js";
 export default {
   mixins: [Music],
   name: "pages.desktop.music",
-  created() {
-    this.settings = this.currentSettings;
-    this.settings.innerLoop = this.settings.loop.state;
-  },
-
   mounted() {
     this.audioPlayer = this.$el.querySelectorAll("audio")[0];
     single(this.$route.params.slug)
