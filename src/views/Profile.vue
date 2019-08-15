@@ -1,6 +1,6 @@
 <template>
   <layout name="Panel">
-    <div class="profile-box profile-box-desktop">
+    <div :class="profileStyle">
       <!-- Top Box -->
       <div class="profile-top uk-box-shadow-small">
         <div class="container-fluid">
@@ -96,6 +96,8 @@
 import { me, logout } from "@/services/api/login_api";
 import CustomModal from "@/components/CustomModal";
 import Layout from "@/layouts/Layout";
+import { isMobile } from "mobile-device-detect";
+
 
 export default {
   name: "views.profile",
@@ -130,8 +132,12 @@ export default {
   computed: {
     currentUser() {
       return this.$store.getters.currentUser;
+    },
+    profileStyle() {
+      if (isMobile) return "profile-box";
+      else return "profile-box profile-box-desktop";
     }
-  }
+  },
 };
 </script>
 

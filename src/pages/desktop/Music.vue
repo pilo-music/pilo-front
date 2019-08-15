@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <!-- play list -->
-      <div class="col-lg-7 col-xl-8">
+      <div class="col-lg-7 col-xl-7">
         <div class="row">
           <div class="section-title col-12 pr-4">
             <h2 class="text-right">پلی لیست شما</h2>
@@ -10,7 +10,7 @@
         </div>
         <playlist class="p-0 playlist" :items="playlist" v-on:play="play($event)" />
       </div>
-      <div class="single-music-box single-music-box-desktop col-lg-5 col-xl-4" v-if="!isLoading">
+      <div class="single-music-box single-music-box-desktop col-lg-5 col-xl-5 " v-if="!isLoading">
         <div class>
           <!-- music image -->
           <div class="music-image">
