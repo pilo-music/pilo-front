@@ -135,9 +135,11 @@ export default {
               if (response.data.data != null) {
                 if (response.data.data.user != null) {
                   this.$store.dispatch("login", response.data.data);
-                  this.$router.push({
-                    name: "home"
-                  });
+                  setTimeout(() => {
+                    this.$router.push({
+                      name: "home"
+                    });
+                  }, 1000);
                   return;
                 } else {
                   this.error.password = "مشکلی در انجام عملیات رخ داده است";

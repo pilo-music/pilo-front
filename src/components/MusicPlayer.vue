@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex" v-if="currentSong">
+    <div
+      class="music-player-desktop d-none d-sm-none d-md-flex d-lg-flex"
+      v-if="isMobile && currentSong && settings"
+    >
       <div class="options">
         <like :post_id="currentSong.id" post_type="music" :has_like="currentSong.has_like" />
       </div>
@@ -61,7 +64,7 @@
           />
         </div>
       </div>
-      <div class="music-info">
+      <div class="music-info" @click="go">
         <div>
           <p class="music-artist">{{ currentSong.artist.name }}</p>
           <p class="music-title">{{ currentSong.title }}</p>
@@ -71,9 +74,9 @@
         </div>
       </div>
     </div>
-    <div v-if="currentSong">
-      <div v-touch:swipe="swipeUp" class="container-fluid d-block d-sm-block d-md-none d-lg-none">
-        <div class="w-100 small-music-player" v-if="!isOpen">
+    <div v-if="!isMobile && currentSong && settings">
+      <div class="container-fluid d-block d-sm-block d-md-none d-lg-none">
+        <div class="w-100 small-music-player">
           <div class="row">
             <div class="col-5">
               <img
@@ -109,7 +112,7 @@
                 alt="fast-forward-black"
               />
             </div>
-            <div class="col-7">
+            <div class="col-7" @click="go">
               <div>
                 <span class="title">{{ currentSong.title }}</span>
                 <span class="name">{{ currentSong.artist.name }}</span>
@@ -118,144 +121,6 @@
             </div>
           </div>
         </div>
-        <transition name="music-player">
-          <div class="row music-player" v-show="isOpen">
-            <div class="w-100">
-              <div class="music-player-box padding-r padding-l">
-                <!-- header -->
-                <div class="container-fluid" v-touch:swipe="swipeBottom">
-                  <b-navbar :sticky="true">
-                    <div class="w-100 text-center">
-                      <p class="swipe-mark">__</p>
-                    </div>
-                  </b-navbar>
-                </div>
-                <div class="padding-t">
-                  <!-- music image -->
-                  <div class="music-image">
-                    <img class="img-fluid" :src="currentSong.image" :alt="currentSong.title" />
-                  </div>
-                  <!-- music info -->
-                  <div class="music-info">
-                    <router-link
-                      :to="{name:'music',params:{slug:currentSong.slug}}"
-                    >{{ currentSong.title }}</router-link>
-                    <span>{{ currentSong.artist.name }}</span>
-                  </div>
-
-                  <!-- progress bar -->
-                  <div class="row music-progress-bar mt-3">
-                    <div class="position-relative">
-                      <img
-                        @click="repeat"
-                        :src="
-                          settings.loop.state == false
-                            ? settings.repeat_off
-                            : settings.repeat_on
-                        "
-                        alt="share"
-                      />
-                      <div class="repeat-info" v-if="settings.onRepeat">
-                        {{ settings.loop.value
-                        }}
-                      </div>
-                    </div>
-                    <div class="flex-grow-1">
-                      <div class="progress-container">
-                        <div class="progress" id="progress-wrap">
-                          <div
-                            class="progress-handle"
-                            :style="{ left: settings.progressPercentageValue }"
-                          ></div>
-
-                          <div class="transparent-seeker-layer" @click="seek"></div>
-
-                          <div class="bar" :style="{ width: settings.progressPercentageValue }"></div>
-                        </div>
-                      </div>
-                      <div class="row music-time">
-                        <div class="col-6">
-                          <span>{{ currentPlayedTime }}</span>
-                        </div>
-                        <div class="col-6 text-right">
-                          <span>{{ duration }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <a :href="currentSong.url">
-                        <img
-                          class="float-right"
-                          src="@/assets/panel/img/icon/download.svg"
-                          alt="download"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                  <!-- Controls -->
-                  <div class="music-controls mt-3">
-                    <div>
-                      <img
-                        class="shuffle"
-                        @click="shuffleToggle"
-                        :src="
-                          settings.shuffle
-                            ? settings.shuffleOn
-                            : settings.shuffleOff
-                        "
-                        alt="shuffle"
-                      />
-                    </div>
-                    <div class="prev">
-                      <img
-                        @click="skip('backward')"
-                        src="@/assets/panel/img/icon/fast-forward-left.svg"
-                        alt="prev"
-                      />
-                    </div>
-                    <div>
-                      <img
-                        v-if="!isPlaying"
-                        @click="playCurrentSong"
-                        alt="play"
-                        class="play"
-                        src="@/assets/panel/img/icon/main-play.svg"
-                      />
-                      <img
-                        class="play"
-                        @click="pause"
-                        v-else
-                        src="@/assets/panel/img/icon/main-pause.svg"
-                        alt="pause"
-                      />
-                    </div>
-                    <div class="next">
-                      <img
-                        @click="skip('forward')"
-                        src="@/assets/panel/img/icon/fast-forward-right.svg"
-                        alt="next"
-                      />
-                    </div>
-                    <like
-                      :post_id="currentSong.id"
-                      post_type="music"
-                      :has_like="currentSong.has_like"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- play list -->
-            <div class="w-100 margin-r margin-l" style="overflow:scroll;padding-bottom:30px;">
-              <div class="row">
-                <div class="section-title col-12 pr-4">
-                  <h2 class="text-right">پلی لیست شما</h2>
-                </div>
-              </div>
-              <playlist class="p-0" :items="playlist" v-on:play="play($event)" />
-            </div>
-          </div>
-        </transition>
       </div>
     </div>
     <!-- Audio -->
@@ -264,26 +129,21 @@
 </template>
 
 <script>
-import Playlist from "@/components/SmallMusicList.vue";
 import Like from "@/components/Like.vue";
 import { getLocalSong } from "@/services/helpers/music.js";
 import Bookmark from "@/components/Bookmark.vue";
-import CustomModal from "@/components/CustomModal";
+import { isMobile } from "mobile-device-detect";
 
 export default {
   components: {
-    Playlist,
     Like,
-    Bookmark,
-    CustomModal
+    Bookmark
   },
   name: "components.music_player",
   data() {
     return {
-      isOpen: false,
       settings: {},
       currentSong: {},
-      showCustomModal: false,
       isLoading: false,
       orginal_playlist: []
     };
@@ -382,32 +242,6 @@ export default {
       this.$store.commit("SET_IS_PLAYING", false);
     },
 
-    repeat() {
-      if (!this.settings.loop.state && !this.settings.onRepeat) {
-        //firstclick
-        this.settings.loop.state = true;
-        this.settings.loop.value = 1;
-        this.settings.onRepeat = true;
-      } else if (
-        this.settings.loop.state &&
-        this.settings.onRepeat &&
-        this.settings.loop.value === 1
-      ) {
-        //second click
-        this.settings.loop.state = true;
-        this.settings.loop.value = "all";
-        this.settings.onRepeat = true;
-      } else if (
-        this.settings.loop.state &&
-        this.settings.onRepeat &&
-        this.settings.loop.value === "all"
-      ) {
-        this.settings.loop.state = false;
-        this.settings.loop.value = 1;
-        this.settings.onRepeat = false;
-      }
-    },
-
     skip(direction) {
       if (direction === "forward") {
         this.settings.currentIndex++;
@@ -434,17 +268,6 @@ export default {
         }, 500);
       } else {
         this.playCurrentSong();
-      }
-    },
-
-    mute() {
-      //this.muted is a computed variable available down below
-
-      if (this.settings.muted) {
-        return (this.settings.volume = this.settings.previousVolume);
-      } else {
-        this.settings.previousVolume = this.settings.volume;
-        this.settings.volume = 0;
       }
     },
 
@@ -543,33 +366,6 @@ export default {
         }
       }
     },
-
-    shuffleToggle() {
-      if (!this.settings.shuffle) {
-        //shuffle the playlist songs and rearrange
-        if (this.orginal_playlist.length === 0) {
-          this.orginal_playlist = this.playlist;
-        }
-        this.$store.commit(
-          "SET_CURRENT_PLAYLIST",
-          this.shuffleArray(this.playlist)
-        );
-        //reset the playlist index when changed and rest the previous playlist index
-        this.settings.currentIndex = this.getObjectIndexFromArray(
-          this.currentSong,
-          this.playlist
-        );
-        this.settings.previousPlaylistIndex = this.settings.currentIndex;
-        this.settings.shuffle = true;
-      } else {
-        this.$store.commit(
-          "SET_CURRENT_PLAYLIST",
-          this.shuffleArray(this.orginal_playlist)
-        );
-        this.settings.shuffle = false;
-      }
-    },
-
     /** Helper methods
      * these methods are usually used within other methods*/
 
@@ -600,61 +396,17 @@ export default {
         }
       }
     },
-
-    getObjectIndexFromArray(obj, list) {
-      //this function just returns the index of the item with the id
-      let i;
-      for (i = 0; i < list.length; i++) {
-        if (list[i].id === obj.id) {
-          return i;
-        }
-      }
-    },
-
     setCurrentSong(song) {
       this.currentSong = song;
       this.settings.previousPlaylistIndex = this.settings.currentIndex;
     },
-
-    generateRandomNumber(min, max, except) {
-      let num = null;
-      num = Math.floor(Math.random() * (max - min + 1)) + min;
-      return num === except ? this.generateRandomNumber(min, max, except) : num;
-    },
-
-    shuffleArray(array) {
-      let ctr = array.length;
-      let temp;
-      let index;
-
-      // While there are elements in the array
-      while (ctr > 0) {
-        // Pick a random index
-        index = Math.floor(Math.random() * ctr);
-        // Decrease ctr by 1
-        ctr--;
-        // And swap the last element with it
-        temp = array[ctr];
-        array[ctr] = array[index];
-        array[index] = temp;
-      }
-      return array;
-    },
-    shareLink() {
-      // TODO : add toast here
-      navigator.clipboard
-        .writeText("https://dl.pilo.app/" + this.$route.fullPath)
-        .then(function() {}, function(err) {});
-    },
-    openCreatePlaylist() {
-      this.showCustomModal = false;
-      this.showCreatePlaylistModal = true;
-    },
-    swipeUp(direction) {
-      if (direction == "top") this.isOpen = true;
-    },
-    swipeBottom(direction) {
-      if (direction == "bottom") this.isOpen = false;
+    go() {
+      this.$router.push({
+        name: "music",
+        params: {
+          slug: this.currentSong.slug
+        }
+      });
     }
   },
   computed: {
@@ -668,10 +420,6 @@ export default {
       return parseInt(
         (this.settings.currentSeconds / this.settings.durationSeconds) * 100
       );
-    },
-    muted() {
-      //this returns true or false
-      return this.settings.volume / 100 === 0;
     },
     isPlaying() {
       return this.$store.getters.isPlaying;

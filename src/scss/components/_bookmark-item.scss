@@ -3,9 +3,12 @@
   flex-direction: row;
   align-items: center;
   cursor: pointer;
+  .bookmark {
+    width: 25px;
+  }
   .bookmark-info {
     text-align: right;
-    flex: 8;
+    flex: 4;
     padding: 0 16px;
     p {
       font-size: $font-medium;
@@ -18,12 +21,12 @@
   }
   .bookmark-type {
     text-align: left;
-    flex: 2;
     span {
       font-size: $font-small;
     }
   }
   .bookmark-image {
+    max-width: 70px;
     text-align: right;
     flex: 2;
     img {
@@ -32,6 +35,7 @@
   }
 
   .type-box {
+    max-width: 50px;
     color: white;
     padding: 2px 6px;
     font-size: 10px;
