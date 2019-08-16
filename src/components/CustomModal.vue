@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask" @click="close" v-show="show">
-      <div class="modal-container" @click.stop>
+    <div :class="modalClass" @click="close" v-show="show">
+      <div :class="containerClass" @click.stop>
         <slot></slot>
       </div>
     </div>
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { isMobile } from "mobile-device-detect";
 export default {
   name: "components.custom_modal",
   props: ["show"],
@@ -23,6 +24,16 @@ export default {
         this.close();
       }
     });
+  },
+  computed: {
+    modalClass() {
+      if (isMobile) return "modal-mask";
+      else return "modal-mask modal-mask-desktop";
+    },
+    containerClass() {
+      if (isMobile) return "modal-container";
+      else return "modal-container modal-container-desktop";
+    }
   }
 };
 </script>

@@ -94,7 +94,11 @@ export default {
     }
   },
   mounted() {
-    if (this.currentUser) this.getPlaylists();
+    if (this.currentUser){
+      setTimeout(() => {
+        this.getPlaylists();
+      }, 5000);
+    }
   }
 };
 </script>

@@ -22,6 +22,18 @@
     direction: rtl;
   }
 }
+.modal-container-desktop {
+  max-width: 500px !important;
+  left: auto !important;
+  right: auto !important;
+  border-radius: 5px !important;
+}
+.modal-mask-desktop {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .modal-header {
   align-items: center;
