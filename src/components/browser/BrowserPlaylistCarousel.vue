@@ -1,34 +1,44 @@
 <template>
   <div class="album-slider mb-2">
-    <carousel
-      :responsive="carousel_respansive"
-      :margin="16"
-      :freeDrag="false"
-      :dots="false"
-    >
-      <playlist-item v-for="i in items" :key="i.id" :item="i" />
-    </carousel>
+    <hooper :settings="hooperSettings">
+      <slide v-for="(i,index) in items" :key="index">
+        <playlist-item :item="i" />
+      </slide>
+    </hooper>
   </div>
 </template>
 
 <script>
-import carousel from "vue-owl-carousel";
+import { Hooper, Slide } from "hooper";
+import "hooper/dist/hooper.css";
 import PlaylistItem from "@/components/PlaylistItem";
 export default {
   props: ["items"],
   name: "components.browser_playlist_carousel",
   components: {
     PlaylistItem,
-    carousel
+    Hooper,
+    Slide
   },
   data() {
     return {
-      carousel_respansive: {
-        0: { items: 2, nav: false },
-        576: { items: 2, nav: false },
-        768: { items: 2, nav: false },
-        992: { items: 3, nav: false },
-        1200: { items: 3, nav: false }
+      hooperSettings: {
+        itemsToShow: 2,
+        rtl: true,
+        wheelControl: false,
+        breakpoints: {
+          800: {
+            centerMode: false,
+            itemsToShow: 2
+          },
+          1000: {
+            itemsToShow: 4,
+            pagination: "fraction"
+          },
+          1750: {
+            itemsToShow: 5
+          }
+        }
       }
     };
   }
@@ -36,7 +46,11 @@ export default {
 </script>
 
 <style>
-.owl-stage-outer {
-  width: 100%;
+.hooper {
+  height: auto;
+}
+.hooper-slide {
+  margin-right: 8px;
+  margin-left: 8px;
 }
 </style>

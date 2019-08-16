@@ -1,5 +1,5 @@
 <template>
-  <layout name="Default">
+  <layout name="Default" style="padding-bottom:6em;">
     <!-- Top boxs -->
     <div class="container-fluid">
       <div class="w-100 browser-boxs">

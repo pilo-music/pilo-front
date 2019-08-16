@@ -71,7 +71,7 @@
             <p>{{ error.confirm }}</p>
           </div>
           <div ref="spinner" class="spinner">
-            <b-spinner label="Small Spinning"></b-spinner>
+            <b-spinner variant="dark" label="Small Spinning"></b-spinner>
           </div>
           <div class="form__field">
             <invisible-recaptcha

@@ -10,7 +10,7 @@
         </div>
         <playlist class="p-0 playlist" :items="playlist" v-on:play="play($event)" />
       </div>
-      <div class="single-music-box single-music-box-desktop col-lg-5 col-xl-5 " v-if="!isLoading">
+      <div class="single-music-box single-music-box-desktop col-lg-5 col-xl-5" v-if="!isLoading">
         <div class>
           <!-- music image -->
           <div class="music-image">
@@ -19,7 +19,7 @@
           <!-- music info -->
           <div class="music-info">
             <p>{{ currentSong.title }}</p>
-            <span>{{ currentSong.artist.name }}</span>
+            <span @click="goToArtist">{{ currentSong.artist.name }}</span>
           </div>
           <!-- Actions -->
           <div class="music-actions">
@@ -43,7 +43,7 @@
                 :has_bookmark="this.currentSong.has_bookmark"
               />
             </div>
-            <div>
+            <div @click="openCreatePlaylist">
               <img width="20" src="@/assets/panel/img/icon/plus.svg" alt="plus" />
             </div>
             <div>
@@ -154,42 +154,6 @@
     <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
       <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
     </custom-modal>
-
-    <!-- Custom Modal -->
-    <custom-modal :show="showCustomModal" v-on:close="showCustomModal = false">
-      <div class="modal-body" v-if="!isLoading">
-        <div class="menu-item">
-          <router-link
-            :to="{
-                name: 'artist',
-                params: {
-                  slug: currentSong.artist.slug
-                }
-              }"
-          >
-            صفحه خواننده
-            <img src="@/assets/panel/img/icon/profile.svg" alt="profile" />
-          </router-link>
-        </div>
-        <div class="menu-item">
-          بوک مارک
-          <Bookmark
-            :post_id="this.currentSong.id"
-            post_type="music"
-            :has_bookmark="this.currentSong.has_bookmark"
-          />
-        </div>
-
-        <div class="menu-item" @click="openCreatePlaylist">
-          اضافه کردن به پلی لیست
-          <img src="@/assets/panel/img/icon/plus.svg" alt="plus" />
-        </div>
-        <div @click="shareLink" class="menu-item">
-          اشتراک گذاری
-          <img src="@/assets/panel/img/icon/share.svg" alt="plus" />
-        </div>
-      </div>
-    </custom-modal>
   </div>
 </template>
 
@@ -223,6 +187,16 @@ export default {
         console.log(err);
       });
     this.initPlayer();
+  },
+  methods: {
+    goToArtist() {
+      this.$router.push({
+        name: "artist",
+        params: {
+          slug: this.currentSong.artist.slug
+        }
+      });
+    }
   }
 };
 </script>

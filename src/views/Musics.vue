@@ -20,7 +20,7 @@
         <!-- Controls -->
         <div class="margin-t">
           <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-2">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-2">
               <div class="musics-controls" @click="allPlay">
                 <span>پخش</span>
                 <img
@@ -30,7 +30,7 @@
                 />
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-2">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-2">
               <div class="musics-controls" @click="shufflePlay">
                 <span>شافل</span>
                 <img

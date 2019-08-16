@@ -20,17 +20,9 @@
       </div>
 
       <div class="grid">
-        <b-alert
-          :variant="alertStatus"
-          class="rtl text-right"
-          :show="alertShow"
-          >{{ alertMessage }}</b-alert
-        >
+        <b-alert :variant="alertStatus" class="rtl text-right" :show="alertShow">{{ alertMessage }}</b-alert>
 
-        <form
-          v-on:submit.prevent="sendMessage"
-          class="form contactus padding-t"
-        >
+        <form v-on:submit.prevent="sendMessage" class="form contactus padding-t">
           <div class="form__field"></div>
           <div class="form__field">
             <input
@@ -99,6 +91,7 @@ export default {
       this.isLoading = true;
       send(this.subject, this.text, this.type)
         .then(response => {
+          this.isLoading = false;
           if (response.data.data == "success") {
             this.alertShow = true;
             this.alertStatus = "success";
@@ -110,6 +103,7 @@ export default {
           }
         })
         .catch(err => {
+          this.isLoading = false;
           console.log("ContactUs : " + err);
         });
     }
