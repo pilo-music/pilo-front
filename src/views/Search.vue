@@ -64,17 +64,17 @@
               </div>
             </div>
           </b-tab>
-          <b-tab title="موزیک">
-            <div class="row mt-4">
-              <div v-for="i in results.musics" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
-                <music-item :music="i" />
-              </div>
-            </div>
-          </b-tab>
-          <b-tab title="خواننده" active>
+          <b-tab title="خواننده">
             <div class="row mt-4">
               <div v-for="i in results.artists" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
                 <artist-item :artist="i" />
+              </div>
+            </div>
+          </b-tab>
+          <b-tab title="موزیک" active>
+            <div class="row mt-4">
+              <div v-for="i in results.musics" :key="i.id" class="col-md-2 col-sm-6 col-6 mb-3">
+                <music-item :music="i" />
               </div>
             </div>
           </b-tab>

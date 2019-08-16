@@ -18,7 +18,7 @@
           </div>
         </b-navbar>
         <div class="margin-t">
-          <div class="add-message-desktop">
+          <div class="add-message-desktop d-none d-sm-none d-md-none d-lg-block">
             <div>
               <router-link :to="{ name: 'contactus' }">
                 <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <div class="add-message d-block d-sm-block d-md-block d-lg-none">
+          <div class="add-message d-flex d-sm-flex d-md-flex d-lg-none">
             <router-link :to="{ name: 'contactus' }">
               <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
             </router-link>
