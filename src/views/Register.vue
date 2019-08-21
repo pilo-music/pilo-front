@@ -132,6 +132,13 @@ export default {
       }
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "ورود / ثبت نام"
+      };
+    }
+  },
   methods: {
     doRegister() {
       if (this.validEmail(this.email)) {

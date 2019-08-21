@@ -174,6 +174,7 @@ export default {
         if (!this.containsObjectWithSameId(this.currentSong, this.playlist)) {
           this.addToPlaylist(this.currentSong);
         } else {
+          // console.log(this.playlist);
           //TODO:i wanna change the current music index to first; but this code dont delete prev music and add new item to list;
           // i mean it should delete prev music and add new, but it doesn't delete and just add;
           // the splice func doesn't work ...;

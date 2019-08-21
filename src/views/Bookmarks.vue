@@ -44,6 +44,13 @@ export default {
       isLoading: true
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "بوک مارک ها"
+      };
+    }
+  },
   methods: {
     getData() {
       this.isLoading = true;

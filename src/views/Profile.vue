@@ -98,7 +98,6 @@ import CustomModal from "@/components/CustomModal";
 import Layout from "@/layouts/Layout";
 import { isMobile } from "mobile-device-detect";
 
-
 export default {
   name: "views.profile",
   components: {
@@ -109,6 +108,13 @@ export default {
     return {
       showLogoutModal: false
     };
+  },
+  head: {
+    title: function() {
+      return {
+        inner: "حساب کاربری"
+      };
+    }
   },
   methods: {
     logoutUser() {
@@ -137,7 +143,7 @@ export default {
       if (isMobile) return "profile-box";
       else return "profile-box profile-box-desktop";
     }
-  },
+  }
 };
 </script>
 

@@ -3,26 +3,20 @@
     <div class="align auth">
       <div>
         <router-link :to="{ name: 'home' }">
-          <img class="logo" src="@/assets/panel/img/logo_with_text.png" alt />
+          <img class="logo" src="@/assets/panel/img/icon/pilo-logo-text.svg" alt />
         </router-link>
       </div>
       <div class="grid">
-        <form
-          action="https://httpbin.org/post"
-          method="POST"
-          class="form login"
-        >
+        <form action="https://httpbin.org/post" method="POST" class="form login">
           <div class="form__field">
             <label for="login__username">
               <svg class="icon">
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#user"
-                />
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user" />
               </svg>
               <span class="hidden">Username</span>
             </label>
             <input
+              v-model="email"
               id="login__username"
               type="text"
               name="username"
@@ -33,12 +27,18 @@
           </div>
 
           <div class="form__field">
-            <input type="submit" value="بازیابی رمز عبور" />
+            <invisible-recaptcha
+              id="login-btn"
+              class="login-btn"
+              sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
+              :callback="doForgot"
+              type="submit"
+            >بازیابی رمز عبور</invisible-recaptcha>
           </div>
         </form>
-        <p class="text--center">
+        <p class="text--center color-accent">
           حساب کاربری دارید؟
-          <router-link :to="{ name: 'login' }">ورود</router-link>
+          <router-link class="color-accent" :to="{ name: 'login' }">ورود</router-link>
         </p>
       </div>
 
@@ -65,12 +65,29 @@
 
 <script>
 import Layout from "@/layouts/Layout";
+import InvisibleRecaptcha from "vue-invisible-recaptcha";
 
 export default {
   components: {
-    Layout
+    Layout,
+    InvisibleRecaptcha
   },
-  name: "views.forgot_password"
+  name: "views.forgot_password",
+  data() {
+    return {
+      email: ""
+    };
+  },
+  head: {
+    title: function() {
+      return {
+        inner: "فراموشی رمز عبور"
+      };
+    }
+  },
+  methods: {
+    doForgot() {}
+  }
 };
 </script>
 

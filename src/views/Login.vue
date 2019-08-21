@@ -53,20 +53,24 @@
 
           <div class="form__field">
             <invisible-recaptcha
+              id="login-btn"
               class="login-btn"
               sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
               :callback="doLogin"
               type="submit"
-              id="login-btn"
             >ورود</invisible-recaptcha>
           </div>
 
-          <!-- <div class="social" @click="AuthProvider('google')">
+          <div class="social">
             <div class="google">
               <img src="@/assets/panel/img/icon/google.svg" alt="google" />
-              <span>ورود با گوگل</span>
+              <GoogleLogin
+                :params="params"
+                :onSuccess="onSuccess"
+                :onFailure="onFailure"
+              >ورود با گوگل</GoogleLogin>
             </div>
-          </div>-->
+          </div>
 
           <div class="divider"></div>
           <router-link :to="{ name: 'register' }">
@@ -107,12 +111,14 @@
 import { login } from "@/services/api/login_api";
 import Layout from "@/layouts/Layout";
 import axios from "axios";
+import GoogleLogin from "vue-google-login";
 import InvisibleRecaptcha from "vue-invisible-recaptcha";
 
 export default {
   components: {
     Layout,
-    InvisibleRecaptcha
+    InvisibleRecaptcha,
+    GoogleLogin
   },
   name: "views.login",
   data() {
@@ -121,10 +127,29 @@ export default {
       password: "",
       error: {
         password: ""
+      },
+      params: {
+        client_id:
+          "833478452423-9ruc7h1elhd65bm59nbeh48i76llj032.apps.googleusercontent.com"
       }
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "ورود / ثبت نام"
+      };
+    }
+  },
   methods: {
+    onFailure() {},
+    onSuccess(googleUser) {
+      console.log(googleUser);
+
+      // This only gets the user information: id, name, imageUrl and email
+      console.log(googleUser.getBasicProfile());
+    },
+
     doLogin() {
       if (this.email != "" && this.password != "") {
         this.error.password = "";
@@ -160,18 +185,6 @@ export default {
         this.error.password = "لطفا ایمیل و رمزعبور خود را وارد کنید";
       }
     },
-    AuthProvider(provider) {
-      var self = this;
-      this.$auth
-        .authenticate(provider)
-        .then(response => {
-          self.SocialLogin(provider, response);
-        })
-        .catch(err => {
-          console.log({ err: err });
-        });
-    },
-
     SocialLogin(provider, response) {
       axios
         .post("https://pilo.app/api/v1/panel/login/google" + provider, response)

@@ -32,7 +32,7 @@ export default {
             itemsToShow: 2
           },
           1000: {
-            itemsToShow: 4,
+            itemsToShow: 2,
             pagination: "fraction"
           },
           1750: {

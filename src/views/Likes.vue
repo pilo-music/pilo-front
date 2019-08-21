@@ -44,6 +44,13 @@ export default {
       isLoading: true
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "لایک شده ها"
+      };
+    }
+  },
   methods: {
     getData() {
       this.isLoading = true;

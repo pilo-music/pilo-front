@@ -22,7 +22,7 @@
             <div>
               <router-link :to="{ name: 'contactus' }">
                 <img src="@/assets/panel/img/icon/plus-white.svg" alt="add-message" />
-              <span>ایجاد پیام</span>
+                <span>ایجاد پیام</span>
               </router-link>
             </div>
           </div>
@@ -59,6 +59,13 @@ export default {
       results: [],
       isLoading: true
     };
+  },
+  head: {
+    title: function() {
+      return {
+        inner: "پیام ها"
+      };
+    }
   },
   methods: {
     getData() {

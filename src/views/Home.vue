@@ -20,6 +20,13 @@ export default {
       if (isMobile) return Mobile;
       else return Desktop;
     }
+  },
+  head: {
+    title: function() {
+      return {
+        inner: "سرویس رایگان اشتراک موزیک ایرانی"
+      };
+    }
   }
 };
 </script>

@@ -4,7 +4,9 @@
       <div class="popup">
         <div class="popup-content">
           <div class="popup-text">
-            <b>404</b> error. <br />Page <b>NOT</b> Found !
+            <b>404</b> error.
+            <br />Page
+            <b>NOT</b> Found !
           </div>
         </div>
       </div>
@@ -18,6 +20,13 @@ export default {
   name: "views.errors.404",
   components: {
     Layout
+  },
+  head: {
+    title: function() {
+      return {
+        inner: "صفحه مورد نظر یافت نشد"
+      };
+    }
   }
 };
 </script>

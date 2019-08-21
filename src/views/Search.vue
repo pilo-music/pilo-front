@@ -100,6 +100,13 @@ export default {
       showHistory: true
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "جستجو"
+      };
+    }
+  },
   created() {
     if (!isMobile) {
       this.$router.push({

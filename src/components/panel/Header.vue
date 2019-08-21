@@ -83,7 +83,7 @@
             </form>
 
             <transition name="fade">
-              <div class="history" v-show="showHistory">
+              <div class="history" v-show="showHistory && history.length > 0">
                 <ul class="list-group">
                   <li v-for="(item, n) in history" :key="n">
                     <div>
@@ -161,16 +161,20 @@
         </div>
       </div>
     </transition>
+    <custom-toast :show="true" message="hi" />
   </div>
 </template>
 
 <script>
 import Search from "@/services/mixins/search";
+import CustomToast from "@/components/CustomToast";
 
 export default {
   name: "components.panel.header",
   mixins: [Search],
-
+  components: {
+    CustomToast
+  },
   methods: {
     closeSearch() {
       this.showSearch = false;

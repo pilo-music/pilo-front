@@ -86,6 +86,13 @@ export default {
       isLoading: false
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "تماس با ما"
+      };
+    }
+  },
   methods: {
     sendMessage() {
       this.isLoading = true;

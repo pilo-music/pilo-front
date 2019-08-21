@@ -11,6 +11,13 @@ import Layout from "@/layouts/Layout";
 export default {
   components: {
     Layout
+  },
+  head: {
+    title: function() {
+      return {
+        inner: "درباره ما"
+      };
+    }
   }
 };
 </script>

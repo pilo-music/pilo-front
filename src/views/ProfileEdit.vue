@@ -148,6 +148,13 @@ export default {
       isLoading: false
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "ویرایش حساب کاربری"
+      };
+    }
+  },
   methods: {
     editProfile() {
       this.isLoading = true;

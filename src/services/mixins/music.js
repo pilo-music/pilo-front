@@ -23,7 +23,7 @@ export default {
       currentSong: {},
       related: [],
       showCustomModal: false,
-      showCreatePlaylistModal: false,
+      showCreatePlaylistModal: false
     };
   },
   name: "services.mixins.music",
@@ -265,7 +265,6 @@ export default {
               }
             }
 
-            console.log("do noting");
             if (this.playlist[this.settings.currentIndex] != null)
               this.setCurrentSong(this.playlist[this.settings.currentIndex]);
             if (this.isPlaying) {

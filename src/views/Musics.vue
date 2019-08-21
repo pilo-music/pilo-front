@@ -80,6 +80,13 @@ export default {
       isLoading: true
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "موزیک ها"
+      };
+    }
+  },
   methods: {
     infiniteHandler($state) {
       var filter = "latest";

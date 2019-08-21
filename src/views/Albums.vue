@@ -53,6 +53,13 @@ export default {
       isLoading: true
     };
   },
+  head: {
+    title: function() {
+      return {
+        inner: "البوم ها"
+      };
+    }
+  },
   methods: {
     infiniteHandler($state) {
       var filter = "latest";
