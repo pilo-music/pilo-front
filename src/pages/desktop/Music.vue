@@ -46,7 +46,7 @@
             <div @click="openCreatePlaylist">
               <img width="20" src="@/assets/panel/img/icon/plus.svg" alt="plus" />
             </div>
-            <div>
+            <div @click="shareLink">
               <img src="@/assets/panel/img/icon/share.svg" alt="plus" width="20" />
             </div>
             <div>
@@ -154,6 +154,13 @@
     <custom-modal :show="showCreatePlaylistModal" v-on:close="showCreatePlaylistModal = false">
       <add-to-playlist :post_id="currentSong.id" v-on:close="showCreatePlaylistModal = false" />
     </custom-modal>
+
+    <b-toast
+      id="share-link-toast"
+      toaster="b-toaster-bottom-center"
+      variant="success"
+      solid
+    >لینک موزیک کپی شد</b-toast>
   </div>
 </template>
 

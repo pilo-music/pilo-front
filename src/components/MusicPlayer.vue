@@ -312,55 +312,22 @@ export default {
       if (this.settings.onRepeat && this.settings.loop.value === 1) {
         this.playCurrentSong();
       } else {
-        if (this.playlist.length > 1) {
-          if (this.settings.random) {
-            //generate a random number
-            //set the current index of the playlist
-            this.settings.currentIndex = this.generateRandomNumber(
-              0,
-              this.playlist.length - 1,
-              this.settings.previousPlaylistIndex
-            );
+        this.settings.currentIndex++;
 
-            //set the src of the audio player
-            this.audioPlayer.src = this.playlist[
-              this.settings.currentIndex
-            ].url;
-            //set the current song
-            this.setCurrentSong(this.playlist[this.settings.currentIndex]);
-            //begin to play
-            this.playCurrentSong();
-          } else {
-            /**if the current Index of the playlist is equal to the index of the last song played skip that song
-                             and add 1*/
-
-            if (
-              this.settings.currentIndex === this.settings.previousPlaylistIndex
-            ) {
-              //increment the current index of the playlist by 1
-              this.settings.currentIndex = this.settings.currentIndex += 1;
-            }
-
-            /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
-                             reset the index to 0. It could also mean that the playlist is at its end. */
-
-            if (this.settings.currentIndex >= this.playlist.length) {
-              if (
-                this.settings.onRepeat &&
-                this.settings.loop.value === "all"
-              ) {
-                //if repeat is on then replay from the top
-                this.settings.currentIndex = 0;
-              } else {
-                return;
-              }
-            }
-            this.setCurrentSong(this.playlist[this.settings.currentIndex]);
-            this.playCurrentSong();
-            this.settings.currentIndex = this.settings.currentIndex += 1;
-          }
-        } else {
+        if (this.settings.currentIndex >= this.playlist.length) {
+          this.settings.currentIndex = 0;
         }
+        if (this.settings.currentIndex < 0) {
+          this.settings.currentIndex = this.playlist.length - 1;
+        }
+
+        if (this.playlist[this.settings.currentIndex] != null)
+          this.setCurrentSong(this.playlist[this.settings.currentIndex]);
+
+        console.log(this.currentSong);
+        setTimeout(() => {
+          this.playCurrentSong();
+        }, 1000);
       }
     },
     /** Helper methods

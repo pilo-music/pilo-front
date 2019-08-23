@@ -2,12 +2,7 @@
   <div>
     <div class="modal-header">
       <h3>افزودن به پلی لیست</h3>
-      <img
-        src="@/assets/panel/img/icon/plus.svg"
-        alt="logo"
-        width="20"
-        height="20"
-      />
+      <img src="@/assets/panel/img/icon/plus.svg" alt="logo" width="20" height="20" />
     </div>
     <div class="modal-body">
       <div v-if="currentUser">
@@ -27,16 +22,16 @@
         <div class="mt-3">
           <p>پلی لیست های شما</p>
           <select v-model="selectedPlaylist" class="form-control mt-3">
-            <option v-for="i in playlists" :key="i.id" :value="i.title">{{
+            <option v-for="i in playlists" :key="i.id" :value="i.title">
+              {{
               i.title
-            }}</option>
+              }}
+            </option>
           </select>
         </div>
       </div>
       <div class="text-center" v-else>
-        <router-link :to="{ name: 'login' }"
-          >لطفا وارد حساب کاربری خود شوید</router-link
-        >
+        <router-link :to="{ name: 'login' }">لطفا وارد حساب کاربری خود شوید</router-link>
       </div>
     </div>
     <div class="text-center">
@@ -46,6 +41,18 @@
       <button class="btn btn-success" @click="saveToPlaylist()">ذخیره</button>
       <button class="btn" @click="close">انصراف</button>
     </div>
+    <b-toast
+      id="add-to-playlist-toast"
+      toaster="b-toaster-bottom-center"
+      variant="success"
+      solid
+    >عملیات با موفقیت انجام شد</b-toast>
+    <b-toast
+      id="add-to-playlist-toast-error"
+      toaster="b-toaster-bottom-center"
+      variant="danger"
+      solid
+    >مشکلی در انجام عملیات رخ داده است</b-toast>
   </div>
 </template>
 
@@ -78,10 +85,12 @@ export default {
       if (this.selectedPlaylist != "") name = this.selectedPlaylist;
       add(name, this.post_id)
         .then(response => {
-          console.log(response.data);
+          if (response.data.data == "success") {
+            this.$bvToast.show("add-to-playlist-toast");
+          } else this.$bvToast.show("add-to-playlist-toast-error");
         })
         .catch(err => {
-          console.log(err);
+          this.$bvToast.show("add-to-playlist-toast-error");
         });
     },
     close: function() {
@@ -94,7 +103,7 @@ export default {
     }
   },
   mounted() {
-    if (this.currentUser){
+    if (this.currentUser) {
       setTimeout(() => {
         this.getPlaylists();
       }, 5000);

@@ -208,3 +208,10 @@
   max-height: 300px;
   overflow: scroll;
 }
+
+#share-link-toast {
+  margin-bottom: 5em;
+  .toast-body {
+    text-align: center;
+  }
+}

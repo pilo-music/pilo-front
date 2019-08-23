@@ -35,6 +35,8 @@ export default {
             response.data.data.artists.length > 0
           ) {
             this.showSearch = true;
+          } else {
+            this.$bvToast.show("search-toast");
           }
         })
         .catch(err => {

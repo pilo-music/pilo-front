@@ -161,20 +161,21 @@
         </div>
       </div>
     </transition>
-    <custom-toast :show="true" message="hi" />
+    <b-toast
+      id="search-toast"
+      toaster="b-toaster-bottom-center"
+      variant="secondary"
+      solid
+    >موردی یافت نشد</b-toast>
   </div>
 </template>
 
 <script>
 import Search from "@/services/mixins/search";
-import CustomToast from "@/components/CustomToast";
 
 export default {
   name: "components.panel.header",
   mixins: [Search],
-  components: {
-    CustomToast
-  },
   methods: {
     closeSearch() {
       this.showSearch = false;
@@ -184,9 +185,15 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .spinner-border {
   width: 25px !important;
   height: 25px !important;
+}
+#search-toast {
+  margin-bottom: 10em;
+  .toast-body {
+    text-align: center;
+  }
 }
 </style>

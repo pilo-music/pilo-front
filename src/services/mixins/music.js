@@ -118,20 +118,7 @@ export default {
         this.settings.loop.state = true;
         this.settings.loop.value = 1;
         this.settings.onRepeat = true;
-      } else if (
-        this.settings.loop.state &&
-        this.settings.onRepeat &&
-        this.settings.loop.value === 1
-      ) {
-        //second click
-        this.settings.loop.state = true;
-        this.settings.loop.value = "all";
-        this.settings.onRepeat = true;
-      } else if (
-        this.settings.loop.state &&
-        this.settings.onRepeat &&
-        this.settings.loop.value === "all"
-      ) {
+      } else {
         this.settings.loop.state = false;
         this.settings.loop.value = 1;
         this.settings.onRepeat = false;
@@ -217,67 +204,25 @@ export default {
     },
 
     playNextSongInPlaylist() {
-      //TODO: this fuc doesn't work; plz fix it and remove all console.logs;
       if (this.settings.onRepeat && this.settings.loop.value === 1) {
-        console.log("playing current cus on repeat");
         this.playCurrentSong();
       } else {
-        if (this.playlist.length > 0) {
-          if (this.settings.random) {
-            console.log("playing random");
-            //generate a random number
-            let randomNumber = this.generateRandomNumber(
-              0,
-              this.playlist.length - 1,
-              this.settings.previousPlaylistIndex
-            );
+        this.settings.currentIndex++;
 
-            //set the current index of the playlist
-            this.settings.currentIndex = randomNumber;
-
-            //set the current song
-            this.setCurrentSong(this.playlist[this.settings.currentIndex]);
-            //begin to play
-            this.playCurrentSong();
-          } else {
-            /**if the current Index of the playlist is equal to the index of the last song played skip that song
-             and add 1*/
-
-            if (
-              this.settings.currentIndex === this.settings.previousPlaylistIndex
-            ) {
-              //increment the current index of the playlist by 1
-              this.settings.currentIndex++;
-              console.log("increment index");
-            }
-
-            /**if the current Index of the playlist is greater or equal to the length of the playlist songs (the index is out of range)
-             reset the index to 0. It could also mean that the playlist is at its end. */
-
-            if (this.settings.currentIndex >= this.playlist.length) {
-              if (
-                this.settings.onRepeat &&
-                this.settings.loop.value === "all"
-              ) {
-                console.log("check all repeat");
-                //if repeat is on then replay from the top
-                this.settings.currentIndex = 0;
-              }
-            }
-
-            if (this.playlist[this.settings.currentIndex] != null)
-              this.setCurrentSong(this.playlist[this.settings.currentIndex]);
-            if (this.isPlaying) {
-              this.pause();
-              setTimeout(() => {
-                this.playCurrentSong();
-              }, 500);
-            } else {
-              this.playCurrentSong();
-            }
-            this.settings.currentIndex++;
-          }
+        if (this.settings.currentIndex >= this.playlist.length) {
+          this.settings.currentIndex = 0;
         }
+        if (this.settings.currentIndex < 0) {
+          this.settings.currentIndex = this.playlist.length - 1;
+        }
+
+        if (this.playlist[this.settings.currentIndex] != null)
+          this.setCurrentSong(this.playlist[this.settings.currentIndex]);
+
+        console.log(this.currentSong);
+        setTimeout(() => {
+          this.playCurrentSong();
+        }, 1000);
       }
     },
 
@@ -375,8 +320,10 @@ export default {
     shareLink() {
       // TODO : add toast here
       navigator.clipboard
-        .writeText("https://dl.pilo.app/" + this.$route.fullPath)
+        .writeText("https://pilo.app/" + this.$route.fullPath)
         .then(function() {}, function() {});
+
+      this.$bvToast.show("share-link-toast");
     },
     openCreatePlaylist() {
       this.showCustomModal = false;

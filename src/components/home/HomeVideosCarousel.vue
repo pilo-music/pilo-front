@@ -36,7 +36,7 @@ export default {
             pagination: "fraction"
           },
           1750: {
-            itemsToShow: 5
+            itemsToShow: 3
           }
         }
       }
