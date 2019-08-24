@@ -232,8 +232,11 @@ export default {
         if (this.original_playlist.length == 0) {
           this.original_playlist = this.playlist;
         }
-        this.playlist = this.shuffleArray(this.playlist);
-
+        if (this.playlist.length > 0) {
+          var newList = this.shuffleArray(this.playlist);
+          this.$store.commit("SET_CURRENT_PLAYLIST", newList);
+          this.setCurrentSong(newList[0]);
+        }
         //reset the playlist index when changed and rest the previous playlist index
         this.settings.currentIndex = this.getObjectIndexFromArray(
           this.currentSong,
@@ -242,7 +245,7 @@ export default {
         this.settings.previousPlaylistIndex = this.settings.currentIndex;
         this.shuffle = true;
       } else {
-        this.playlist = this.original_playlist;
+        this.$store.commit("SET_CURRENT_PLAYLIST", this.original_playlist);
         this.settings.shuffle = false;
       }
     },
