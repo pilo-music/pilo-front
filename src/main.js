@@ -6,6 +6,7 @@ import "./plugins/bootstrap-vue";
 import "./plugins/vue-plyr";
 import "./plugins/vue-head";
 import "./plugins/vue-progressbar";
+import "./plugins/vue-analytics";
 
 import App from "./App.vue";
 import router from "./services/router/router";
