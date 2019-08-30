@@ -84,3 +84,34 @@ export function me() {
       });
   });
 }
+
+export function createPasswordRequest(email) {
+  return new Promise((resolve, reject) => {
+    http
+      .post("/password/create", {
+        email: email
+      })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+export function editPassword(token, email, password) {
+  return new Promise((resolve, reject) => {
+    http
+      .post("/password/reset", {
+        email: email,
+        token: token,
+        password: password
+      })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}

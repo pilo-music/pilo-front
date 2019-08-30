@@ -7,7 +7,15 @@
         </router-link>
       </div>
       <div class="grid">
-        <form action="https://httpbin.org/post" method="POST" class="form login">
+        <div
+          v-if="status == 'success'"
+          class="text-center font-small mb-4 alert alert-success"
+        >{{message}}</div>
+        <div
+          v-if="status == 'error'"
+          class="text-center font-small mb-4 alert alert-danger"
+        >{{message}}</div>
+        <form v-if="currentForm == 'forgot'" class="form login">
           <div class="form__field">
             <label for="login__username">
               <svg class="icon">
@@ -26,6 +34,10 @@
             />
           </div>
 
+          <div class="error">
+            <p>{{ error }}</p>
+          </div>
+
           <div class="form__field">
             <invisible-recaptcha
               id="login-btn"
@@ -34,6 +46,56 @@
               :callback="doForgot"
               type="submit"
             >بازیابی رمز عبور</invisible-recaptcha>
+          </div>
+        </form>
+        <form v-if="currentForm == 'reset'" class="form login">
+          <div class="form__field">
+            <label for="login__username">
+              <svg class="icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock" />
+              </svg>
+              <span class="hidden">Username</span>
+            </label>
+            <input
+              v-model="password"
+              id="login__username"
+              type="password"
+              name="password"
+              class="form__input"
+              placeholder="رمز عبور جدید"
+              required
+            />
+          </div>
+          <div class="form__field">
+            <label for="login__username">
+              <svg class="icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock" />
+              </svg>
+              <span class="hidden">Username</span>
+            </label>
+            <input
+              v-model="confirm"
+              id="login__username"
+              type="password"
+              name="confirm"
+              class="form__input"
+              placeholder="تکرار رمز عبور"
+              required
+            />
+          </div>
+
+          <div class="error">
+            <p>{{ error }}</p>
+          </div>
+
+          <div class="form__field">
+            <invisible-recaptcha
+              id="login-btn"
+              class="login-btn"
+              sitekey="6LdSULAUAAAAAICsq_kAS1rjnvHG2onk_pzz-2GY"
+              :callback="doReset"
+              type="submit"
+            >ذخیره اطلاعات</invisible-recaptcha>
           </div>
         </form>
         <p class="text--center color-accent">
@@ -66,6 +128,7 @@
 <script>
 import Layout from "@/layouts/Layout";
 import InvisibleRecaptcha from "vue-invisible-recaptcha";
+import { createPasswordRequest } from "@/services/api/login_api";
 
 export default {
   components: {
@@ -75,7 +138,14 @@ export default {
   name: "views.forgot_password",
   data() {
     return {
-      email: ""
+      email: "",
+      error: "",
+      status: "",
+      message: "",
+      currentForm: "reset",
+      token: "",
+      password: "",
+      confirm: ""
     };
   },
   head: {
@@ -86,7 +156,73 @@ export default {
     }
   },
   methods: {
-    doForgot() {}
+    doReset() {
+      if (this.token.length > 0 && this.email.length > 0) {
+        if (this.password == this.confirm) {
+          reset(this.token, this.email, this.password)
+            .then(response => {
+              if (response.data.data == "success") {
+                this.status = "success";
+                this.message = "رمز عبور با موفقیت ویرایش  شد";
+                setTimeout(() => {
+                  this.$router.push({
+                    name: "login"
+                  });
+                }, 1000);
+              }
+            })
+            .catch(err => {
+              console.log("reset " + err);
+            });
+        } else {
+          this.error = "تکرار رمز عبور نادرست میباشد";
+          setTimeout(() => {
+            this.status = "";
+            this.message = "";
+          }, 5000);
+        }
+      }
+    },
+    doForgot() {
+      if (this.email.length > 0) {
+        createPasswordRequest(this.email)
+          .then(response => {
+            if (response.data.status == "success") {
+              this.status = "success";
+              this.message = "لینک بازیابی رمز عبور برای شما ارسال شد";
+            } else {
+              this.status = "error";
+              this.message = response.data.data;
+            }
+            setTimeout(() => {
+              this.status = "";
+              this.message = "";
+            }, 5000);
+          })
+          .catch(err => {
+            console.log("forgetpass  " + err);
+          });
+      } else {
+        this.error = "لطفا ایمیل خود را وارد کنید";
+      }
+    }
+  },
+  created() {
+    let status = this.$route.query.status;
+    let token = this.$route.query.token;
+    let message = this.$route.query.message;
+    let email = this.$route.query.email;
+
+    if (status == "error" && message.length > 0) {
+      this.status = "error";
+      this.message = message;
+      return;
+    }
+    if (status == "success" && token.length > 0 && email.length > 0) {
+      this.currentForm = "reset";
+      this.token = token;
+      this.email = email;
+    }
   }
 };
 </script>

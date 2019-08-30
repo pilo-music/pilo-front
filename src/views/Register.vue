@@ -7,6 +7,11 @@
         </router-link>
       </div>
       <div class="grid">
+        <div
+          v-if="status == 'success'"
+          class="text-center font-small mb-4 alert alert-success"
+        >{{message}}</div>
+
         <form v-on:submit.prevent="doRegister" class="form login">
           <div class="form__field">
             <label for="login__username">
@@ -112,6 +117,7 @@
 
 <script>
 import { register } from "@/services/api/login_api";
+
 import Layout from "@/layouts/Layout";
 import InvisibleRecaptcha from "vue-invisible-recaptcha";
 
@@ -126,6 +132,8 @@ export default {
       email: "",
       password: "",
       confirm: "",
+      status: "",
+      message: "",
       error: {
         confirm: "",
         email: ""
@@ -149,10 +157,8 @@ export default {
           register(this.email, this.password)
             .then(response => {
               if (response.data.status == "success") {
-                this.$store.dispatch("login", response.data.data);
-                this.$router.push({
-                  name: "home"
-                });
+                this.status = "success";
+                this.message = "لینک تایید حساب کاربری به ایمیل شما ارسال شد";
               } else if (response.data.status == "error") {
                 for (
                   let index = 0;

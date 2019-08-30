@@ -203,9 +203,9 @@ export default {
     getData() {
       me()
         .then(response => {
-          this.name = response.data.data.name;
-          this.pic = response.data.data.pic;
-          this.email = response.data.data.email;
+          this.name = response.data.data.user.name;
+          this.pic = response.data.data.user.pic;
+          this.email = response.data.data.user.email;
         })
         .catch(err => {
           console.log("profile_edit  " + err);

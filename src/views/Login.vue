@@ -7,6 +7,15 @@
         </router-link>
       </div>
       <div class="grid">
+        <div
+          v-if="status === 'success'"
+          class="text-center font-small mb-4 alert alert-success"
+        >{{message}}</div>
+        <div
+          v-if="status === 'error'"
+          class="text-center font-small mb-4 alert alert-danger"
+        >{{message}}</div>
+
         <form v-on:submit.prevent="doLogin" class="form login">
           <div class="form__field">
             <label for="login__username">
@@ -61,14 +70,10 @@
             >ورود</invisible-recaptcha>
           </div>
 
-          <div class="social">
+          <div class="social" @click="goToGoogleLogin">
             <div class="google">
               <img src="@/assets/panel/img/icon/google.svg" alt="google" />
-              <GoogleLogin
-                :params="params"
-                :onSuccess="onSuccess"
-                :onFailure="onFailure"
-              >ورود با گوگل</GoogleLogin>
+              ورود با گوگل
             </div>
           </div>
 
@@ -108,17 +113,16 @@
 </template>
 
 <script>
+import { me } from "@/services/api/user_api";
 import { login } from "@/services/api/login_api";
 import Layout from "@/layouts/Layout";
 import axios from "axios";
-import GoogleLogin from "vue-google-login";
 import InvisibleRecaptcha from "vue-invisible-recaptcha";
 
 export default {
   components: {
     Layout,
-    InvisibleRecaptcha,
-    GoogleLogin
+    InvisibleRecaptcha
   },
   name: "views.login",
   data() {
@@ -128,10 +132,8 @@ export default {
       error: {
         password: ""
       },
-      params: {
-        client_id:
-          "833478452423-9ruc7h1elhd65bm59nbeh48i76llj032.apps.googleusercontent.com"
-      }
+      status: "",
+      message: ""
     };
   },
   head: {
@@ -142,21 +144,16 @@ export default {
     }
   },
   methods: {
-    onFailure() {},
-    onSuccess(googleUser) {
-      console.log(googleUser);
-
-      // This only gets the user information: id, name, imageUrl and email
-      console.log(googleUser.getBasicProfile());
+    goToGoogleLogin() {
+      window.location.href = "https://api.pilo.app/login/google";
     },
-
     doLogin() {
-      if (this.email != "" && this.password != "") {
+      if (this.email !== "" && this.password !== "") {
         this.error.password = "";
         this.$refs.spinner.style.visibility = "visible";
         login(this.email, this.password)
           .then(response => {
-            if (response.status == 200) {
+            if (response.data.status === "success") {
               if (response.data.data != null) {
                 if (response.data.data.user != null) {
                   this.$store.dispatch("login", response.data.data);
@@ -172,12 +169,18 @@ export default {
               } else {
                 this.error.password = "مشکلی در انجام عملیات رخ داده است";
               }
+            } else if (response.data.status === "not_verify") {
+              this.error.password =
+                "ایمیل فعال سازی برای شما ارسال شد. لطفا حساب خود را تایید کنید";
+            } else if (response.data.status === "deactive") {
+              this.error.password =
+                "حساب کاربری شما مسدود شده است ، لطفا با پشتیبانی تماس بگیرید";
             }
             this.$refs.spinner.style.visibility = "hidden";
           })
           .catch(err => {
             this.$refs.spinner.style.visibility = "hidden";
-            if (err.message == "Request failed with status code 401") {
+            if (err.message === "Request failed with status code 401") {
               this.error.password = "نام کاربری یا رمزعبور ناردست میباشد";
             }
           });
@@ -185,22 +188,42 @@ export default {
         this.error.password = "لطفا ایمیل و رمزعبور خود را وارد کنید";
       }
     },
-    SocialLogin(provider, response) {
-      axios
-        .post("https://pilo.app/api/v1/panel/login/google" + provider, response)
+    checkToken(token) {
+      me(token)
         .then(response => {
-          console.log(response.data);
+          if (response.data.data.access_token != null) {
+            this.$store.dispatch("login", response.data.data);
+            setTimeout(() => {
+              this.$router.push({
+                name: "home"
+              });
+            }, 1000);
+          }
         })
         .catch(err => {
-          console.log({ err: err });
+          console.log("profile_edit  " + err);
         });
     }
   },
   mounted() {
     if (this.$store.getters.currentUser) {
-      this.$router.push({
-        name: "home"
-      });
+      this.checkToken(currentUser.access_token);
+    }
+  },
+  created() {
+    let status = this.$route.query.status;
+    let token = this.$route.query.token;
+    let message = this.$route.query.message;
+    if (status && status.length > 0 && message && message.length > 0) {
+      this.status = status;
+      this.message = message;
+      setTimeout(() => {
+        (this.status = ""), (this.message = "");
+      }, 5000);
+    }
+
+    if (token && token.length > 0) {
+      this.checkToken(token);
     }
   }
 };

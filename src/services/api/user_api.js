@@ -2,10 +2,12 @@ import http from "./../httpService";
 import store from "./../store/index";
 let user = store.getters.currentUser;
 
-export function me() {
+export function me(token) {
+  var url = `/me?token=${user.access_token}`;
+  if (token) url = `/me?token=${token}`;
   return new Promise((resolve, reject) => {
     http
-      .get(`/me?token=${user.access_token}`)
+      .get(url)
       .then(response => {
         resolve(response);
       })
