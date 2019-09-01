@@ -14,13 +14,14 @@ import initialize from "./services/helpers/general";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
-initialize(store, router);
 // init plugins
 initVueProgressBar(Vue);
 initBootstrapVue(Vue);
 initVueHead(Vue);
 initVueAnalytics(Vue, router);
 initVuePlyr(Vue);
+
+initialize(store, router);
 
 new Vue({
   router,
