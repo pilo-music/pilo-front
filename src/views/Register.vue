@@ -159,21 +159,14 @@ export default {
               if (response.data.status == "success") {
                 this.status = "success";
                 this.message = "لینک تایید حساب کاربری به ایمیل شما ارسال شد";
-              } else if (response.data.status == "error") {
-                for (
-                  let index = 0;
-                  index < response.data.data.length;
-                  index++
-                ) {
-                  const element = response.data.data[index];
-                  this.error.email = element + "\b";
-                }
+              } else if (response.data.status == "exists") {
+                this.error.password = "ایمیل مورد نظر قبلا ثبت شده است";
               }
               this.$refs.spinner.style.visibility = "hidden";
             })
             .catch(err => {
               this.$refs.spinner.style.visibility = "hidden";
-              console.log(err);
+              console.log("register " + err);
             });
         } else {
           this.error.confirm = "رمزهای عبور یکسان نمیباشند";

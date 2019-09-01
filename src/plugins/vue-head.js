@@ -1,7 +1,8 @@
-import Vue from "vue";
 import VueHead from "vue-head";
 
-Vue.use(VueHead, {
-  separator: "-",
-  complement: "pilo",
-});
+export function initVueHead(Vue) {
+  Vue.use(VueHead, {
+    separator: "-",
+    complement: "pilo"
+  });
+}

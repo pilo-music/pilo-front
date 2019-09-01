@@ -1,12 +1,10 @@
-import "@babel/polyfill";
-import "mutationobserver-shim";
 import Vue from "vue";
 
-import "./plugins/bootstrap-vue";
-import "./plugins/vue-plyr";
-import "./plugins/vue-head";
-import "./plugins/vue-progressbar";
-import "./plugins/vue-analytics";
+import { initBootstrapVue } from "./plugins/bootstrap-vue";
+import { initVuePlyr } from "./plugins/vue-plyr";
+import { initVueHead } from "./plugins/vue-head";
+import { initVueProgressBar } from "./plugins/vue-progressbar";
+import { initVueAnalytics } from "./plugins/vue-analytics";
 
 import App from "./App.vue";
 import router from "./services/router/router";
@@ -15,8 +13,14 @@ import initialize from "./services/helpers/general";
 
 import "./registerServiceWorker";
 
-Vue.config.productionTip = true;
+Vue.config.productionTip = false;
 initialize(store, router);
+// init plugins
+initVueProgressBar(Vue);
+initBootstrapVue(Vue);
+initVueHead(Vue);
+initVueAnalytics(Vue, router);
+initVuePlyr(Vue);
 
 new Vue({
   router,

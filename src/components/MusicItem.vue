@@ -2,7 +2,7 @@
   <div class="item music-box">
     <div class="position-relative">
       <router-link :to="{ name: 'music', params: { slug: music.slug } }">
-        <img class="img-fluid" :src="music.image" :alt="music.title" />
+        <b-img-lazy blank-color="#f6f7f8" class="img-fluid" :src="music.image" :alt="music.title" />
         <div class="type-box position-absolute">MP3</div>
       </router-link>
       <a class="play-music">

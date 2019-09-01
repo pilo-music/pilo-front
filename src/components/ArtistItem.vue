@@ -2,7 +2,8 @@
   <div class="artist-box">
     <router-link :to="{ name: 'artist', params: { slug: artist.slug } }">
       <div class="position-relative">
-        <img
+        <b-img-lazy
+          blank-color="#f6f7f8"
           v-if="artist.image != '' && artist.image != null && artist.image != '.'"
           class="shadow img-fluid"
           :src="artist.image"

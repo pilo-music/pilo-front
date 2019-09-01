@@ -25,7 +25,7 @@
           <span class="color-primary-dark">{{ i.title }}</span>
         </div>
         <div>
-          <img class="music-image" :src="i.image" :alt="i.title" />
+          <b-img-lazy blank-color="#f6f7f8" class="music-image" :src="i.image" :alt="i.title" />
         </div>
       </div>
       <hr />

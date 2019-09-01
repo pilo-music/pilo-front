@@ -154,18 +154,17 @@ export default {
         login(this.email, this.password)
           .then(response => {
             if (response.data.status === "success") {
-              if (response.data.data != null) {
-                if (response.data.data.user != null) {
-                  this.$store.dispatch("login", response.data.data);
-                  setTimeout(() => {
-                    this.$router.push({
-                      name: "home"
-                    });
-                  }, 1000);
-                  return;
-                } else {
-                  this.error.password = "مشکلی در انجام عملیات رخ داده است";
-                }
+              if (
+                response.data.data != null &&
+                response.data.data.user != null
+              ) {
+                this.$store.dispatch("login", response.data.data);
+                setTimeout(() => {
+                  this.$router.push({
+                    name: "home"
+                  });
+                }, 1000);
+                return;
               } else {
                 this.error.password = "مشکلی در انجام عملیات رخ داده است";
               }

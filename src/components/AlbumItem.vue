@@ -10,7 +10,7 @@
         }"
       >
         <div class="position-relative">
-          <img class="img-fluid" :src="item.image" :alt="item.title" />
+          <b-img-lazy blank-color="#f6f7f8" class="img-fluid" :src="item.image" :alt="item.title" />
           <div class="type-box position-absolute">ALBUM</div>
           <a class="play-music">
             <div class="music-play position-absolute">
@@ -25,9 +25,11 @@
         </div>
       </router-link>
       <div class="mt-2 text-center">
-        <span class="music-title color-primary-dark d-block">{{
+        <span class="music-title color-primary-dark d-block">
+          {{
           item.title
-        }}</span>
+          }}
+        </span>
       </div>
     </div>
   </div>
