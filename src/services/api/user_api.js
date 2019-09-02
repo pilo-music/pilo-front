@@ -3,8 +3,10 @@ import store from "./../store/index";
 let user = store.getters.currentUser;
 
 export function me(token) {
-  var url = `/me?token=${user.access_token}`;
   if (token) url = `/me?token=${token}`;
+  else if (user) {
+    var url = `/me?token=${user.access_token}`;
+  }
   return new Promise((resolve, reject) => {
     http
       .get(url)

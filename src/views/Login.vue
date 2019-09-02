@@ -188,8 +188,10 @@ export default {
       }
     },
     checkToken(token) {
+      this.$refs.spinner.style.visibility = "visible";
       me(token)
         .then(response => {
+          this.$refs.spinner.style.visibility = "hidden";
           if (response.data.data.access_token != null) {
             this.$store.dispatch("login", response.data.data);
             setTimeout(() => {
@@ -200,6 +202,7 @@ export default {
           }
         })
         .catch(err => {
+          this.$refs.spinner.style.visibility = "hidden";
           console.log("profile_edit  " + err);
         });
     }
