@@ -278,6 +278,16 @@
     }
   }
 }
+
+.notifications {
+  z-index: 500000000;
+  margin-bottom: 16px;
+}
+.vue-notification {
+  border-radius: 3px;
+  text-align: right !important;
+}
+
 //// responsive
 
 @include sm {

@@ -1,10 +1,6 @@
 <template>
   <div @click="action" style="display:initial">
-    <img
-      class="bookmark"
-      :src="hasBookmark ? header_src_on : header_src_off"
-      alt="bookmark"
-    />
+    <img class="bookmark" :src="hasBookmark ? header_src_on : header_src_off" alt="bookmark" />
   </div>
 </template>
 
@@ -38,8 +34,12 @@ export default {
 
       bookmark(action, this.post_id, this.post_type)
         .then(response => {})
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     }
   },

@@ -79,7 +79,11 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     }
   },
@@ -97,7 +101,11 @@ export default {
         this.isLoading = false;
       })
       .catch(err => {
-        console.log(err);
+        this.$notify({
+          group: "notify",
+          title: "مشکلی در ارتباط با سرور رخ داده است",
+          type: "error"
+        });
       });
   }
 };

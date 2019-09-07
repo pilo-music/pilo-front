@@ -41,18 +41,6 @@
       <button class="btn btn-success" @click="saveToPlaylist()">ذخیره</button>
       <button class="btn" @click="close">انصراف</button>
     </div>
-    <b-toast
-      id="add-to-playlist-toast"
-      toaster="b-toaster-bottom-center"
-      variant="success"
-      solid
-    >عملیات با موفقیت انجام شد</b-toast>
-    <b-toast
-      id="add-to-playlist-toast-error"
-      toaster="b-toaster-bottom-center"
-      variant="danger"
-      solid
-    >مشکلی در انجام عملیات رخ داده است</b-toast>
   </div>
 </template>
 
@@ -75,22 +63,39 @@ export default {
         .then(response => {
           this.playlists = response.data.data;
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     },
     saveToPlaylist() {
-      //TODO: add Toast here
       var name = this.playlistName;
       if (this.selectedPlaylist != "") name = this.selectedPlaylist;
       add(name, this.post_id)
         .then(response => {
-          if (response.data.data == "success") {
-            this.$bvToast.show("add-to-playlist-toast");
-          } else this.$bvToast.show("add-to-playlist-toast-error");
+          if (response.data.status == "success") {
+            this.$notify({
+              group: "notify",
+              title: "عملیات با موفقیت انجام شد",
+              type: "sucess"
+            });
+          } else {
+            this.$notify({
+              group: "notify",
+              title: "مشکلی در ارتباط با سرور رخ داده است",
+              type: "error"
+            });
+          }
         })
-        .catch(err => {
-          this.$bvToast.show("add-to-playlist-toast-error");
+        .catch(() => {
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     },
     close: function() {

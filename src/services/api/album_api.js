@@ -17,8 +17,8 @@ export function get(type, page, artist) {
   var url = "";
   if (type != "" && type != null) type = "/" + type;
   else type = "";
-  if (artist) url = `/albums/artist/${artist}/${page}`;
-  else url = `/albums${type}/${page}`;
+  if (artist) url = `/albums1/artist/${artist}/${page}`;
+  else url = `/album1s${type}/${page}`;
   return new Promise((resolve, reject) => {
     http
       .get(url)

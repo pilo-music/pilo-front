@@ -1,10 +1,6 @@
 <template>
   <div @click="action">
-    <img
-      class="like"
-      :src="hasLike ? header_src_on : header_src_off"
-      alt="like"
-    />
+    <img class="like" :src="hasLike ? header_src_on : header_src_off" alt="like" />
   </div>
 </template>
 
@@ -39,7 +35,11 @@ export default {
       like(action, this.post_id, this.post_type)
         .then(response => {})
         .catch(err => {
-          console.log(err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     }
   },

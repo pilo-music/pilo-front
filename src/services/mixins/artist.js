@@ -42,8 +42,12 @@ export default {
           this.videos = response.data.data.videos;
           this.isLoading = false;
         })
-        .catch(err => {
-          console.log("artist" + err);
+        .catch(() => {
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
           this.isLoading = false;
         });
     }

@@ -107,14 +107,16 @@
           </ul>
         </div>
         <hr class="ml-3" v-if="currentUser" />
-        <div class="mt-4 mb-5 pb-5 aside-menu" v-if="currentUser">
+        <div class="mt-4 mb-5 pb-5 aside-menu" v-if="currentUser && !isLoading">
           <span class="color-gray font-medium margin-r">پلی لیست ها</span>
           <ul class="list-group">
             <li v-for="(i, index) in playlists" :key="index">
-              <a href="#">
-                <i class="icon ion-md-heart-empty"></i>
-                {{ i.name }}
-              </a>
+              <router-link :to="{name:'playlist',params:{id:i.id}}">
+                <div>
+                  <img src="@/assets/panel/img/icon/sidebar_album.svg" alt="album" width="20" />
+                  <span>{{i.title}}</span>
+                </div>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -129,7 +131,8 @@ export default {
   name: "components.panel.sidebar",
   data() {
     return {
-      playlists: []
+      playlists: [],
+      isLoading: true
     };
   },
   methods: {
@@ -137,9 +140,14 @@ export default {
       get()
         .then(response => {
           this.playlists = response.data.data;
+          this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     }
   },

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <notifications group="notify" position="bottom right" />
     <component :is="layout">
       <router-view :layout.sync="layout" />
       <vue-progress-bar></vue-progress-bar>

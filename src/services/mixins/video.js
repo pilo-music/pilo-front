@@ -26,8 +26,12 @@ export default {
         this.video = response.data.data.video;
         this.playlist = response.data.data.playlist;
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
+        this.$notify({
+          group: "notify",
+          title: "مشکلی در ارتباط با سرور رخ داده است",
+          type: "error"
+        });
       });
   }
 };

@@ -89,6 +89,11 @@ export default new Router({
       component: () => import("@/views/Artists.vue")
     },
     {
+      path: "/playlist/:id",
+      name: "playlist",
+      component: () => import("@/views/Playlist.vue")
+    },
+    {
       path: "/playlists/:filter?",
       name: "playlists",
       component: () => import("@/views/Playlists.vue")

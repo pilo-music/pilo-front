@@ -20,8 +20,6 @@
       </div>
 
       <div class="grid">
-        <b-alert :variant="alertStatus" class="rtl text-right" :show="alertShow">{{ alertMessage }}</b-alert>
-
         <form v-on:submit.prevent="sendMessage" class="form contactus padding-t">
           <div class="form__field"></div>
           <div class="form__field">
@@ -79,10 +77,7 @@ export default {
     return {
       subject: "",
       text: "",
-      alertMessage: "",
       type: "1",
-      alertShow: false,
-      alertStatus: "success",
       isLoading: false
     };
   },
@@ -99,19 +94,27 @@ export default {
       send(this.subject, this.text, this.type)
         .then(response => {
           this.isLoading = false;
-          if (response.data.data == "success") {
-            this.alertShow = true;
-            this.alertStatus = "success";
-            this.alertMessage = "پیام شما با موفقیت ارسال شد";
+          if (response.data.status == "success") {
+            this.$notify({
+              group: "notify",
+              title: "پیام شما با موفقیت ارسال شد",
+              type: "success"
+            });
           } else {
-            this.alertShow = true;
-            this.alertStatus = "danger";
-            this.alertMessage = "مشکلی در انجام عملیات رخ داده است";
+            this.$notify({
+              group: "notify",
+              title: "مشکلی در ارتباط با سرور رخ داده است",
+              type: "error"
+            });
           }
         })
         .catch(err => {
           this.isLoading = false;
-          console.log("ContactUs : " + err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     }
   }

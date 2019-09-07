@@ -51,12 +51,6 @@
         <button class="upload-image" @click="$refs.file.click()">آپلود عکس</button>
       </div>
       <div class="grid">
-        <b-alert
-          :variant="errors.alertStatus"
-          class="rtl text-right"
-          :show="errors.showAlert"
-        >{{ errors.alertMessage }}</b-alert>
-
         <form v-on:submit.prevent="editProfile" class="form profile padding-t">
           <div class="form__field">
             <input
@@ -140,10 +134,7 @@ export default {
       errors: {
         password: "",
         confirm: "",
-        name: "",
-        alertStatus: "success",
-        alertMessage: "",
-        showAlert: false
+        name: ""
       },
       isLoading: false
     };
@@ -178,25 +169,27 @@ export default {
       edit(this.name, this.password)
         .then(response => {
           this.isLoading = false;
-          if (response.data.data == "success") {
-            this.errors.showAlert = true;
-            this.errors.alertMessage = "اطلاعات با موفقیت ذخیره شد";
-            this.errors.alertStatus = "success";
-            setTimeout(() => {
-              this.errors.showAlert = false;
-            }, 2000);
+          if (response.data.status == "success") {
+            this.$notify({
+              group: "notify",
+              title: "پیام با موفقیت ارسال شد",
+              type: "success"
+            });
           } else {
-            this.errors.showAlert = true;
-            this.errors.alertMessage = "مشکلی در انجام عملیات رخ داده است";
-            this.errors.alertStatus = "danger";
-            setTimeout(() => {
-              this.errors.showAlert = false;
-            }, 2000);
+            this.$notify({
+              group: "notify",
+              title: "مشکلی در انجام عملیات رخ داده است",
+              type: "error"
+            });
           }
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
       this.isLoading = false;
     },
@@ -208,7 +201,11 @@ export default {
           this.email = response.data.data.user.email;
         })
         .catch(err => {
-          console.log("profile_edit  " + err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     },
     previewImage: function(event) {

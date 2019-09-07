@@ -5,6 +5,7 @@ import { initVuePlyr } from "./plugins/vue-plyr";
 import { initVueHead } from "./plugins/vue-head";
 import { initVueProgressBar } from "./plugins/vue-progressbar";
 import { initVueAnalytics } from "./plugins/vue-analytics";
+import { initVueNotification } from "./plugins/vue-notification";
 
 import App from "./App.vue";
 import router from "./services/router/router";
@@ -20,6 +21,7 @@ initBootstrapVue(Vue);
 initVueHead(Vue);
 initVueAnalytics(Vue, router);
 initVuePlyr(Vue);
+initVueNotification(Vue);
 
 initialize(store, router);
 

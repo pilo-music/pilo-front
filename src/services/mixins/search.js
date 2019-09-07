@@ -39,9 +39,13 @@ export default {
             this.$bvToast.show("search-toast");
           }
         })
-        .catch(err => {
+        .catch(() => {
           this.isLoading = false;
-          console.log(err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
       this.addHistoryItem(this.text);
     },
