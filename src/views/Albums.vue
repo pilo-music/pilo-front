@@ -102,6 +102,7 @@ export default {
       .catch(err => {
         this.$notify({
           group: "notify",
+          type: "error",
           title: "مشکلی در ارتباط با سرور رخ داده است"
         });
       });
