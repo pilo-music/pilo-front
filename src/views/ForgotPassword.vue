@@ -142,7 +142,7 @@ export default {
       error: "",
       status: "",
       message: "",
-      currentForm: "reset",
+      currentForm: "forgot",
       token: "",
       password: "",
       confirm: ""
@@ -172,7 +172,11 @@ export default {
               }
             })
             .catch(err => {
-              console.log("reset " + err);
+              this.$notify({
+                group: "notify",
+                title: "مشکلی در ارتباط با سرور رخ داده است",
+                type: "error"
+              });
             });
         } else {
           this.error = "تکرار رمز عبور نادرست میباشد";
@@ -200,7 +204,11 @@ export default {
             }, 5000);
           })
           .catch(err => {
-            console.log("forgetpass  " + err);
+            this.$notify({
+              group: "notify",
+              title: "مشکلی در ارتباط با سرور رخ داده است",
+              type: "error"
+            });
           });
       } else {
         this.error = "لطفا ایمیل خود را وارد کنید";
