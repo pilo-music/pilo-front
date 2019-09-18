@@ -7,14 +7,6 @@
         </router-link>
       </div>
       <div class="grid">
-        <div
-          v-if="status == 'success'"
-          class="text-center font-small mb-4 alert alert-success"
-        >{{message}}</div>
-        <div
-          v-if="status == 'error'"
-          class="text-center font-small mb-4 alert alert-danger"
-        >{{message}}</div>
         <form v-if="currentForm == 'forgot'" class="form login">
           <div class="form__field">
             <label for="login__username">
@@ -34,8 +26,8 @@
             />
           </div>
 
-          <div class="error">
-            <p>{{ error }}</p>
+          <div ref="spinner" class="spinner">
+            <b-spinner variant="dark" label="Small Spinning"></b-spinner>
           </div>
 
           <div class="form__field">
@@ -84,8 +76,8 @@
             />
           </div>
 
-          <div class="error">
-            <p>{{ error }}</p>
+          <div ref="spinner" class="spinner">
+            <b-spinner variant="dark" label="Small Spinning"></b-spinner>
           </div>
 
           <div class="form__field">
@@ -139,9 +131,6 @@ export default {
   data() {
     return {
       email: "",
-      error: "",
-      status: "",
-      message: "",
       currentForm: "forgot",
       token: "",
       password: "",
@@ -159,19 +148,21 @@ export default {
     doReset() {
       if (this.token.length > 0 && this.email.length > 0) {
         if (this.password == this.confirm) {
+          this.$refs.spinner.style.visibility = "visible";
+
           reset(this.token, this.email, this.password)
             .then(response => {
-              if (response.data.data == "success") {
-                this.status = "success";
-                this.message = "رمز عبور با موفقیت ویرایش  شد";
-                setTimeout(() => {
-                  this.$router.push({
-                    name: "login"
-                  });
-                }, 1000);
+              this.$refs.spinner.style.visibility = "hidden";
+              if (response.data.status == "success") {
+                this.$notify({
+                  group: "notify",
+                  title: "رمز عبور با موفقیت ویرایش  شد",
+                  type: "success"
+                });
               }
             })
             .catch(err => {
+              this.$refs.spinner.style.visibility = "hidden";
               this.$notify({
                 group: "notify",
                 title: "مشکلی در ارتباط با سرور رخ داده است",
@@ -179,31 +170,37 @@ export default {
               });
             });
         } else {
-          this.error = "تکرار رمز عبور نادرست میباشد";
-          setTimeout(() => {
-            this.status = "";
-            this.message = "";
-          }, 5000);
+          this.$notify({
+            group: "notify",
+            title: "تکرار رمز عبور نادرست میباشد",
+            type: "warn"
+          });
         }
       }
     },
     doForgot() {
       if (this.email.length > 0) {
+        this.$refs.spinner.style.visibility = "visible";
         createPasswordRequest(this.email)
           .then(response => {
+            this.$refs.spinner.style.visibility = "hidden";
             if (response.data.status == "success") {
-              this.status = "success";
-              this.message = "لینک بازیابی رمز عبور برای شما ارسال شد";
+              this.$notify({
+                group: "notify",
+                title: "لینک بازیابی رمز عبور برای شما ارسال شد",
+                type: "success"
+              });
             } else {
-              this.status = "error";
-              this.message = response.data.data;
+              this.type = "forgot";
+              this.$notify({
+                group: "notify",
+                title: response.data.data,
+                type: "error"
+              });
             }
-            setTimeout(() => {
-              this.status = "";
-              this.message = "";
-            }, 5000);
           })
           .catch(err => {
+            this.$refs.spinner.style.visibility = "hidden";
             this.$notify({
               group: "notify",
               title: "مشکلی در ارتباط با سرور رخ داده است",
@@ -211,7 +208,11 @@ export default {
             });
           });
       } else {
-        this.error = "لطفا ایمیل خود را وارد کنید";
+        this.$notify({
+          group: "notify",
+          title: "لطفا ایمیل خود را وارد کنید",
+          type: "warn"
+        });
       }
     }
   },
@@ -222,8 +223,11 @@ export default {
     let email = this.$route.query.email;
 
     if (status == "error" && message.length > 0) {
-      this.status = "error";
-      this.message = message;
+      this.$notify({
+        group: "notify",
+        title: message,
+        type: "error"
+      });
       return;
     }
     if (status == "success" && token.length > 0 && email.length > 0) {

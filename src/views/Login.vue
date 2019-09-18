@@ -166,25 +166,45 @@ export default {
                 }, 1000);
                 return;
               } else {
-                this.error.password = "مشکلی در انجام عملیات رخ داده است";
+                this.$notify({
+                  group: "notify",
+                  title: "مشکلی در ارتباط با سرور رخ داده است",
+                  type: "error"
+                });
               }
             } else if (response.data.status === "not_verify") {
-              this.error.password =
-                "ایمیل فعال سازی برای شما ارسال شد. لطفا حساب خود را تایید کنید";
+              this.$notify({
+                group: "notify",
+                title:
+                  "ایمیل فعال سازی برای شما ارسال شد. لطفا حساب خود را تایید کنید",
+                type: "success"
+              });
             } else if (response.data.status === "deactive") {
-              this.error.password =
-                "حساب کاربری شما مسدود شده است ، لطفا با پشتیبانی تماس بگیرید";
+              this.$notify({
+                group: "notify",
+                title:
+                  "حساب کاربری شما مسدود شده است ، لطفا با پشتیبانی تماس بگیرید",
+                type: "error"
+              });
             }
             this.$refs.spinner.style.visibility = "hidden";
           })
           .catch(err => {
             this.$refs.spinner.style.visibility = "hidden";
             if (err.message === "Request failed with status code 401") {
-              this.error.password = "نام کاربری یا رمزعبور ناردست میباشد";
+              this.$notify({
+                group: "notify",
+                title: "نام کاربری یا رمزعبور ناردست میباشد",
+                type: "error"
+              });
             }
           });
       } else {
-        this.error.password = "لطفا ایمیل و رمزعبور خود را وارد کنید";
+        this.$notify({
+          group: "notify",
+          title: "لطفا ایمیل و رمزعبور خود را وارد کنید",
+          type: "warn"
+        });
       }
     },
     checkToken(token) {
@@ -203,7 +223,11 @@ export default {
         })
         .catch(err => {
           this.$refs.spinner.style.visibility = "hidden";
-          console.log("profile_edit  " + err);
+          this.$notify({
+            group: "notify",
+            title: "مشکلی در ارتباط با سرور رخ داده است",
+            type: "error"
+          });
         });
     }
   },
