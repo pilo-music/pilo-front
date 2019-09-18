@@ -21,6 +21,9 @@ nav.navbar.sticky-top.navbar-light.navbar-expand {
     }
   }
   span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
     font-size: 12px;
   }

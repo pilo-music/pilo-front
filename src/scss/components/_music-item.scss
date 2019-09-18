@@ -73,6 +73,9 @@
   }
 
   .music-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin: 0;
     color: #358595;
     font-size: $font-big + 2;
@@ -84,6 +87,9 @@
   }
 
   .music-artist {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin: 0;
     text-align: center;
     font-size: $font-big - 1;

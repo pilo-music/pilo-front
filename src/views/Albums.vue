@@ -1,6 +1,6 @@
 <template>
   <layout name="Default">
-    <div class="container-fluid">
+    <div class="container-fluid pb-4 mb-4">
       <!-- header -->
       <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
         <div class="music-header full">
@@ -67,14 +67,15 @@ export default {
       var artist = null;
       if (this.$route.params.artist != null && this.$route.params.artist != "")
         artist = this.$route.params.artist;
+
       get(filter, this.page, artist)
         .then(response => {
           if (response.data.data.length) {
             this.page++;
             this.albums = this.albums.concat(response.data.data);
-            this.$state.loaded();
+            $state.loaded();
           } else {
-            this.$state.complete();
+            $state.complete();
           }
         })
         .catch(err => {

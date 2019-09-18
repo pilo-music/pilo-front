@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <div class="container-fluid" style="padding-bottom:30px;">
+    <div class="container-fluid pb-5 mb-4">
       <div class="row">
         <div class="main col-md-8 col-lg-9 col-xl-10 col-sm-12">
           <Header />

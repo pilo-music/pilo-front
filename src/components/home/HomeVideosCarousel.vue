@@ -1,16 +1,25 @@
 <template>
-  <div>
+  <div :class="currentClass">
     <hooper :settings="hooperSettings">
       <slide v-for="i in items" :key="i.id">
         <VideoItem :video="i" />
       </slide>
+
+      <hooper-navigation slot="hooper-addons"></hooper-navigation>
+      <hooper-pagination slot="hooper-addons"></hooper-pagination>
     </hooper>
   </div>
 </template>
 
 <script>
+import { isMobile } from "mobile-device-detect";
 import VideoItem from "@/components/VideoItem";
-import { Hooper, Slide } from "hooper";
+import {
+  Hooper,
+  Slide,
+  Pagination as HooperPagination,
+  Navigation as HooperNavigation
+} from "hooper";
 import "hooper/dist/hooper.css";
 export default {
   props: ["items"],
@@ -18,7 +27,9 @@ export default {
   components: {
     VideoItem,
     Hooper,
-    Slide
+    Slide,
+    HooperPagination,
+    HooperNavigation
   },
   data() {
     return {
@@ -41,8 +52,12 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    currentClass() {
+      if (isMobile) return "video-carousel-mobile";
+      else return "video-carousel";
+    }
   }
 };
 </script>
-
-<style>

@@ -1,16 +1,16 @@
 .video-info {
-  background: #90909099;
-  height: 0;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  border-radius: 0 0 5px 5px;
-  transition: 0.5 all;
-  z-index: 999;
   p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-right: 16px;
     margin-top: 5px;
+  }
+  .separator {
+    margin: 0 5px;
+    position: relative;
+    top: 3px;
+    color: black;
   }
 }
 
@@ -29,7 +29,7 @@
 
   .img-fluid {
     width: 100%;
-    height: auto;
+    height: 162px;
     border-radius: 10px;
     max-height: 180px;
   }
@@ -40,17 +40,36 @@
     top: 0;
     right: 0;
     left: 0;
-    background: #6d6d6d4a;
     div {
       width: 50px;
       height: 50px;
       margin-left: auto;
       margin-right: auto;
       margin-top: 16%;
+      opacity: 0.8;
     }
   }
-  .video-info {
-    height: 40px;
-    margin-bottom: 10px;
+}
+
+.video-carousel-mobile {
+  .hooper-slide {
+    margin: 0;
+  }
+  .hooper-pagination {
+    bottom: -20px;
+  }
+  .hooper-indicator {
+    background-color: $colorGray;
+  }
+  .hooper-indicator.is-active {
+    background-color: $colorPrimary;
+  }
+}
+.video-carousel {
+  .hooper-pagination {
+    display: none;
+  }
+  .hooper-indicator {
+    display: none;
   }
 }

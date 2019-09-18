@@ -113,11 +113,17 @@
   .music-info {
     text-align: center;
     a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       display: block;
       font-size: $font-big + 1;
       color: $colorPrimaryDark;
     }
     span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-size: $font-small;
       color: $colorAccent;
     }

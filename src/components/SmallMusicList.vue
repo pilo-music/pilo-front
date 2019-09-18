@@ -21,11 +21,17 @@
         <div class="pb-2">
           <span>{{ i.artist.name }}</span>
         </div>
-        <div class="pb-2">
+        <div class="pb-2" @click="goToPage(i)">
           <span class="color-primary-dark">{{ i.title }}</span>
         </div>
         <div>
-          <b-img-lazy blank-color="#f6f7f8" class="music-image" :src="i.image" :alt="i.title" />
+          <b-img-lazy
+            @click="goToPage(i)"
+            blank-color="#f6f7f8"
+            class="music-image"
+            :src="i.image"
+            :alt="i.title"
+          />
         </div>
       </div>
       <hr />
@@ -44,6 +50,14 @@ export default {
     };
   },
   methods: {
+    goToPage(song) {
+      this.$router.push({
+        name: "music",
+        params: {
+          slug: song.slug
+        }
+      });
+    },
     play(song = {}) {
       if (this.type != null && this.type == "video") {
         this.$router.push({

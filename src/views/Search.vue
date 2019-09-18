@@ -2,7 +2,7 @@
   <layout name="Default">
     <div class="search-page">
       <!-- search box -->
-      <div class="row uk-box-shadow-small">
+      <div class="row search-row uk-box-shadow-small">
         <div class="search-box">
           <div class="flex-1 text-left">
             <img src="@/assets/panel/img/icon/recording.svg" alt="recording" />

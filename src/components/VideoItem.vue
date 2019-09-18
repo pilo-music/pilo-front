@@ -8,15 +8,16 @@
         :alt="video.title"
       />
       <div class="type-box position-absolute">MP4</div>
-      <div class="video-info text-white text-right padding-r">
-        <span class="font-medium">{{ video.title }}</span> _
-        <span class="font-medium">{{ video.artist.name }}</span>
-      </div>
       <div class="play-icon">
         <div>
           <img title="play" alt="play" src="@/assets/panel/img/icon/circle-play.svg" />
         </div>
       </div>
+    </div>
+    <div class="video-info text-right padding-r">
+      <span class="font-big color-primary">{{ video.title }}</span>
+      <span class="separator">-</span>
+      <span class="font-medium color-dark">{{ video.artist.name }}</span>
     </div>
   </router-link>
 </template>

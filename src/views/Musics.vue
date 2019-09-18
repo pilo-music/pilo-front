@@ -1,6 +1,6 @@
 <template>
   <layout name="Default">
-    <div class="container-fluid">
+    <div class="container-fluid pb-4 mb-4">
       <div class="musics-list-box">
         <!-- header -->
         <b-navbar :sticky="true" class="d-block d-sm-block d-md-block d-lg-none">
