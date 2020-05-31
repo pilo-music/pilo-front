@@ -33,12 +33,18 @@
           />
           <img
             class="rounded-circle"
-            v-else
-            @click="$refs.file.click()"
-            src="@/assets/panel/img/user.svg"
-            alt="user-image"
-            width="100"
-            height="100"
+            v-e&#x3C;input
+            style="display: none;"
+            ref="file"
+            type="file"
+            @change="previewImage"
+            accept="image/*"
+          />lse
+          @click="$refs.file.click()"
+          src="@/assets/panel/img/user.svg"
+          alt="user-image"
+          width="100"
+          height="100"
           />
           <input
             style="display: none;"
